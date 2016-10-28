@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author Jakub KÅ™Ã­Å¾
+ * @author Jakub Køíž
  */
 
 @Entity
@@ -22,7 +22,7 @@ public class Employee extends User{
     }
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<Reservation>();
     
     public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
