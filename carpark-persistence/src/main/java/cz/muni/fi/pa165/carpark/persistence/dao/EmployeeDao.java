@@ -5,7 +5,6 @@ import java.util.List;
 
 public interface EmployeeDao extends UserDao {
         
-    
     public void create(Employee employee);
     
     public void update(Employee employee);
