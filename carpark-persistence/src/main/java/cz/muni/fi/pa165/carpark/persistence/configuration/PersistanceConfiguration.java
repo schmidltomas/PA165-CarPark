@@ -36,7 +36,10 @@ public class PersistanceConfiguration {
         entityManager.setDataSource(inMemoryDB());
         entityManager.setPackagesToScan("cz.muni.fi.pa165.carpark.persistence.entity");
 
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setShowSql(false);
+        vendorAdapter.setGenerateDdl(true);
+
         entityManager.setJpaVendorAdapter(vendorAdapter);
         entityManager.setJpaProperties(additionalProperties());
 
