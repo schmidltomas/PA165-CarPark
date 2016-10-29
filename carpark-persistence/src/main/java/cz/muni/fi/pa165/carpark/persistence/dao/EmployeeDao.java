@@ -11,7 +11,7 @@ public interface EmployeeDao extends UserDao {
 
     public void delete(Employee employee);
 
-    public Employee findById(String id);
+    public Employee findById(Long id);
     
     public List<Employee> findByName(String firstName, String secoundName);
 

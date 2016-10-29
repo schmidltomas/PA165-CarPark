@@ -41,7 +41,7 @@ public class EmployeeRepository implements EmployeeDao{
     }
 
     @Override
-    public Employee findById(String id) {
+    public Employee findById(Long id) {
         return entityManager.find(Employee.class, id);
     }
 

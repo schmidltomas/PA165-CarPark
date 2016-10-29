@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
 
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,9 @@ public class User {
     }
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     @NotNull
     @Column(nullable = false, unique = true)
     private String username;
@@ -42,6 +47,10 @@ public class User {
     @NotNull
     @Column(nullable = false, name="last_name")
     private String lastName;
+    
+     public Long getId() {
+        return id;
+    }
     
     public String getUsername() {
         return username;
