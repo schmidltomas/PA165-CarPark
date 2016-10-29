@@ -34,10 +34,6 @@ public class User {
     @NotNull
     @Column(nullable = false)
     private boolean enabled = true;
-
-    @NotNull
-    @Column
-    private String role;
     
     @NotNull
     @Column(nullable = false, name="first_name")
@@ -47,7 +43,7 @@ public class User {
     @Column(nullable = false, name="last_name")
     private String lastName;
     
-        public String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -77,14 +73,6 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getFirstName() {

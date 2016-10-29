@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,7 +16,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "employee")
-public class Employee extends User{
+public class Employee extends User implements Serializable{
     
     public Employee(){
         super();
