@@ -22,7 +22,7 @@ public class Employee extends User{
     }
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private List<Reservation> reservations = new ArrayList<Reservation>();
+    private List<Reservation> reservations = new ArrayList<>();
     
     public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
