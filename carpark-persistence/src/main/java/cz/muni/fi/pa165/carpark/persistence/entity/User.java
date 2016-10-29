@@ -18,10 +18,6 @@ public class User {
         
     }
     
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long id;
-    
     @Id
     @NotNull
     @Column(nullable = false, unique = true)
@@ -35,10 +31,6 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
     
-    @NotNull
-    @Column(nullable = false, unique = true, name = "phone_number")
-    private String phoneNumber;
-
     @NotNull
     @Column(nullable = false)
     private boolean enabled = true;
@@ -77,14 +69,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public boolean isEnabled() {

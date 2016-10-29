@@ -21,7 +21,7 @@ public class Employee extends User{
         super();
     }
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Reservation> reservations = new ArrayList<>();
     
     public void addReservation(Reservation reservation) {
