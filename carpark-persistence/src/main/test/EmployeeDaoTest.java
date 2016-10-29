@@ -31,7 +31,7 @@ public class EmployeeDaoTest {
     private EntityManager entityManager;
 
     @Before
-    public void createCar() {
+    public void createEmployee() {
         employee = new Employee();
         employee.setEmail("femail@f.com");
         employee.setFirstName("Pavel");
