@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(classes=PersistanceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class EmployeeDaoTest {
+public class EmployeeDaoTest extends AbstractTestNGSpringContextTests{
     @Autowired
     private EmployeeDao employeeDao;
 
