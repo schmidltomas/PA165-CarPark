@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.dao;
 
-import cz.muni.fi.pa165.carpark.persistence.configuration.PersistanceConfiguration;
+import cz.muni.fi.pa165.carpark.persistence.configuration.PersistenceConfiguration;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +29,7 @@ import javax.persistence.PersistenceContext;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=PersistanceConfiguration.class)
+@ContextConfiguration(classes=PersistenceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
@@ -49,13 +49,13 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         employee = new Employee();
         employee.setEmail("femail@f.com");
         employee.setFirstName("Pavel");
-        employee.setLastName("Novak");
+        employee.setSecondName("Novak");
         employee.setUsername(userName);
         employee.setPassword("1234");
         employee2 = new Employee();
         employee2.setEmail("femailjiri@f.com");
         employee2.setFirstName("Jiri");
-        employee2.setLastName("Novotny");
+        employee2.setSecondName("Novotny");
         employee2.setUsername(userName2);
         employee2.setPassword("321");
 
@@ -85,13 +85,13 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         Employee newEmployee = new Employee();
         newEmployee.setEmail("femail@f.com");
         newEmployee.setFirstName("Pavel");
-        newEmployee.setLastName("Smith");
+        newEmployee.setSecondName("Smith");
         newEmployee.setUsername(userName);
         newEmployee.setPassword("1234");
         
         employeeDao.update(newEmployee);
         Employee result = employeeDao.findById(employee2.getId());
-        Assert.assertEquals("Smith", result.getLastName());
+        Assert.assertEquals("Smith", result.getSecondName());
     }
     
     @Test

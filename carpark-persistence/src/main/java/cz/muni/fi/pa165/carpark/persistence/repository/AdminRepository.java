@@ -17,7 +17,7 @@ public class AdminRepository implements AdminDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    //@Override
+    @Override
     public void create(Admin admin) {
         entityManager.persist(admin);
     }
@@ -33,7 +33,7 @@ public class AdminRepository implements AdminDao {
     }
 
     @Override
-    public Admin findById(String id) {
+    public Admin findById(Long id) {
         return entityManager.find(Admin.class, id);
     }
 
@@ -41,15 +41,15 @@ public class AdminRepository implements AdminDao {
     public Admin findByName(String firstName, String secondName) {
         firstName = firstName == null ? "" : firstName;
         secondName = secondName == null ? "" : secondName;
-        return entityManager.createQuery("SELECT a FROM admin a "
+        return entityManager.createQuery("SELECT a FROM Admin a "
                 + "WHERE first_name LIKE :first_name "
-                + "AND secound_name LIKE :second_name", Admin.class)
+                + "AND second_name LIKE :second_name", Admin.class)
                 .setParameter("first_name", firstName)
                 .setParameter("second_name", secondName).getSingleResult();
     }
 
     @Override
     public List<Admin> findAll() {
-        return entityManager.createQuery("SELECT a FROM admin a", Admin.class).getResultList();
+        return entityManager.createQuery("SELECT a FROM Admin a", Admin.class).getResultList();
     }
 }

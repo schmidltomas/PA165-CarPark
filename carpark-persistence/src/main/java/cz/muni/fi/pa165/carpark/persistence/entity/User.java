@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -14,11 +15,9 @@ import javax.validation.constraints.NotNull;
  */
 
 @MappedSuperclass
-public class User {
+public class User implements Serializable {
     
-    public User(){
-        
-    }
+    public User() {}
     
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -45,8 +44,8 @@ public class User {
     private String firstName;
     
     @NotNull
-    @Column(nullable = false, name="last_name")
-    private String lastName;
+    @Column(nullable = false, name="second_name")
+    private String secondName;
     
      public Long getId() {
         return id;
@@ -92,12 +91,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
     
     @Override

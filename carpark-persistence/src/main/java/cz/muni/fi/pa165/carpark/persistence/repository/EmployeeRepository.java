@@ -7,11 +7,13 @@ package cz.muni.fi.pa165.carpark.persistence.repository;
 
 import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -51,14 +53,14 @@ public class EmployeeRepository implements EmployeeDao{
     }
 
     @Override
-    public List<Employee> findByName(String firstName, String secoundName) {
+    public List<Employee> findByName(String firstName, String secondName) {
         firstName = firstName == null ? "" : firstName;
-        secoundName = secoundName == null ? "" : secoundName;
+        secondName = secondName == null ? "" : secondName;
         return entityManager.createQuery("SELECT e FROM Employee e "
                 + "WHERE first_name LIKE :first_name "
-                + "AND secound_name LIKE :secound_name", Employee.class)
+                + "AND second_name LIKE :second_name", Employee.class)
                 .setParameter("first_name", firstName)
-                .setParameter("secound_name", secoundName).getResultList();
+                .setParameter("second_name", secondName).getResultList();
     }
     
 }

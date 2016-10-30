@@ -40,7 +40,7 @@ public interface AdminDao {
      * @param id Valid ID of an administrator.
      * @return Administrator object if found, null if not found.
      */
-    Admin findById(String id);
+    Admin findById(Long id);
 
     /**
      * Find and return an administrator based on his first and last name.

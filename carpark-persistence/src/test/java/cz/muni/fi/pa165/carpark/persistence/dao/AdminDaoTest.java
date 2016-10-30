@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.dao;
 
-import cz.muni.fi.pa165.carpark.persistence.configuration.PersistanceConfiguration;
+import cz.muni.fi.pa165.carpark.persistence.configuration.PersistenceConfiguration;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +20,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=PersistanceConfiguration.class)
+@ContextConfiguration(classes=PersistenceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class AdminDaoTest extends AbstractTestNGSpringContextTests {
@@ -54,7 +54,7 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
         admin1.setEmail(email1);
         admin1.setEnabled(enabled1);
         admin1.setFirstName(firstName1);
-        admin1.setLastName(lastName1);
+        admin1.setSecondName(lastName1);
         admin1.setUsername(username1);
         admin1.setPassword(password1);
 
@@ -62,7 +62,7 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
         admin2.setEmail(email2);
         admin2.setEnabled(enabled2);
         admin2.setFirstName(firstName2);
-        admin2.setLastName(lastName2);
+        admin2.setSecondName(lastName2);
         admin2.setUsername(username2);
         admin2.setPassword(password2);
 
@@ -72,16 +72,16 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetAdminById() {
-        Admin persistedAdmin = adminDao.findById(username1);
+        Admin persistedAdmin = adminDao.findById(admin1.getId());
         Assert.assertNotNull(persistedAdmin);
-        Assert.assertTrue(adminEquals(persistedAdmin, admin1));
+        adminEquals(persistedAdmin, admin1);
     }
 
     @Test
     public void testGetAdminByName() {
         Admin persistedAdmin = adminDao.findByName(firstName1, lastName1);
         Assert.assertNotNull(persistedAdmin);
-        Assert.assertTrue(adminEquals(persistedAdmin, admin1));
+        adminEquals(persistedAdmin, admin1);
     }
 
     @Test
@@ -94,29 +94,28 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testUpdateAdmin(){
-        Admin oldAdmin = adminDao.findById(username1);
+        Admin persistedAdmin = adminDao.findById(admin1.getId());
 
-        oldAdmin.setEmail("martin.new@company.com");
-        oldAdmin.setEnabled(false);
+        persistedAdmin.setEmail("martin.new@company.com");
+        persistedAdmin.setEnabled(false);
+        adminDao.update(persistedAdmin);
+        Admin updatedAdmin = adminDao.findById(persistedAdmin.getId());
 
-        adminDao.update(oldAdmin);
-        Admin updatedAdmin = adminDao.findById(username1);
-
-        Assert.assertTrue(adminEquals(oldAdmin, updatedAdmin));
+        adminEquals(persistedAdmin, updatedAdmin);
     }
 
     @Test
     public void testDeleteAdmin() {
         adminDao.delete(admin2);
+        Assert.assertNull(adminDao.findById(admin2.getId()));
     }
 
-    public boolean adminEquals(Admin expected, Admin actual) {
+    public void adminEquals(Admin expected, Admin actual) {
         Assert.assertEquals(expected.getEmail(), actual.getEmail());
         Assert.assertEquals(expected.isEnabled(), actual.isEnabled());
         Assert.assertEquals(expected.getFirstName(), actual.getFirstName());
-        Assert.assertEquals(expected.getFirstName(), actual.getLastName());
+        Assert.assertEquals(expected.getSecondName(), actual.getSecondName());
         Assert.assertEquals(expected.getUsername(), actual.getUsername());
         Assert.assertEquals(expected.getPassword(), actual.getPassword());
-        return true;
     }
 }

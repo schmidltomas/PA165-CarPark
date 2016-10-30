@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.dao;
 
-import cz.muni.fi.pa165.carpark.persistence.configuration.PersistanceConfiguration;
+import cz.muni.fi.pa165.carpark.persistence.configuration.PersistenceConfiguration;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +21,7 @@ import javax.persistence.PersistenceContext;
  * Created by karelfajkus on 26/10/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=PersistanceConfiguration.class)
+@ContextConfiguration(classes=PersistenceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class CarDaoTest extends AbstractTestNGSpringContextTests {

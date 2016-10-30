@@ -13,7 +13,7 @@ public interface EmployeeDao extends UserDao {
 
     public Employee findById(Long id);
     
-    public List<Employee> findByName(String firstName, String secoundName);
+    public List<Employee> findByName(String firstName, String secondName);
 
     public List<Employee> findAll();
 }
