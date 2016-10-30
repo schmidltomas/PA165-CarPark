@@ -39,10 +39,10 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests {
     @Before
     public void createCar() {
         car = new Car();
-        car.setBrand("bmw");
+        car.setBrand("audi");
         car.setCurrentLocation("Praha");
         car.setEvidenceNumber(evidenceNumber);
-        car.setFuelConsumption(4.5);
+        car.setFuelConsumption(4.8);
         car.setFuelType("diesel");
         car.setSeats(5);
         car.setHomeLocation("Brno");
@@ -63,13 +63,13 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetCar() {
-        Assert.assertNotNull(carDao.findById(evidenceNumber));
+        Assert.assertNotNull(carDao.findById(car.getId()));
     }
 
     @Test
     public void testRemoveCar() {
         carDao.delete(car);
-        Assert.assertNull(carDao.findById(evidenceNumber));
+        Assert.assertNull(carDao.findById(car.getId()));
     }
 
     @Test
@@ -79,17 +79,16 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testUpdateCar() {
-        Car updatedCar = new Car();
+        Car updatedCar = carDao.findBySpz(secondEvidenceNumber);
         updatedCar.setBrand("fiat");
         updatedCar.setCurrentLocation("Ostrava");
-        updatedCar.setEvidenceNumber(secondEvidenceNumber);
         updatedCar.setFuelConsumption(4.5);
         updatedCar.setFuelType("benzin");
         updatedCar.setSeats(3);
         updatedCar.setHomeLocation("Brno");
 
         carDao.update(updatedCar);
-        Car result = carDao.findById(secondEvidenceNumber);
+        Car result = carDao.findById(secondCar.getId());
         Assert.assertEquals("Ostrava", result.getCurrentLocation());
     }
 }

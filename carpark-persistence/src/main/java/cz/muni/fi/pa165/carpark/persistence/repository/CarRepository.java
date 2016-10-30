@@ -31,8 +31,14 @@ public class CarRepository implements CarDao {
         entityManager.remove(car);
     }
 
-    public Car findById(String id) {
+    public Car findById(Long id) {
         return entityManager.find(Car.class, id);
+    }
+
+    public Car findBySpz(String spz) {
+        return entityManager.createQuery("SELECT car FROM Car car WHERE spz LIKE :spz", Car.class)
+                .setParameter("spz", spz)
+                .getSingleResult();
     }
 
     public List<Car> findAll() {

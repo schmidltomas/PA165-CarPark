@@ -4,10 +4,7 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
  * Created by karelfajkus on 23/10/2016.
  */
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,7 +14,12 @@ import java.io.Serializable;
 public class Car implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column
+    private Long id;
+
+    @NotNull
+    @Column(name = "spz", unique = true)
     private String evidenceNumber;
 
     @NotNull
@@ -46,6 +48,14 @@ public class Car implements Serializable {
 
     public String getEvidenceNumber() {
         return evidenceNumber;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setEvidenceNumber(String evidenceNumber) {
