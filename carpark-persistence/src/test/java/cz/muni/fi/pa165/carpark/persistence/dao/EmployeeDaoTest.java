@@ -72,7 +72,7 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testRemoveEmployee() {
         employeeDao.delete(employee);
-        Assert.assertNull(employeeDao.findById(employee2.getId()));
+        Assert.assertNull(employeeDao.findById(employee.getId()));
     }
 
     @Test
@@ -88,9 +88,11 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         newEmployee.setSecondName("Smith");
         newEmployee.setUsername(userName);
         newEmployee.setPassword("1234");
+        newEmployee.setId(employee.getId());
+        
         
         employeeDao.update(newEmployee);
-        Employee result = employeeDao.findById(employee2.getId());
+        Employee result = employeeDao.findById(employee.getId());
         Assert.assertEquals("Smith", result.getSecondName());
     }
     
