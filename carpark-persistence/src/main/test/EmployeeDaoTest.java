@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +35,8 @@ public class EmployeeDaoTest {
 
     private Employee employee;
     private Employee employee2;
-    private String userName = "Pavel.Novak";
-    private String userName2 = "Jiri.Novotny";
+    private final String userName = "Pavel.Novak";
+    private final String userName2 = "Jiri.Novotny";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -64,13 +63,13 @@ public class EmployeeDaoTest {
 
     @Test
     public void testGetEmployee() {
-        Assert.assertNotNull(employeeDao.findById(userName));
+        Assert.assertNotNull(employeeDao.findById(employee.getId()));
     }
 
     @Test
     public void testRemoveEmployee() {
         employeeDao.delete(employee);
-        Assert.assertNull(employeeDao.findById(userName));
+        Assert.assertNull(employeeDao.findById(employee2.getId()));
     }
 
     @Test
@@ -88,7 +87,7 @@ public class EmployeeDaoTest {
         newEmployee.setPassword("1234");
         
         employeeDao.update(newEmployee);
-        Employee result = employeeDao.findById(userName2);
+        Employee result = employeeDao.findById(employee2.getId());
         Assert.assertEquals("Smith", result.getLastName());
     }
     

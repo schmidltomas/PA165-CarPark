@@ -47,14 +47,14 @@ public class EmployeeRepository implements EmployeeDao{
 
     @Override
     public List<Employee> findAll() {
-        return entityManager.createQuery("SELECT e FROM employee e", Employee.class).getResultList();
+        return entityManager.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
     }
 
     @Override
     public List<Employee> findByName(String firstName, String secoundName) {
         firstName = firstName == null ? "" : firstName;
         secoundName = secoundName == null ? "" : secoundName;
-        return entityManager.createQuery("SELECT e FROM employee e "
+        return entityManager.createQuery("SELECT e FROM Employee e "
                 + "WHERE first_name LIKE :first_name "
                 + "AND secound_name LIKE :secound_name", Employee.class)
                 .setParameter("first_name", firstName)
