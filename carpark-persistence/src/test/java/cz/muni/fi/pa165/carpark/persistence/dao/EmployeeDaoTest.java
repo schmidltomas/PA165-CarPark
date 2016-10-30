@@ -32,7 +32,7 @@ import javax.persistence.PersistenceContext;
 @ContextConfiguration(classes=PersistanceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class EmployeeDaoTest extends AbstractTestNGSpringContextTests{
+public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private EmployeeDao employeeDao;
 
