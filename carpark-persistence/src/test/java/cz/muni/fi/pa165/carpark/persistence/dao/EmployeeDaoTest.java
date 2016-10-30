@@ -1,8 +1,7 @@
+package cz.muni.fi.pa165.carpark.persistence.dao;
+
 import cz.muni.fi.pa165.carpark.persistence.configuration.PersistanceConfiguration;
-import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

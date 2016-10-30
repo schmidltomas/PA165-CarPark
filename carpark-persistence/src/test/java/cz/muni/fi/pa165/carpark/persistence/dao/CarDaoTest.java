@@ -1,5 +1,6 @@
+package cz.muni.fi.pa165.carpark.persistence.dao;
+
 import cz.muni.fi.pa165.carpark.persistence.configuration.PersistanceConfiguration;
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import org.junit.Assert;
 import org.junit.Before;
