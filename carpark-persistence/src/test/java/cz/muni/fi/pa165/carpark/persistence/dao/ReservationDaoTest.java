@@ -147,4 +147,10 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindAllReservations() {
         Assert.assertEquals(2, reservationDao.getAll().size());
     }
+
+    @Test
+    public void getReservationsForEmployee() {
+        Assert.assertNotNull(employee.getId());
+        Assert.assertTrue(reservationDao.getReservations(employee).size() == 2);
+    }
 }

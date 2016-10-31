@@ -47,4 +47,11 @@ public interface ReservationDao {
      * @return List of all the reservation entities in the database
      */
     List<Reservation> getAll();
+
+    /**
+     * Lists all reservations for a given employee
+     *
+     * @return List of all reservations for a given employee
+     */
+    List<Reservation> getReservations(Employee employee);
 }

@@ -44,4 +44,10 @@ public class ReservationRepository implements ReservationDao {
     public List<Reservation> getAll() {
         return entityManager.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
     }
+
+    @Override
+    public List<Reservation> getReservations(Employee employee){
+        return entityManager.createQuery("SELECT r FROM Reservation r WHERE employee_id=:employee_id", Reservation.class).
+                setParameter("employee_id", employee.getId()).getResultList();
+    }
 }
