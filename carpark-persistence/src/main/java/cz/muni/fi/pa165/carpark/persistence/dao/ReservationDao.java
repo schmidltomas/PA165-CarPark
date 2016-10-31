@@ -47,5 +47,4 @@ public interface ReservationDao {
      * @return List of all the reservation entities in the database
      */
     List<Reservation> getAll();
-
 }

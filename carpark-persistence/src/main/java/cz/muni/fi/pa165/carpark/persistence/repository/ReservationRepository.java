@@ -42,8 +42,6 @@ public class ReservationRepository implements ReservationDao {
     }
 
     public List<Reservation> getAll() {
-        return entityManager.createQuery("SELECT r FROM reservation r", Reservation.class).getResultList();
+        return entityManager.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
     }
-
-
 }

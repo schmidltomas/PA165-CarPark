@@ -20,10 +20,11 @@ public class Reservation implements Serializable {
     @Column
     private Long id;
 
-    @Column
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 
-    @Column
+    @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
 
     @Column
