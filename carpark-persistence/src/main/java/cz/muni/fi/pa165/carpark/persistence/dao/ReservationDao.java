@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.dao;
 
+import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public interface ReservationDao {
     /** Creates a reservation entity in the database.
      *
      * @param reservation to be created, must not be null
-     * @return long reservation id
+     *
      */
-    long create(Reservation reservation);
+    void create(Reservation reservation);
 
     /**
      * Finds a reservation entity in the database by id.
@@ -24,7 +25,7 @@ public interface ReservationDao {
      * @param id, must not be null
      * @return Reservation object or null if not found
      */
-    Reservation findById(long id);
+    Reservation findById(Long id);
 
     /**
      * Updates a reservation entity in the database.
@@ -46,4 +47,5 @@ public interface ReservationDao {
      * @return List of all the reservation entities in the database
      */
     List<Reservation> getAll();
+
 }

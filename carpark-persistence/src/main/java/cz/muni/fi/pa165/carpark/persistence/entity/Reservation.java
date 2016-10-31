@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  * Reservation entity
@@ -12,12 +13,12 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "reservation")
-public class Reservation {
+public class Reservation implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column
-    private long id;
+    private Long id;
 
     @Column
     private Employee employee;
@@ -94,27 +95,28 @@ public class Reservation {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Reservation)) return false;
-
-        Reservation that = (Reservation) o;
-
-        if (getId() != that.getId()) return false;
-        if (getDistance() != that.getDistance()) return false;
-        if (getEmployee() != null ? !getEmployee().equals(that.getEmployee()) : that.getEmployee() != null)
-            return false;
-        return getCar() != null ? getCar().equals(that.getCar()) : that.getCar() == null;
-
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + (this.employee.hashCode());
+        hash = 31 * hash + (this.car.hashCode());
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getEmployee() != null ? getEmployee().hashCode() : 0);
-        result = 31 * result + (getCar() != null ? getCar().hashCode() : 0);
-        result = 31 * result + (int) (getDistance() ^ (getDistance() >>> 32));
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Reservation)) {
+            return false;
+        }
+        final Reservation other = (Reservation) obj;
+        if (!Objects.equals(this.employee, other.getEmployee())) return false;
+        if(!Objects.equals(this.car, other.getCar())) return false;
+        return Objects.equals(this.distance, other.getDistance());
     }
 
     @Override
