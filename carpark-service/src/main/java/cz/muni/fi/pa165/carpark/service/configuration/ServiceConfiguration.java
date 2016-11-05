@@ -1,4 +1,4 @@
-package configuration;
+package cz.muni.fi.pa165.carpark.service.configuration;
 
 import org.springframework.context.annotation.Configuration;
 
