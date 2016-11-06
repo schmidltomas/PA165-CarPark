@@ -2,34 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <artifactId>carpark.service</artifactId>
-    <name>PA165 Car Park Service layer</name>
-    <packaging>jar</packaging>
     <parent>
         <artifactId>carpark</artifactId>
         <groupId>cz.fi.muni.pa165</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <dependencies>
-        <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
-            <version>5.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
-            <artifactId>carpark-persistence</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
-            <artifactId>carpark-persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+    <artifactId>carpark-api</artifactId>
+    <name>PA165 Car Park api layer</name>
+    <packaging>jar</packaging>
+
     <build>
         <plugins>
             <plugin>
@@ -41,5 +24,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

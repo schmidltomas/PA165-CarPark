@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.carpark.persistence.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
  * Created by karelfajkus on 26/10/2016.
  */
 @Configuration
+@EnableAspectJAutoProxy
 @ComponentScan(value = "cz.muni.fi.pa165.carpark.persistence")
 @EnableTransactionManagement
 public class PersistenceConfiguration {

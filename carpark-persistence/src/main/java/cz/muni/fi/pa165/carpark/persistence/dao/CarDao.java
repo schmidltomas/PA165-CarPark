@@ -13,21 +13,21 @@ public interface CarDao {
      *
      * @param car Car
      */
-    public void create(Car car);
+    void create(Car car);
 
     /**
      * Saves updated entity into db
      *
      * @param car Car
      */
-    public void update(Car car);
+    void update(Car car);
 
     /**
      * Removes entity from db
      *
      * @param car Car
      */
-    public void delete(Car car);
+    void delete(Car car);
 
     /**
      * Finds entity by id
@@ -35,7 +35,7 @@ public interface CarDao {
      * @param id Long
      * @return Car
      */
-    public Car findById(Long id);
+    Car findById(Long id);
 
 
     /**
@@ -44,13 +44,13 @@ public interface CarDao {
      * @param spz String
      * @return Car
      */
-    public Car findBySpz(String spz);
+    Car findBySpz(String spz);
 
     /**
      * Returns all entities
      *
      * @return List<Car>
      */
-    public List<Car> findAll();
+    List<Car> findAll();
 
 }
