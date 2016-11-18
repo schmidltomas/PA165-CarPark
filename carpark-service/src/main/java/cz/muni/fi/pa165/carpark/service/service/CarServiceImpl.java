@@ -3,12 +3,14 @@ package cz.muni.fi.pa165.carpark.service.service;
 import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by karelfajkus on 06/11/2016.
  */
+@Service
 public class CarServiceImpl implements CarService {
 
     @Autowired

@@ -8,18 +8,17 @@ import java.util.List;
 /**
  * Created by karelfajkus on 06/11/2016.
  */
-@Service
 public interface CarService {
 
-    public void createNewCar(Car car);
+    void createNewCar(Car car);
 
-    public void deleteCar(Car car);
+    void deleteCar(Car car);
 
-    public void updateCar(Car car);
+    void updateCar(Car car);
 
-    public Car findById(Long id);
+    Car findById(Long id);
 
-    public Car findBySpz(String spz);
+    Car findBySpz(String spz);
 
-    public List<Car> findAll();
+    List<Car> findAll();
 }
