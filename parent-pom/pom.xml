@@ -22,7 +22,8 @@
         <junit.version>4.12</junit.version>
         <dozer.version>5.5.1</dozer.version>
         <aspectjweaver.version>1.8.0</aspectjweaver.version>
-        <javax.version>2.2.4</javax.version>
+        <javax.el.version>2.2.4</javax.el.version>
+        <javax.validation.version>1.0.0.GA</javax.validation.version>
         <testng.version>6.9.13.6</testng.version>
         <derby.version>10.12.1.1</derby.version>
     </properties>
@@ -70,7 +71,12 @@
             <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>javax.el-api</artifactId>
-                <version>${javax.version}</version>
+                <version>${javax.el.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>

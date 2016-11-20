@@ -37,7 +37,7 @@ public class User implements Serializable {
     
     @NotNull
     @Column(nullable = false)
-    private boolean enabled = true;
+    private boolean enabled;
     
     @NotNull
     @Column(nullable = false, name="first_name")
