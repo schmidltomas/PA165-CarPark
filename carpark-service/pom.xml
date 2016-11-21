@@ -2,37 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <artifactId>carpark.service</artifactId>
-    <name>PA165 Car Park Service layer</name>
-    <packaging>jar</packaging>
-    <parent>
-        <artifactId>carpark</artifactId>
-        <groupId>cz.fi.muni.pa165</groupId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>carpark-service</artifactId>
+    <version>${project.version}</version>
+    <name>PA165 CarPark service layer</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>cz.muni.fi.pa165</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../parent-pom/pom.xml</relativePath>
+    </parent>
 
     <dependencies>
         <dependency>
+            <groupId>cz.muni.fi.pa165</groupId>
+            <artifactId>carpark-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cz.muni.fi.pa165</groupId>
+            <artifactId>carpark-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
-            <version>5.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
-            <artifactId>carpark-persistence</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
-            <artifactId>carpark-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
-            <artifactId>carpark-persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -41,6 +37,7 @@
             <type>jar</type>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -49,8 +46,8 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
+                <version>${maven.compiler.version}</version>
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -2,39 +2,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>carpark</artifactId>
-        <groupId>cz.fi.muni.pa165</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>carpark-api</artifactId>
-    <name>PA165 Car Park api layer</name>
+    <version>${project.version}</version>
+    <name>PA165 CarPark API layer</name>
     <packaging>jar</packaging>
+
+    <parent>
+        <groupId>cz.muni.fi.pa165</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../parent-pom/pom.xml</relativePath>
+    </parent>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
