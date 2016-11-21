@@ -7,7 +7,7 @@ package cz.muni.fi.pa165.carpark.api.dto;
 
 /**
  *
- * @author Jakub Køíž
+ * @Author TomÃ¡Å¡ Schmidl
  */
 public class UserDTO {
     
@@ -22,6 +22,16 @@ public class UserDTO {
     protected String firstName;
     
     protected String secondName;
+    
+    protected Boolean enabled;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public long getId() {
         return id;
@@ -71,6 +81,16 @@ public class UserDTO {
         this.secondName = secondName;
     }
     
-    
-
+    @Override
+     public String toString() {
+         return "UserDTO{" +
+                 "id=" + id +
+                 ", username='" + username + '\'' +
+                 ", password='" + password + '\'' +
+                 ", email='" + email + '\'' +
+                 ", enabled=" + enabled +
+                 ", firstName='" + firstName + '\'' +
+                 ", secondName='" + secondName + '\'' +
+                 '}';
+     }
 }

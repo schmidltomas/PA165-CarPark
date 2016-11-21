@@ -9,7 +9,7 @@ import cz.muni.fi.pa165.carpark.api.dto.UserDTO;
 
 /**
  *
- * @author Jakub Kriz
+ * @Author Tomáš Schmidl
  */
 public interface UserFacade {
     void register(UserDTO userDTO);
