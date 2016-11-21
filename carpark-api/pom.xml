@@ -26,10 +26,8 @@
             <artifactId>spring-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
+            <groupId>cz.muni.fi.pa165</groupId>
             <artifactId>carpark-persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>
