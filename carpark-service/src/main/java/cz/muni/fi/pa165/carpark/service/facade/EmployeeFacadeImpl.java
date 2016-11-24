@@ -36,7 +36,10 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 
     @Override
     public long makeReservation(Set<Employee> participants, Date departureTime, String departureLocation, String endLocation, Date freeFrom, Car PreferedCar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.   
+        for(Employee participant : participants){
+            
+        }
+        return 1;
     }
 
     @Override
@@ -45,8 +48,8 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
-    public void delete(long id) {
-        employeeService.deleteEmployee(employeeService.findById(id));
+    public void delete(EmployeeDTO employeeDTO) {
+        employeeService.deleteEmployee(classMapper.mapTo(employeeDTO, Employee.class));
     }
 
     @Override

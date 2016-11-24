@@ -100,7 +100,7 @@ public class EmployeeFacadeTest extends AbstractTransactionalTestNGSpringContext
         Assert.assertEquals(empl.getId(), employee.getId());
         Assert.assertEquals(empl.getEmail(), employee.getEmail());
     }
-    
+    @Test
     public void findAllTest(){
         when(employeeService.findAllEmployees()).thenReturn(Arrays.asList(employee, employee2));
         when(classMapper.mapTo(anyCollectionOf(Employee.class), eq(EmployeeDTO.class))).thenReturn(Arrays.asList(employeeDTO, employeeDTO2));
@@ -109,7 +109,7 @@ public class EmployeeFacadeTest extends AbstractTransactionalTestNGSpringContext
         Assert.assertNotNull(employees);
         Assert.assertEquals(2, employees.size());
     }
-    
+    @Test
     public void findByNameTest(){
         when(employeeService.findByName(employee.getFirstName(), employee.getSecondName())).thenReturn(Arrays.asList(employee));
         when(classMapper.mapTo(anyCollectionOf(Employee.class), eq(EmployeeDTO.class))).thenReturn(Arrays.asList(employeeDTO));
@@ -118,16 +118,16 @@ public class EmployeeFacadeTest extends AbstractTransactionalTestNGSpringContext
         Assert.assertNotNull(employees);
         Assert.assertEquals(1, employees.size());
     }
-    
+    @Test
     public void updateEmployeeTest(){
         when(classMapper.mapTo(any(EmployeeDTO.class), eq(Employee.class))).thenReturn(employee);
         employeeFacade.update(employeeDTO);
         verify(employeeService).updateEmployee(employee);
     }
-    
+    @Test
     public void removeEmployeeTest(){
         when(classMapper.mapTo(any(EmployeeDTO.class), eq(Employee.class))).thenReturn(employee);
-        employeeFacade.delete(employeeDTO.getId());
+        employeeFacade.delete(employeeDTO);
         verify(employeeService).deleteEmployee(employee);
     }
 }
