@@ -51,5 +51,7 @@ public interface CarDao {
      * @return List<Car>
      */
     List<Car> findAll();
+    
+    List<Car> findByHomeLocation(String location);
 
 }

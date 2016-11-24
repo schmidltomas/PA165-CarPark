@@ -12,6 +12,8 @@ public interface CarFacade {
     CarDTO findById(Long id);
 
     CarDTO findBySpz(String spz);
+    
+    List<CarDTO> findByHomeLocation(String location);
 
     List<CarDTO> findAll();
 

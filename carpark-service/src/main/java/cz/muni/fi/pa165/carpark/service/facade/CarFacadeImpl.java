@@ -59,4 +59,10 @@ public class CarFacadeImpl implements CarFacade {
         final Car updatedCar = classMapper.mapTo(car, Car.class);
         carService.updateCar(updatedCar);
     }
+
+    @Override
+    public List<CarDTO> findByHomeLocation(String location) {
+        final List<Car> cars = carService.findByHomeLocation(location);
+        return classMapper.mapTo(cars, CarDTO.class);
+    }
 }

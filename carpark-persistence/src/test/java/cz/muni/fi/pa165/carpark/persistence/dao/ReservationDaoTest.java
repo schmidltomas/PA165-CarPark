@@ -153,4 +153,11 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(employee.getId());
         Assert.assertTrue(reservationDao.getReservations(employee).size() == 2);
     }
+    
+    @Test
+    public void getReservationsByDates(){
+        Date startDate = Date.valueOf("2016-10-30");
+        Date endDate = Date.valueOf("2016-11-09");
+        Assert.assertEquals(1, reservationDao.getReservations(startDate, endDate));
+    }
 }

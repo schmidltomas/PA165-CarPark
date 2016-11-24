@@ -45,4 +45,9 @@ public class CarServiceImpl implements CarService {
     public List<Car> findAll() {
         return carDao.findAll();
     }
+
+    @Override
+    public List<Car> findByHomeLocation(String location) {
+        return carDao.findByHomeLocation(location);
+    }
 }

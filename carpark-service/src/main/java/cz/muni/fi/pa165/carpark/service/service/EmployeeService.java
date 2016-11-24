@@ -7,7 +7,7 @@ package cz.muni.fi.pa165.carpark.service.service;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 /**

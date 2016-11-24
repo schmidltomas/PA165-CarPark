@@ -60,7 +60,11 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests {
         carDao.create(secondCar);
         carDao.create(car);
     }
-
+    
+    @Test
+    public void homeLocationTest(){
+        Assert.assertEquals(2, carDao.findByHomeLocation("Brno").size());
+    }
 
     @Test
     public void testGetCar() {

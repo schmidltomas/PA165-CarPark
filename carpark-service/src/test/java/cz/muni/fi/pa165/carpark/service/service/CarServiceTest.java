@@ -91,7 +91,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findAll() {
+    public void findAllTest() {
 
         when(carService.findAll()).thenReturn(Arrays.asList(car, secondCar));
         final List<Car> cars = carService.findAll();
@@ -100,7 +100,15 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findBySpz() {
+    public void findByHomeLocationTest(){
+        when(carService.findByHomeLocation("Praha")).thenReturn(Arrays.asList(car, secondCar));
+        final List<Car> cars = carService.findByHomeLocation("Praha");
+        Assert.assertNotNull(cars);
+        Assert.assertEquals(2, cars.size());
+    }
+    
+    @Test
+    public void findBySpzTest() {
 
         when(carService.findBySpz(anyString())).thenReturn(car);
         final Car result = carService.findBySpz(car.getEvidenceNumber());

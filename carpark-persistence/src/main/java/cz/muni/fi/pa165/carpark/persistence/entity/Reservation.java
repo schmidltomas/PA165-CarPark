@@ -27,10 +27,10 @@ public class Reservation implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
 
-    @Column
+    @Column(name="start_date")
     private Date startDate;
 
-    @Column
+    @Column(name="end_date")
     private Date endDate;
 
     @Column

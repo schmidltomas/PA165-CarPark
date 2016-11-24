@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.carpark.persistence.dao;
 
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
+import java.sql.Date;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface ReservationDao {
      * @param reservation to be created, must not be null
      *
      */
-    void create(Reservation reservation);
+    long create(Reservation reservation);
 
     /**
      * Finds a reservation entity in the database by id.
@@ -54,4 +55,6 @@ public interface ReservationDao {
      * @return List of all reservations for a given employee
      */
     List<Reservation> getReservations(Employee employee);
+    
+    List<Reservation> getReservations(Date startDate, Date endDate);
 }
