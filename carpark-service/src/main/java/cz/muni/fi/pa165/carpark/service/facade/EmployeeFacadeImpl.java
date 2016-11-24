@@ -36,7 +36,7 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 
     @Override
     public long makeReservation(Set<Employee> participants, Date departureTime, String departureLocation, String endLocation, Date freeFrom, Car PreferedCar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.   
     }
 
     @Override
@@ -66,6 +66,8 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
         return classMapper.mapTo(employeeService.findAllEmployees(), EmployeeDTO.class);
     }
 
+    
+    ///_____________USER STUFF_______________
     @Override
     public void register(UserDTO userDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

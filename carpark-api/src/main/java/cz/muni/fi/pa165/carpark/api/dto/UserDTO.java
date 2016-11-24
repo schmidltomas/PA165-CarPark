@@ -33,7 +33,7 @@ public class UserDTO {
         this.enabled = enabled;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
