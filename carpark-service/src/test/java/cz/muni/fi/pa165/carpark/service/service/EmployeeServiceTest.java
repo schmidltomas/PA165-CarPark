@@ -1,21 +1,33 @@
 package cz.muni.fi.pa165.carpark.service.service;
 
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
+import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import cz.muni.fi.pa165.carpark.service.facade.EmployeeFacadeImpl;
 import cz.muni.fi.pa165.carpark.service.utils.mapper.ClassMapper;
+import java.util.Calendar;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import static org.mockito.Matchers.any;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.util.Assert;
 
 /**
  *
@@ -30,14 +42,18 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
     @Mock
     private EmployeeDao employeeDao;
     
+    private ReservationDao reservationDao;
+    
     @InjectMocks
     private EmployeeServiceImpl employeeService;
     
     private Employee employee;
-
-    private Employee employee2;
     
     private Car car;
+    
+    private Date startDate;
+    
+    private Date endDate;
 
     @Before
     public void createEmployee() {
@@ -49,29 +65,38 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
         employee.setPassword("strongPass");
         employee.setId(new Long(1));
         
-        employee2 = new Employee();
-        employee2.setEmail("MR@nobody.com");
-        employee2.setFirstName("Mario");
-        employee2.setSecondName("Roman");
-        employee2.setUsername("Nobody");
-        employee2.setPassword("noPass");
-        employee2.setId(new Long(2));
-        
         car = new Car();
         car.setId(Integer.toUnsignedLong(1));
         car.setBrand("bmw");
-        car.setCurrentLocation("Brno");
+        car.setCurrentLocation("Praha");
         car.setEvidenceNumber("HGJ679");
         car.setFuelConsumption(5.6);
         car.setHomeLocation("Praha");
         car.setSeats(5);
         
+        Calendar cal = Calendar.getInstance();
+        cal.set(2016, 10, 10);
+        startDate = cal.getTime();
+        cal.set(2016, 10, 12);
+        endDate = cal.getTime();
+        
+        
+        
         MockitoAnnotations.initMocks(this);
     }
     
     @Test
-    public void MakeReservation(){
-        
+    public void CreateNewEmployee(){
+        employeeService.createEmployee(employee);
+        verify(employeeDao).create(any(Employee.class));
+    }
+    
+    @Test
+    public void MakeReservationTest(){
+        doNothing().when(employeeDao).update(any(Employee.class));
+        when(reservationDao.create(any(Reservation.class))).thenReturn(1L);
+        long l = employeeService.makeReservation(employee, 3, startDate, "Praha", 25, "really good purpose", endDate, car);
+        Assert.notNull(l);
     }
     
 }

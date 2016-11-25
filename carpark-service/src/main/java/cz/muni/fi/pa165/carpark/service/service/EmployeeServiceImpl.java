@@ -17,11 +17,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Jakub Kriz
  */
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
@@ -64,7 +66,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, Car preferedCar) {
-        List<Car> cars = carDao.findByHomeLocation(departureLocation);
+        List<Car> cars;
+        try{
+            cars = carDao.findByHomeLocation(departureLocation);
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
         if(cars==null){
             throw new RuntimeException("there are no available cars at the time and location you chose");
         }
