@@ -7,11 +7,17 @@ import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
+import cz.muni.fi.pa165.carpark.persistence.repository.CarRepository;
+import cz.muni.fi.pa165.carpark.persistence.repository.ReservationRepository;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import cz.muni.fi.pa165.carpark.service.facade.EmployeeFacadeImpl;
+import cz.muni.fi.pa165.carpark.service.service.exception.CarParkServiceException;
 import cz.muni.fi.pa165.carpark.service.utils.mapper.ClassMapper;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,11 +42,12 @@ import org.springframework.util.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ServiceConfiguration.class)
-
 public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
 
     @Mock
     private EmployeeDao employeeDao;
+    
+    private CarDao carDao;
     
     private ReservationDao reservationDao;
     
@@ -55,8 +62,13 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
     
     private Date endDate;
 
+    private List<Car> carList;
+    
     @Before
     public void createEmployee() {
+        reservationDao = Mockito.mock(ReservationRepository.class);
+        carDao = Mockito.mock(CarRepository.class);
+        
         employee = new Employee();
         employee.setEmail("JFK@email.com");
         employee.setFirstName("John");
@@ -80,7 +92,8 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
         cal.set(2016, 10, 12);
         endDate = cal.getTime();
         
-        
+        carList = new ArrayList<>();
+        carList.add(car);
         
         MockitoAnnotations.initMocks(this);
     }
@@ -95,8 +108,25 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
     public void MakeReservationTest(){
         doNothing().when(employeeDao).update(any(Employee.class));
         when(reservationDao.create(any(Reservation.class))).thenReturn(1L);
+        when(carDao.findByHomeLocation("Praha")).thenReturn(carList);
         long l = employeeService.makeReservation(employee, 3, startDate, "Praha", 25, "really good purpose", endDate, car);
         Assert.notNull(l);
+    }
+    
+    @Test(expected = CarParkServiceException.class)
+    public void MakeReservationTooManySeatsTest(){
+        doNothing().when(employeeDao).update(any(Employee.class));
+        when(reservationDao.create(any(Reservation.class))).thenReturn(1L);
+        when(carDao.findByHomeLocation("Praha")).thenReturn(carList);
+        long l = employeeService.makeReservation(employee, 7, startDate, "Praha", 25, "really good purpose", endDate, null);
+    }
+    
+    @Test(expected = CarParkServiceException.class)
+    public void MakeReservationNoCarsAtLocationTest(){
+        doNothing().when(employeeDao).update(any(Employee.class));
+        when(reservationDao.create(any(Reservation.class))).thenReturn(1L);
+        when(carDao.findByHomeLocation("Praha")).thenReturn(carList);
+        long l = employeeService.makeReservation(employee, 7, startDate, "Brno", 25, "really good purpose", endDate, null);
     }
     
 }

@@ -12,6 +12,7 @@ import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
+import cz.muni.fi.pa165.carpark.service.service.exception.CarParkServiceException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -67,13 +68,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, Car preferedCar) {
         List<Car> cars;
-        try{
-            cars = carDao.findByHomeLocation(departureLocation);
-        }catch(Exception e){
-            throw new RuntimeException(e);
-        }
+        cars = carDao.findByHomeLocation(departureLocation);
         if(cars==null){
-            throw new RuntimeException("there are no available cars at the time and location you chose");
+            throw new CarParkServiceException("there are no available cars at the time and location you chose");
         }
         List<Reservation> reservationsAtTheSameTime = reservationDao.getReservations(departureTime, freeFrom);
         for(Reservation reservation : reservationsAtTheSameTime){
@@ -82,12 +79,12 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
         if(cars==null || cars.size() < 1){
-            throw new RuntimeException("there are no available cars at the time and location you chose");
+            throw new CarParkServiceException("there are no available cars at the time and location you chose");
         }
         Reservation reservation = new Reservation();
         if(preferedCar != null){
             if(!cars.contains(preferedCar)){
-                throw new RuntimeException("car that you chose isnt available choose different one or let the system choose");
+                throw new CarParkServiceException("car that you chose isnt available choose different one or let the system choose");
             }
             reservation.setCar(preferedCar);
         }
@@ -98,8 +95,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                     break;
                 }
             }
+            System.out.println(reservation.getCar());
             if(reservation.getCar() == null){
-                throw new RuntimeException("car with seat capacity for all participants wasnt found consider making more reservations");
+                throw new CarParkServiceException("car with seat capacity for all participants wasnt found consider making more reservations");
             }
         }
         reservation.setEmployee(employee);
