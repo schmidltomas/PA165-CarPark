@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cz.muni.fi.pa165.carpark.service.service;
 
-import com.sun.tracing.dtrace.Attributes;
 import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
@@ -13,10 +8,11 @@ import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 import cz.muni.fi.pa165.carpark.service.service.exception.CarParkServiceException;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +29,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private CarDao carDao;
     
-    @Autowired ReservationDao reservationDao;
+    @Autowired
+    private ReservationDao reservationDao;
     
     @Override
     public void createEmployee(Employee employee) {
@@ -66,38 +63,32 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, Car preferedCar) {
-        List<Car> cars;
-        cars = carDao.findByHomeLocation(departureLocation);
-        if(cars==null){
+    public long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation,
+                                long distance, String purpose, Date freeFrom, Car preferedCar) {
+        final List<Car> cars = carDao.findByHomeLocation(departureLocation);
+        if (cars == null || cars.isEmpty()) {
             throw new CarParkServiceException("there are no available cars at the time and location you chose");
         }
-        List<Reservation> reservationsAtTheSameTime = reservationDao.getReservations(departureTime, freeFrom);
-        for(Reservation reservation : reservationsAtTheSameTime){
-            if(cars.contains(reservation.getCar())){
-                cars.remove(reservation.getCar());
-            }
-        }
-        if(cars==null || cars.size() < 1){
-            throw new CarParkServiceException("there are no available cars at the time and location you chose");
-        }
-        Reservation reservation = new Reservation();
-        if(preferedCar != null){
-            if(!cars.contains(preferedCar)){
-                throw new CarParkServiceException("car that you chose isnt available choose different one or let the system choose");
+
+        final List<Reservation> reservationsAtTheSameTime = reservationDao.getReservations(departureTime, freeFrom);
+        reservationsAtTheSameTime.stream()
+                .filter(reservation -> cars.contains(reservation.getCar()))
+                .forEach(reservation -> cars.remove(reservation.getCar()));
+
+        final Reservation reservation = new Reservation();
+        if (preferedCar != null) {
+            if (!cars.contains(preferedCar)) {
+                throw new CarParkServiceException("car that you chose is not available choose different one or let the system choose");
             }
             reservation.setCar(preferedCar);
-        }
-        else{
-            for(Car car : cars){
-                if(car.getSeats()>seats){
-                    reservation.setCar(car);
-                    break;
-                }
-            }
-            System.out.println(reservation.getCar());
-            if(reservation.getCar() == null){
-                throw new CarParkServiceException("car with seat capacity for all participants wasnt found consider making more reservations");
+        } else {
+            reservation.setCar(cars.stream()
+                    .filter(car -> car.getSeats() > seats)
+                    .findFirst()
+                    .orElse(null));
+
+            if (reservation.getCar() == null) {
+                throw new CarParkServiceException("car with seat capacity for all participants was not found consider making more reservations");
             }
         }
         reservation.setEmployee(employee);
@@ -105,10 +96,38 @@ public class EmployeeServiceImpl implements EmployeeService {
         reservation.setStartDate(departureTime);
         reservation.setPurpose(purpose);
         reservation.setDistance(distance);
-        long reservationId = reservationDao.create(reservation);
+
+        final long reservationId = reservationDao.create(reservation);
         employee.addReservation(reservation);
         employeeDao.update(employee);
+
         return reservationId;
     }
-    
+
+    @Override
+    public List<Car> getMostUsedCars(int number) {
+        final Map<String, Integer> carUsageStatistic = new HashMap<>();
+        final List<Car> cars = reservationDao.getAll().stream()
+                .map(Reservation::getCar)
+                .collect(Collectors.toList());
+
+        if (cars == null || cars.isEmpty()) {
+            throw new CarParkServiceException("there are no cars used yet.");
+        }
+
+        cars.forEach(car -> {
+            Integer numberOfUsages = carUsageStatistic.get(car.getEvidenceNumber());
+            if (numberOfUsages == null) {
+                numberOfUsages = 1;
+            } else {
+                numberOfUsages++;
+            }
+            carUsageStatistic.put(car.getEvidenceNumber(), numberOfUsages);
+        });
+        return carUsageStatistic.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+                .limit(number)
+                .map(entry -> carDao.findBySpz(entry.getKey()))
+                .collect(Collectors.toList());
+    }
 }

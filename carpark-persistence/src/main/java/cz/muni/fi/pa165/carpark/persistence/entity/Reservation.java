@@ -20,7 +20,6 @@ public class Reservation implements Serializable {
     @Column
     private Long id;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
 

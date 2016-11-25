@@ -6,9 +6,8 @@
 package cz.muni.fi.pa165.carpark.service.service;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
+
+import java.util.*;
 
 /**
  *
@@ -29,5 +28,6 @@ public interface EmployeeService {
     Collection<Employee> findAllEmployees();
     
     long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, Car preferedCar);
-    
+
+    List<Car> getMostUsedCars(int number);
 }
