@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 /**

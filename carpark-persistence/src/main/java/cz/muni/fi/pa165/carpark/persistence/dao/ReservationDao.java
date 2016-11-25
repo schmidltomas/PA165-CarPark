@@ -2,7 +2,8 @@ package cz.muni.fi.pa165.carpark.persistence.dao;
 
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Calendar;
 
 import java.util.List;
 
