@@ -9,11 +9,13 @@ import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Jakub Kriz
  */
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired

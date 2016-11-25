@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.carpark.persistence.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column
+    @NotNull
     private Long id;
 
 
