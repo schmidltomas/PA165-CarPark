@@ -167,15 +167,6 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         Date startDate = cal.getTime();
         cal.set(2017, 1, 14);
         Date endDate = cal.getTime();
-        
-//        startCal.set(Calendar.YEAR, 2016);
-//        startCal.set(Calendar.MONTH, 10);
-//        startCal.set(Calendar.DAY_OF_MONTH, 30);
-//        endCal.set(Calendar.YEAR, 2017);
-//        endCal.set(Calendar.MONTH, 10);
-//        endCal.set(Calendar.DAY_OF_MONTH, 30);
-        
-        
         Assert.assertEquals(1, reservationDao.getReservations(startDate, endDate).size());
     }
 }

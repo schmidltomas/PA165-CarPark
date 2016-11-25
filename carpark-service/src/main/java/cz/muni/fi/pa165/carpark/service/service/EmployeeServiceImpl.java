@@ -13,7 +13,7 @@ import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 import java.util.Collection;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public long makeReservation(Set<Employee> participants, Date departureTime, String departureLocation, String endLocation, Date freeFrom, Car PreferedCar) {
+    public long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, Car preferedCar) {
         List<Car> cars = carDao.findByHomeLocation(departureLocation);
         if(cars==null){
             throw new RuntimeException("there are no available cars at the time and location you chose");
@@ -78,15 +78,15 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new RuntimeException("there are no available cars at the time and location you chose");
         }
         Reservation reservation = new Reservation();
-        if(PreferedCar != null){
-            if(!cars.contains(PreferedCar)){
+        if(preferedCar != null){
+            if(!cars.contains(preferedCar)){
                 throw new RuntimeException("car that you chose isnt available choose different one or let the system choose");
             }
-            reservation.setCar(PreferedCar);
+            reservation.setCar(preferedCar);
         }
         else{
             for(Car car : cars){
-                if(car.getSeats()>participants.size()){
+                if(car.getSeats()>seats){
                     reservation.setCar(car);
                     break;
                 }
@@ -95,12 +95,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 throw new RuntimeException("car with seat capacity for all participants wasnt found consider making more reservations");
             }
         }
-        Employee employee = (Employee) participants.toArray()[0];
         reservation.setEmployee(employee);
         reservation.setEndDate(freeFrom);
         reservation.setStartDate(departureTime);
-        reservation.setPurpose(endLocation);
-        reservation.setDistance(0);
+        reservation.setPurpose(purpose);
+        reservation.setDistance(distance);
         long reservationId = reservationDao.create(reservation);
         employee.addReservation(reservation);
         employeeDao.update(employee);
