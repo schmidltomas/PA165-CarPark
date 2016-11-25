@@ -5,11 +5,13 @@
  */
 package cz.muni.fi.pa165.carpark.service.facade;
 
+import cz.muni.fi.pa165.carpark.api.dto.CarDTO;
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
 import cz.muni.fi.pa165.carpark.api.dto.UserDTO;
 import cz.muni.fi.pa165.carpark.api.facade.EmployeeFacade;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
+import cz.muni.fi.pa165.carpark.service.service.CarService;
 import cz.muni.fi.pa165.carpark.service.service.EmployeeService;
 import cz.muni.fi.pa165.carpark.service.utils.mapper.ClassMapper;
 import java.util.Collection;
@@ -28,6 +30,9 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     
     @Autowired 
     private EmployeeService employeeService;
+    
+    @Autowired
+    private CarService carService;
 
     @Override
     public void create(EmployeeDTO eployeeDTO) {
@@ -35,8 +40,10 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
-    public long makeReservation(Set<Employee> participants, Date departureTime, String departureLocation, String endLocation, Date freeFrom, Car PreferedCar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.   
+    public long makeReservation(EmployeeDTO employeeDTO, int seats, java.sql.Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, CarDTO preferedCarDTO) {
+        Employee employee = employeeService.findById(employeeDTO.getId());
+        Car preferedCar = carService.findById(preferedCarDTO.getId());
+        return employeeService.makeReservation(employee, seats, freeFrom, departureLocation, distance, purpose, freeFrom, preferedCar);
     }
 
     @Override
@@ -45,8 +52,8 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
-    public void delete(long id) {
-        employeeService.deleteEmployee(employeeService.findById(id));
+    public void delete(EmployeeDTO employeeDTO) {
+        employeeService.deleteEmployee(classMapper.mapTo(employeeDTO, Employee.class));
     }
 
     @Override

@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.api.facade;
 
+import cz.muni.fi.pa165.carpark.api.dto.CarDTO;
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
@@ -30,11 +31,11 @@ public interface EmployeeFacade extends UserFacade {
      * @param PreferedCar can be null if non prefered
      * @return id of reservation
      */
-    long makeReservation(Set<Employee> participants, Date departureTime, String departureLocation, String endLocation, Date freeFrom, Car PreferedCar);
+    long makeReservation(EmployeeDTO employeeDTO, int seats, java.sql.Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, CarDTO preferedCarDTO);
 
     void update(EmployeeDTO employeeDTO);
     
-    void delete(long id);
+    void delete(EmployeeDTO employeeDTO);
     
     EmployeeDTO findById(Long userId);
     

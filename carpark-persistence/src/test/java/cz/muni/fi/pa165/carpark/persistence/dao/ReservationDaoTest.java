@@ -21,7 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -60,10 +61,15 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         car = new Car();
         car2 = new Car();
 
-        Date startDate = Date.valueOf("2016-10-31");
-        Date endDate = Date.valueOf("2016-11-10");
-        Date startDate2 = Date.valueOf("2017-01-01");
-        Date endDate2 = Date.valueOf("2017-01-15");
+        Calendar cal = Calendar.getInstance();
+        cal.set(2016, 10, 31);
+        Date startDate = cal.getTime();
+        cal.set(2016, 11, 10);
+        Date endDate = cal.getTime();
+        cal.set(2017, 1, 1);
+        Date startDate2 = cal.getTime();
+        cal.set(2017,1,15);
+        Date endDate2 = cal.getTime();
 
         car.setBrand("skoda");
         car.setCurrentLocation("Brno");
@@ -152,5 +158,15 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
     public void getReservationsForEmployee() {
         Assert.assertNotNull(employee.getId());
         Assert.assertTrue(reservationDao.getReservations(employee).size() == 2);
+    }
+    
+    @Test
+    public void getReservationsByDates(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(2017, 1, 2);
+        Date startDate = cal.getTime();
+        cal.set(2017, 1, 14);
+        Date endDate = cal.getTime();
+        Assert.assertEquals(1, reservationDao.getReservations(startDate, endDate).size());
     }
 }

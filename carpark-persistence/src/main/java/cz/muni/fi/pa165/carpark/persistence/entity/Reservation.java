@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -29,10 +29,10 @@ public class Reservation implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
 
-    @Column
+    @Column(name="start_date")
     private Date startDate;
 
-    @Column
+    @Column(name="end_date")
     private Date endDate;
 
     @Column

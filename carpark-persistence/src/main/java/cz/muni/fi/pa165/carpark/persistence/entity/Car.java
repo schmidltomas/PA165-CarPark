@@ -39,7 +39,7 @@ public class Car implements Serializable {
     private int seats;
 
     @NotNull
-    @Column
+    @Column (name = "home_location")
     private String homeLocation;
 
     @NotNull

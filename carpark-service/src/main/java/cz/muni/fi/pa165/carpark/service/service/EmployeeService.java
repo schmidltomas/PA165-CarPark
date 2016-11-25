@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 package cz.muni.fi.pa165.carpark.service.service;
+import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -25,5 +28,7 @@ public interface EmployeeService {
     Collection<Employee> findByName(String firstName, String secondName);
     
     Collection<Employee> findAllEmployees();
+    
+    long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, Car preferedCar);
     
 }

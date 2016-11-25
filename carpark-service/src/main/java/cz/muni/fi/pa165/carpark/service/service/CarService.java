@@ -19,6 +19,8 @@ public interface CarService {
     Car findById(Long id);
 
     Car findBySpz(String spz);
+    
+    List<Car> findByHomeLocation(String location);
 
     List<Car> findAll();
 }

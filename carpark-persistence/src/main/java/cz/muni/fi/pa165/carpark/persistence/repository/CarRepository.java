@@ -50,4 +50,11 @@ public class CarRepository implements CarDao {
     public List<Car> findAll() {
         return entityManager.createQuery("SELECT car FROM Car car", Car.class).getResultList();
     }
+
+    @Override
+    public List<Car> findByHomeLocation(String location) {
+        return entityManager.createQuery("SELECT car FROM Car car WHERE home_location = :home_location", Car.class)
+                .setParameter("home_location", location)
+                .getResultList();
+    }
 }

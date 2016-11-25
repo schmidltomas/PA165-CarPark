@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.carpark.persistence.repository;
 import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
+import java.util.Date;
+import java.util.Calendar;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,10 @@ public class ReservationRepository implements ReservationDao {
     private EntityManager entityManager;
 
     @Override
-    public void create(Reservation reservation) { entityManager.persist(reservation); }
+    public long create(Reservation reservation) { 
+        entityManager.persist(reservation); 
+        return reservation.getId();
+    }
 
     @Override
     public Reservation findById(Long id) {
@@ -49,5 +54,12 @@ public class ReservationRepository implements ReservationDao {
     public List<Reservation> getReservations(Employee employee){
         return entityManager.createQuery("SELECT r FROM Reservation r WHERE employee_id=:employee_id", Reservation.class).
                 setParameter("employee_id", employee.getId()).getResultList();
+    }
+
+    @Override
+    public List<Reservation> getReservations(Date startDate, Date endDate) {
+        return entityManager.createQuery("SELECT r FROM Reservation r WHERE" 
+            + "(end_date>:start_date AND start_date<:end_date)", Reservation.class).
+            setParameter("start_date", startDate).setParameter("end_date", endDate).getResultList();
     }
 }
