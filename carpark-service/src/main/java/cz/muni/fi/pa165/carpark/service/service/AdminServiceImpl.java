@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Tomáš Schmidl
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -34,7 +37,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin findByName(String firstName, String secondName) {
+    public List<Admin> findByName(String firstName, String secondName) {
         return adminDao.findByName(firstName, secondName);
     }
 

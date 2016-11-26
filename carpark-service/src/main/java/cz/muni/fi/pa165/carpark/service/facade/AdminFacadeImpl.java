@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * @author Tomáš Schmidl
+ */
 @Service
 @Transactional
 public class AdminFacadeImpl implements AdminFacade {
@@ -47,8 +50,8 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     @Override
-    public AdminDTO findByName(String firstName, String secondName) {
-        Admin admin = adminService.findByName(firstName, secondName);
+    public List<AdminDTO> findByName(String firstName, String secondName) {
+        List<Admin> admin = adminService.findByName(firstName, secondName);
         return admin == null ? null : classMapper.mapTo(admin, AdminDTO.class);
     }
 

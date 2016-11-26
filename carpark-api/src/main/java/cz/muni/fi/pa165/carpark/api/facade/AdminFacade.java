@@ -17,7 +17,7 @@ public interface AdminFacade extends UserFacade {
 
     AdminDTO findById(Long id);
 
-    AdminDTO findByName(String firstName, String secondName);
+    List<AdminDTO> findByName(String firstName, String secondName);
 
     List<AdminDTO> findAll();
 }

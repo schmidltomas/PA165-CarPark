@@ -4,6 +4,9 @@ import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
 
 import java.util.List;
 
+/**
+ * @author Tomáš Schmidl
+ */
 public interface AdminService {
 
     void create(Admin admin);
@@ -14,7 +17,7 @@ public interface AdminService {
 
     Admin findById(Long id);
 
-    Admin findByName(String firstName, String secondName);
+    List<Admin> findByName(String firstName, String secondName);
 
     List<Admin> findAll();
 }

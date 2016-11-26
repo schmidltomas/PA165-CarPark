@@ -49,7 +49,7 @@ public interface AdminDao {
      * @param secondName Administrator's second name.
      * @return Administrator object if found, null if not found.
      */
-    Admin findByName(String firstName, String secondName);
+    List<Admin> findByName(String firstName, String secondName);
 
     /**
      * Return a list of all Administrators.

@@ -79,9 +79,9 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetAdminByName() {
-        Admin persistedAdmin = adminDao.findByName(firstName1, lastName1);
+        List<Admin> persistedAdmin = adminDao.findByName(firstName1, lastName1);
         Assert.assertNotNull(persistedAdmin);
-        adminEquals(persistedAdmin, admin1);
+        adminEquals(persistedAdmin.get(0), admin1);
     }
 
     @Test
