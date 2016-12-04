@@ -43,9 +43,10 @@ public class CarFacadeImpl implements CarFacade {
     }
 
     @Override
-    public void registerNewCar(CarDTO car) {
+    public CarDTO registerNewCar(CarDTO car) {
         final Car newCar = classMapper.mapTo(car, Car.class);
         carService.createNewCar(newCar);
+        return classMapper.mapTo(newCar, CarDTO.class);
     }
 
     @Override
@@ -55,9 +56,10 @@ public class CarFacadeImpl implements CarFacade {
     }
 
     @Override
-    public void updateCar(CarDTO car) {
+    public CarDTO updateCar(CarDTO car) {
         final Car updatedCar = classMapper.mapTo(car, Car.class);
         carService.updateCar(updatedCar);
+        return classMapper.mapTo(updatedCar, CarDTO.class);
     }
 
     @Override

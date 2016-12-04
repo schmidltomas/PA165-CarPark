@@ -17,10 +17,10 @@ public interface CarFacade {
 
     List<CarDTO> findAll();
 
-    void registerNewCar(CarDTO car);
+    CarDTO registerNewCar(CarDTO car);
 
     void removeCar(CarDTO car);
 
-    void updateCar(CarDTO car);
+    CarDTO updateCar(CarDTO car);
 
 }

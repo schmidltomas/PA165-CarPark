@@ -1,24 +1,46 @@
 package cz.muni.fi.pa165.carpark.api.dto;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+
 /**
  * Created by karelfajkus on 06/11/2016.
  */
 public class CarDTO {
 
+    @JsonProperty
     private Long id;
 
+    @JsonProperty("evidence_number")
+    @NotBlank
     private String evidenceNumber;
 
+    @JsonProperty
+    @NotBlank
     private String brand;
 
+    @JsonProperty("fuel_type")
+    @NotBlank
     private String fuelType;
 
+    @JsonProperty("fuel_consumption")
+    @DecimalMin("0.0")
     private double fuelConsumption;
 
+    @JsonProperty
+    @Min(1)
     private int seats;
 
+    @JsonProperty("home_location")
+    @NotBlank
     private String homeLocation;
 
+    @JsonProperty("current_location")
+    @NotBlank
     private String currentLocation;
 
     public Long getId() {
@@ -96,9 +118,9 @@ public class CarDTO {
         if (seats != carDTO.seats) return false;
         if (!evidenceNumber.equals(carDTO.evidenceNumber)) return false;
         if (!brand.equals(carDTO.brand)) return false;
-        if (fuelType != null ? !fuelType.equals(carDTO.fuelType) : carDTO.fuelType != null) return false;
+        if (!fuelType.equals(carDTO.fuelType)) return false;
         if (!homeLocation.equals(carDTO.homeLocation)) return false;
-        return currentLocation != null ? currentLocation.equals(carDTO.currentLocation) : carDTO.currentLocation == null;
+        return currentLocation.equals(carDTO.currentLocation);
 
     }
 
@@ -108,12 +130,12 @@ public class CarDTO {
         long temp;
         result = evidenceNumber.hashCode();
         result = 31 * result + brand.hashCode();
-        result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
+        result = 31 * result + fuelType.hashCode();
         temp = Double.doubleToLongBits(fuelConsumption);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + seats;
         result = 31 * result + homeLocation.hashCode();
-        result = 31 * result + (currentLocation != null ? currentLocation.hashCode() : 0);
+        result = 31 * result + currentLocation.hashCode();
         return result;
     }
 }

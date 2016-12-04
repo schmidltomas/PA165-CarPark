@@ -20,5 +20,6 @@
         <module>carpark-persistence</module>
         <module>carpark-service</module>
         <module>carpark-api</module>
+        <module>carpark-rest</module>
     </modules>
 </project>
