@@ -2,10 +2,12 @@ package cz.muni.fi.pa165.carpark.service.service;
 
 import cz.muni.fi.pa165.carpark.persistence.dao.AdminDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
+import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author Tomáš Schmidl
@@ -18,6 +20,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void create(Admin admin) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        admin.setRole(UserRole.ROLE_ADMIN.toString());
         adminDao.create(admin);
     }
 

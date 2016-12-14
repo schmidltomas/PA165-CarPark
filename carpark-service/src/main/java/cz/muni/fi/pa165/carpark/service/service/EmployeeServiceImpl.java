@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
+import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import cz.muni.fi.pa165.carpark.service.service.exception.CarParkServiceException;
 
 import java.util.*;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,6 +36,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     
     @Override
     public void createEmployee(Employee employee) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        employee.setPassword(bCryptPasswordEncoder.encode(employee.getPassword()));
+        employee.setRole(UserRole.ROLE_USER.toString());
         employeeDao.create(employee);
     }
 
@@ -92,8 +97,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
         reservation.setEmployee(employee);
-        reservation.setEndDate(freeFrom);
-        reservation.setStartDate(departureTime);
+        reservation.setEndDate((java.sql.Date) freeFrom);
+        reservation.setStartDate((java.sql.Date) departureTime);
         reservation.setPurpose(purpose);
         reservation.setDistance(distance);
 
