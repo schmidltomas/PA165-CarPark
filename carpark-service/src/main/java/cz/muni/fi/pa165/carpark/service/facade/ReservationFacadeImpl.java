@@ -30,8 +30,10 @@ public class ReservationFacadeImpl implements ReservationFacade {
     private EmployeeService employeeService;
 
     @Override
-    public void create(ReservationDTO reservationDTO) {
-        reservationService.create(classMapper.mapTo(reservationDTO, Reservation.class));
+    public ReservationDTO create(ReservationDTO reservationDTO) {
+        final Reservation newReservation = classMapper.mapTo(reservationDTO, Reservation.class);
+        reservationService.create(newReservation);
+        return classMapper.mapTo(newReservation, ReservationDTO.class);
     }
 
     @Override
@@ -41,8 +43,10 @@ public class ReservationFacadeImpl implements ReservationFacade {
     }
 
     @Override
-    public void update(ReservationDTO reservation) {
-        reservationService.update(classMapper.mapTo(reservation, Reservation.class));
+    public ReservationDTO update(ReservationDTO reservation) {
+        final Reservation updatedRes = classMapper.mapTo(reservation, Reservation.class);
+        reservationService.update(updatedRes);
+        return classMapper.mapTo(updatedRes, ReservationDTO.class);
     }
 
     @Override

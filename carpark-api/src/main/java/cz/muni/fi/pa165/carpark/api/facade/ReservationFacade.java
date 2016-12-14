@@ -12,11 +12,11 @@ import java.util.List;
  */
 public interface ReservationFacade {
 
-    void create(ReservationDTO reservation);
+    ReservationDTO create(ReservationDTO reservation);
 
     ReservationDTO findById(Long id);
 
-    void update(ReservationDTO reservation);
+    ReservationDTO update(ReservationDTO reservation);
 
     void delete(ReservationDTO reservation);
 
