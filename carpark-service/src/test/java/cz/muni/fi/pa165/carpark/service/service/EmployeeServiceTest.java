@@ -1,5 +1,12 @@
 package cz.muni.fi.pa165.carpark.service.service;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
 import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
 import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
@@ -10,25 +17,24 @@ import cz.muni.fi.pa165.carpark.persistence.repository.CarRepository;
 import cz.muni.fi.pa165.carpark.persistence.repository.ReservationRepository;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import cz.muni.fi.pa165.carpark.service.service.exception.CarParkServiceException;
-
-import java.util.*;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
-
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -112,9 +118,11 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
         
         Calendar cal = Calendar.getInstance();
         cal.set(2016, 10, 10);
-        startDate = cal.getTime();
+        java.util.Date utilDate = cal.getTime();
+        startDate = new java.sql.Date(utilDate.getTime());
         cal.set(2016, 10, 12);
-        endDate = cal.getTime();
+        utilDate = cal.getTime();
+        endDate = new java.sql.Date(utilDate.getTime());
         
         carList = new ArrayList<>();
         carList.add(car);

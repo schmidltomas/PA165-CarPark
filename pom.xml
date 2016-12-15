@@ -22,6 +22,8 @@
         <module>carpark-api</module>
         <module>carpark-rest</module>
         <module>carpark-angular</module>
+        <module>carpark-sample-data</module>
+        <module>parent-pom</module>
     </modules>
 
 
