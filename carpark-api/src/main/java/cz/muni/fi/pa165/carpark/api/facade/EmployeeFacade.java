@@ -19,21 +19,23 @@ import java.util.Set;
  */
 public interface EmployeeFacade extends UserFacade {
     
-    void create(EmployeeDTO eployeeDTO);
+    EmployeeDTO create(EmployeeDTO eployeeDTO);
     
     /**
      * 
-     * @param participants people going (mostly for count that will make chosing car easyer)
+     * @param employeeDTO
+     * @param seats
      * @param departureTime
      * @param departureLocation
-     * @param endLocation where will be the car available again
      * @param freeFrom when will be the car available again
-     * @param PreferedCar can be null if non prefered
+     * @param purpose
+     * @param preferedCarDTO can be null if non prefered
+     * @param distance
      * @return id of reservation
      */
     long makeReservation(EmployeeDTO employeeDTO, int seats, java.sql.Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, CarDTO preferedCarDTO);
 
-    void update(EmployeeDTO employeeDTO);
+    EmployeeDTO update(EmployeeDTO employeeDTO);
     
     void delete(EmployeeDTO employeeDTO);
     
