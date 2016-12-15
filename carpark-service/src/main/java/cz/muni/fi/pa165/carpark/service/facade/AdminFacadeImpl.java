@@ -26,15 +26,17 @@ public class AdminFacadeImpl implements AdminFacade {
     private AdminService adminService;
 
     @Override
-    public void create(AdminDTO adminDTO) {
+    public AdminDTO create(AdminDTO adminDTO) {
         Admin admin = classMapper.mapTo(adminDTO, Admin.class);
         adminService.create(admin);
+        return classMapper.mapTo(admin, AdminDTO.class);
     }
 
     @Override
-    public void update(AdminDTO adminDTO) {
+    public AdminDTO update(AdminDTO adminDTO) {
         Admin admin = classMapper.mapTo(adminDTO, Admin.class);
         adminService.update(admin);
+        return classMapper.mapTo(admin, AdminDTO.class);
     }
 
     @Override

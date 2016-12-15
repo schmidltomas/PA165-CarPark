@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface AdminFacade extends UserFacade {
 
-    void create(AdminDTO adminDTO);
+    AdminDTO create(AdminDTO adminDTO);
 
-    void update(AdminDTO adminDTO);
+    AdminDTO update(AdminDTO adminDTO);
 
     void delete(AdminDTO adminDTO);
 
