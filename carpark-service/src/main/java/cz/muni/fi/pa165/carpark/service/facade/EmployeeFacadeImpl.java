@@ -18,11 +18,15 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Jakub Kriz
  */
+@Service
+@Transactional
 public class EmployeeFacadeImpl implements EmployeeFacade {
     
     @Autowired
