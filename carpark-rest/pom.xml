@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>carpark-rest</artifactId>
-    <version>${project.version}</version>
+    <version>1.0-SNAPSHOT</version>
     <name>PA165 CarPark rest layer</name>
     <packaging>jar</packaging>
 
@@ -63,5 +63,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
