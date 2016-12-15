@@ -35,8 +35,10 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     private CarService carService;
 
     @Override
-    public void create(EmployeeDTO eployeeDTO) {
-        employeeService.createEmployee(classMapper.mapTo(eployeeDTO, Employee.class));
+    public EmployeeDTO create(EmployeeDTO employeeDTO) {
+        final Employee employee =classMapper.mapTo(employeeDTO, Employee.class);
+        employeeService.createEmployee(employee);
+        return classMapper.mapTo(employee, EmployeeDTO.class);
     }
 
     @Override
@@ -47,8 +49,10 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
-    public void update(EmployeeDTO employeeDTO) {
-        employeeService.updateEmployee(classMapper.mapTo(employeeDTO, Employee.class));
+    public EmployeeDTO update(EmployeeDTO employeeDTO) {
+        final Employee employee =classMapper.mapTo(employeeDTO, Employee.class);
+        employeeService.updateEmployee(employee);
+        return classMapper.mapTo(employee, EmployeeDTO.class);
     }
 
     @Override
