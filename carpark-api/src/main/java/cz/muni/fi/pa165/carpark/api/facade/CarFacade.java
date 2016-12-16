@@ -19,7 +19,7 @@ public interface CarFacade {
 
     CarDTO registerNewCar(CarDTO car);
 
-    void removeCar(CarDTO car);
+    CarDTO removeCar(Long id);
 
     CarDTO updateCar(CarDTO car);
 
