@@ -6,13 +6,25 @@ app.controller('employeesController', function($scope) {
     $scope.headingTitle = "Employee List";
 });
 
-app.controller('carsController', function($scope, $http) {
-    $scope.headingTitle = "One car";
-    $http.get('/pa165/rest/car/getAll').success(function(data) {
-        $scope.headingTitle = "All cars";
-        $scope.cars = data;
-    })
+app.controller('carsController', function($scope, $http, $rootScope) {
+    $scope.headingTitle = "Car list";
+    loadAllCars($http, $scope);
+    $scope.deleteCar = function (car) {
+        $http.delete('/pa165/rest/car/remove/' + car.id).then(function () {
+            loadAllCars($http, $scope);},
+            function error(response) {
+                console.log("failed to remove car " + car.id);
+                console.log(response);
+                $rootScope.errorAlert = 'Cannot remove reserved car!';
+            });
+    };
 });
+
+function loadAllCars($http, $scope) {
+    $http.get('/pa165/rest/car/getAll').success(function(data) {
+        $scope.cars = data;
+    });
+}
 
 app.controller('reservationsController', function($scope, $http) {
     $scope.headingTitle = "One reservation";

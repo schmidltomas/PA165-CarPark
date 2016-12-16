@@ -50,9 +50,13 @@ public class CarFacadeImpl implements CarFacade {
     }
 
     @Override
-    public void removeCar(CarDTO car) {
-        final Car carToRemove = classMapper.mapTo(car, Car.class);
-        carService.deleteCar(carToRemove);
+    public CarDTO removeCar(Long id) {
+        final Car carToRemove = carService.findById(id);
+        if (carToRemove != null) {
+            carService.deleteCar(carToRemove);
+            return classMapper.mapTo(carToRemove, CarDTO.class);
+        }
+        return null;
     }
 
     @Override

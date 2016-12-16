@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -64,11 +65,9 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
     }
 
-    @RequestMapping(value = "remove/{id}", method = RequestMethod.POST)
-    public ResponseEntity<String> updateCar(@Min(0) @PathVariable Long id) {
-        final CarDTO carToRemove = carFacade.findById(id);
-        if (carToRemove != null) {
-            carFacade.removeCar(carToRemove);
+    @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeCar(@Min(0) @PathVariable Long id) {
+        if (carFacade.removeCar(id) != null) {
             return ResponseEntity.ok("");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");

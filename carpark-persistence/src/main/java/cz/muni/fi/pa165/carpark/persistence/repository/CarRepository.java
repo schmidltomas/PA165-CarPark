@@ -13,7 +13,6 @@ import java.util.List;
  * Created by karelfajkus on 26/10/2016.
  */
 @Repository
-@Transactional
 public class CarRepository implements CarDao {
 
     @PersistenceContext

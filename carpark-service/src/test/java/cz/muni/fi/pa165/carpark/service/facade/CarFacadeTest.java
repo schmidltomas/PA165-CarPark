@@ -141,7 +141,8 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
     public void RemoveCarTest() {
 
         when(classMapper.mapTo(any(CarDTO.class), eq(Car.class))).thenReturn(car);
-        carFacade.removeCar(carDTO);
+        when(carService.findById(anyLong())).thenReturn(car);
+        carFacade.removeCar(car.getId());
         verify(carService).deleteCar(car);
     }
 
