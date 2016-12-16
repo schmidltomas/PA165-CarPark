@@ -2,8 +2,18 @@
 //    $scope.headingTitle = "Car List";
 //});
 
-app.controller('employeesController', function($scope) {
+app.controller('employeesController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "Employee List";
+    loadAllEmployees($http, $scope);
+    $scope.deleteEmployee = function (employee) {
+        $http.delete('/pa165/rest/employee/remove/' + employee.id).then(function () {
+            loadAllEmployees($http, $scope);},
+            function error(response) {
+                console.log("failed to remove employee " + employee.id);
+                console.log(response);
+                $rootScope.errorAlert = 'Cannot remove reserved employee!';
+            });
+    };
 });
 
 app.controller('carsController', function($scope, $http, $rootScope) {
@@ -23,6 +33,12 @@ app.controller('carsController', function($scope, $http, $rootScope) {
 function loadAllCars($http, $scope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
         $scope.cars = data;
+    });
+}
+
+function loadAllEmployees($http, $scope) {
+    $http.get('/pa165/rest/employee/getAll').success(function(data) {
+        $scope.employees = data;
     });
 }
 

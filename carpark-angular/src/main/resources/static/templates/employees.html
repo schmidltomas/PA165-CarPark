@@ -1,11 +1,31 @@
 <div class="section">
     <h3>{{headingTitle}}</h3>
     <div>
-        <ul type="square">
-            <li>Tomáš</li>
-            <li>Kuba</li>
-            <li>Karel</li>
-            <li>Robert</li>
-        </ul>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>username</th>
+                <th>Jméno</th>
+                <th>Příjmení</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <tr ng-repeat="employee in employees">
+                <td>{{employee.id}}</td>
+                <td>{{employee.username}}</td>
+                <td>{{employee.firstName}}</td>
+                <td>{{employee.secondName}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.userRole}}</td>
+                <td>
+                    <button ng-click="deleteEmployee(employee)" type="submit" class="btn btn-primary">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
