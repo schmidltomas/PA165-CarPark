@@ -16,18 +16,18 @@
             </thead>
             <tbody>
             <tr>
-            <!--<tr ng-repeat="product in products track by $index">-->
-                <td>{{id}}</td>
-                <td>{{brand}}</td>
-                <td>{{seats}}</td>
-                <td>{{evidence_number}}</td>
-                <td>{{fuel_type}}</td>
-                <td>{{fuel_consumption}}</td>
-                <td>{{home_location}}</td>
-                <td>{{current_location}}</td>
-                <!--<td>-->
-                    <!--<button ng-click="deleteProduct(product)" type="submit" class="btn btn-primary">Delete</button>-->
-                <!--</td>-->
+            <tr ng-repeat="car in cars">
+                <td>{{car.id}}</td>
+                <td>{{car.brand}}</td>
+                <td>{{car.seats}}</td>
+                <td>{{car.evidence_number}}</td>
+                <td>{{car.fuel_type}}</td>
+                <td>{{car.fuel_consumption}}</td>
+                <td>{{car.home_location}}</td>
+                <td>{{car.current_location}}</td>
+                <td>
+                    <button ng-click="" type="submit" class="btn btn-primary">Delete</button>
+                </td>
             </tr>
             </tbody>
         </table>
