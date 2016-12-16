@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.carpark.api.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotBlank;
 

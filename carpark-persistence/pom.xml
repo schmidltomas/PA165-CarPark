@@ -79,7 +79,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-                <version>3.6.0</version>
+                <version>${maven.compiler.version}</version>
             </plugin>
         </plugins>
     </build>

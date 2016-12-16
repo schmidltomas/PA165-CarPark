@@ -1,10 +1,35 @@
 <div class="section">
     <h3>{{headingTitle}}</h3>
     <div>
-        <ul type="square">
-            <li>BMW</li>
-            <li>Audi</li>
-            <li>Trabant</li>
-        </ul>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Značka</th>
+                <th>Počet míst</th>
+                <th>SPZ</th>
+                <th>Druh paliva</th>
+                <th>Spotřeba</th>
+                <th>Domovská lokace</th>
+                <th>Aktuální lokace</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <!--<tr ng-repeat="product in products track by $index">-->
+                <td>{{id}}</td>
+                <td>{{brand}}</td>
+                <td>{{seats}}</td>
+                <td>{{evidence_number}}</td>
+                <td>{{fuel_type}}</td>
+                <td>{{fuel_consumption}}</td>
+                <td>{{home_location}}</td>
+                <td>{{current_location}}</td>
+                <!--<td>-->
+                    <!--<button ng-click="deleteProduct(product)" type="submit" class="btn btn-primary">Delete</button>-->
+                <!--</td>-->
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
