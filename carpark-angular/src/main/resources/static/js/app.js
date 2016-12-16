@@ -11,6 +11,9 @@ app.config(function($routeProvider){
             templateUrl: '/templates/employees.html',
             controller: 'employeesController'
         })
+        .when('/admin/newemployee', {
+            templateUrl: '/templates/new_employee.html', 
+            controller: 'newEmployeeController'})
         .otherwise({
             redirectTo: '/'
         });
