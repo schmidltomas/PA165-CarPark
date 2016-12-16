@@ -102,9 +102,9 @@ app.controller('newReservationController',
         $scope.reservation = {
             'employee': '',
             'car': '',
-            'startDate': 0,
-            'endDate': 0,
-            'distance': 1,
+            'startDate': '',
+            'endDate': '',
+            'distance': '',
             'purpose': '',
         };
 
