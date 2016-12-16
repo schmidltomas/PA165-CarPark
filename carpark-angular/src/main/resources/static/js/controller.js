@@ -26,14 +26,6 @@ function loadAllCars($http, $scope) {
     });
 }
 
-app.controller('reservationsController', function($scope, $http) {
-    $scope.headingTitle = "One reservation";
-    $http.get('/pa165/rest/reservation/getAll').success(function(data) {
-        $scope.headingTitle = "All reservations";
-        $scope.reservations = data;
-    })
-});
-
 app.controller('newEmployeeController',
     function ($scope, $http, $location, $rootScope) {
         //set object bound to form fields
@@ -92,6 +84,45 @@ app.controller('newCarController',
             }, function error(response) {
                 //display error
                 $scope.errorAlert = 'Cannot register car !';
+            });
+        };
+    });
+
+app.controller('reservationsController', function($scope, $http) {
+    $scope.headingTitle = "One reservation";
+    $http.get('/pa165/rest/reservation/getAll').success(function(data) {
+        $scope.headingTitle = "All reservations";
+        $scope.reservations = data;
+    })
+});
+
+app.controller('newReservationController',
+    function ($scope, $http, $location, $rootScope) {
+        //set object bound to form fields
+        $scope.reservation = {
+            'employee': '',
+            'car': '',
+            'startDate': 0,
+            'endDate': 0,
+            'distance': 1,
+            'purpose': '',
+        };
+
+        $scope.create = function (reservation) {
+            $http({
+                method: 'POST',
+                url: '/pa165/rest/reservation/create',
+                data: reservation
+            }).then(function success(response) {
+                console.log('reservation created');
+                var createdReservation = response.data;
+                //display confirmation alert
+                $rootScope.successAlert = 'A new reservation "'+createdReservation.id+'" was created';
+                //change view 
+                $location.path("/reservations");
+            }, function error(response) {
+                //display error
+                $scope.errorAlert = 'Cannot create reservation !';
             });
         };
     });
