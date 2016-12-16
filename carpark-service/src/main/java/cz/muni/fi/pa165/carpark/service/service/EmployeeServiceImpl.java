@@ -9,14 +9,17 @@ import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import cz.muni.fi.pa165.carpark.service.service.exception.CarParkServiceException;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -38,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void createEmployee(Employee employee) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         employee.setPassword(bCryptPasswordEncoder.encode(employee.getPassword()));
-        employee.setRole(UserRole.ROLE_USER.toString());
+        employee.setUserRole(UserRole.ROLE_USER);
         employeeDao.create(employee);
     }
 

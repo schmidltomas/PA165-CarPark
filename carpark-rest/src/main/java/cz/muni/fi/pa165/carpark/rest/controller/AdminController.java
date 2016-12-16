@@ -24,9 +24,8 @@ public class AdminController {
     private AdminFacade adminFacade;
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public ResponseEntity createCar(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
-        AdminDTO adminDTO1 = adminFacade.create(adminDTO);
-        return ControllerResponse.processResponse(adminDTO1);
+    public ResponseEntity createAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
+        return ControllerResponse.processResponse(adminFacade.create(adminDTO));
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
@@ -57,8 +56,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "getByName", method = RequestMethod.GET, params = {"firstName", "lastName"})
-    public ResponseEntity getAdminById(@Min(0) @RequestParam("firstName") String firstName,
-                                       @Min(0) @RequestParam("lastName") String lastName) throws Exception {
+    public ResponseEntity getAdminByName(@Min(0) @RequestParam("firstName") String firstName,
+                                         @Min(0) @RequestParam("lastName") String lastName) throws Exception {
         return ControllerResponse.processResponse(adminFacade.findByName(firstName, lastName));
     }
 
