@@ -17,13 +17,29 @@
             <tbody>
             <tr>
             <tr ng-repeat="reservation in reservations">
-                <td>{{reservation.id}}</td>
-                <td>{{reservation.employee.username}}</td>
-                <td>{{reservation.car.evidence_number}}</td>
-                <td>{{reservation.startDate}}</td>
-                <td>{{reservation.endDate}}</td>
-                <td>{{reservation.distance}}</td>
-                <td>{{reservation.purpose}}</td>
+                <td>
+                    <input ng-disabled="disabled" ng-model="reservation.id"/>
+                </td>
+                <td>
+                    <input ng-disabled="disabled" ng-model="reservation.employee.username"/>
+                <td>
+                    <input ng-disabled="disabled" ng-model="reservation.car.evidence_number"/>
+                </td>
+                <td>
+                    <input ng-disabled="disabled" ng-model="reservation.startDate"/>
+                </td>
+                <td>
+                    <input ng-disabled="disabled" ng-model="reservation.endDate"/>
+                </td>
+                <td>
+                    <input ng-disabled="disabled" ng-model="reservation.distance"/>
+                </td>
+                <td>
+                    <input ng-disabled="disabled" ng-model="reservation.purpose"/>
+                </td>
+                <td>
+                    <button ng-click="updateReservation(reservation)" type="submit" class="btn btn-primary">{{updateButtonText}}</button>
+                </td>
                 <td>
                     <button ng-click="removeReservation(reservation.id)" type="submit" class="btn btn-primary">Delete</button>
                 </td>

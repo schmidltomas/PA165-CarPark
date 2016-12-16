@@ -88,8 +88,10 @@ app.controller('newCarController',
         };
     });
 
-app.controller('reservationsController', function($scope, $http) {
+app.controller('reservationsController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "One reservation";
+    $scope.disabled = true;
+    $scope.updateButtonText = "Update";
     var fnGetReservations = function () {
         $http.get('/pa165/rest/reservation/getAll').success(function(data) {
             $scope.headingTitle = "All reservations";
@@ -100,9 +102,35 @@ app.controller('reservationsController', function($scope, $http) {
     $scope.removeReservation = function (id) {
         $http.delete('/pa165/rest/reservation/remove/'+id).success(function(data) {
             fnGetReservations();
+            $rootScope.successAlert = 'Reservation "'+id+'" was deleted';
         })
     };
 
+    $scope.updateReservation = function (reservation) {
+        if ($scope.disabled) {
+            $scope.disabled = false;
+            $scope.updateButtonText = "Submit";
+        } else {
+            $scope.disabled = true;
+            $scope.updateButtonText = "Update";
+            console.log(reservation.purpose);
+            $http({
+                method: "PUT",
+                url: "/pa165/rest/reservation/update",
+                data: reservation
+            }).then(function success(response) {
+                console.log('reservation updated');
+                var updatedReservation = response.data;
+                //refresh reservations
+                fnGetReservations();
+                //display confirmation alert
+                $rootScope.successAlert = 'Reservation "'+updatedReservation.id+'" was updated';
+            }, function error(response) {
+                //display error
+                $scope.errorAlert = 'Cannot update reservation !';
+            });
+        }
+    };
     fnGetReservations();
 });
 
@@ -115,7 +143,7 @@ app.controller('newReservationController',
             'startDate': '',
             'endDate': '',
             'distance': '',
-            'purpose': '',
+            'purpose': ''
         };
 
         $scope.create = function (reservation) {

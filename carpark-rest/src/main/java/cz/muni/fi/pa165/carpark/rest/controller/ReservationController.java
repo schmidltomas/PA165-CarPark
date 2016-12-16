@@ -48,15 +48,12 @@ public class ReservationController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
     public ResponseEntity updateReservation(@Valid @RequestBody ReservationDTO request) throws Exception {
         if (request.getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Field ID is missing.");
         }
-        final ReservationDTO resToUpdate = reservationFacade.findById(request.getId());
-        if (resToUpdate != null) {
-            return ControllerResponse.processResponse(reservationFacade.update(resToUpdate));
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
+        ReservationDTO updated = reservationFacade.update(request);
+        return ControllerResponse.processResponse(updated);
     }
 }
