@@ -97,8 +97,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
         reservation.setEmployee(employee);
-        reservation.setEndDate((java.sql.Date) freeFrom);
-        reservation.setStartDate((java.sql.Date) departureTime);
+        reservation.setEndDate(freeFrom);
+        reservation.setStartDate(departureTime);
         reservation.setPurpose(purpose);
         reservation.setDistance(distance);
 

@@ -16,11 +16,10 @@ import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public class User implements Serializable {
-    
-    public User() {}
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column
     private Long id;
     
     @NotNull

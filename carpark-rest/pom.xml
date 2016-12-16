@@ -26,6 +26,10 @@
         </dependency>
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
+            <artifactId>carpark-sample-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cz.muni.fi.pa165</groupId>
             <artifactId>carpark-service</artifactId>
         </dependency>
         <dependency>

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee")
-public class Employee extends User implements Serializable {
+public class Employee extends User {
     
     public Employee(){
         super();

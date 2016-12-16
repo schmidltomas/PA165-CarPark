@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.carpark.sample.data;
+package cz.muni.fi.pa165.carpark.sample.data.configuration;
 
+import cz.muni.fi.pa165.carpark.sample.data.SampleDataLoadingFacade;
+import cz.muni.fi.pa165.carpark.sample.data.SampleDataLoadingFacadeImpl;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import java.io.IOException;
 import javax.annotation.PostConstruct;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  *
@@ -22,16 +25,16 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(ServiceConfiguration.class)
 @ComponentScan(basePackageClasses = {SampleDataLoadingFacadeImpl.class})
-public class CarParkSampleDataConfiguration {
+public class CarParkSampleDataConfiguration extends WebMvcConfigurerAdapter {
     
-    final static Logger log = LoggerFactory.getLogger(CarParkSampleDataConfiguration.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(CarParkSampleDataConfiguration.class);
 
     @Autowired
-    SampleDataLoadingFacade sampleDataLoadingFacade;
+    private SampleDataLoadingFacade sampleDataLoadingFacade;
 
     @PostConstruct
-    public void dataLoading() throws IOException {
-        log.debug("dataLoading()");
+    public void dataLoading() throws Exception {
+        LOGGER.debug("Inserting sample data for project.");
         sampleDataLoadingFacade.loadData();
     }
 }
