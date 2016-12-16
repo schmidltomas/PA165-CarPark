@@ -14,6 +14,14 @@ app.controller('carsController', function($scope, $http) {
     })
 });
 
+app.controller('reservationsController', function($scope, $http) {
+    $scope.headingTitle = "One reservation";
+    $http.get('/pa165/rest/reservation/getAll').success(function(data) {
+        $scope.headingTitle = "All reservations";
+        $scope.reservations = data;
+    })
+});
+
 app.controller('newEmployeeController',
     function ($scope, $http, $location, $rootScope) {
         //set object bound to form fields

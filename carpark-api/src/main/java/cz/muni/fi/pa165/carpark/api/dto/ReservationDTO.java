@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.carpark.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Date;
 
 /**
@@ -7,12 +9,25 @@ import java.sql.Date;
  */
 public class ReservationDTO {
 
+    @JsonProperty
     private Long id;
+
+    @JsonProperty
     private EmployeeDTO employee;
+
+    @JsonProperty
     private CarDTO car;
+
+    @JsonProperty
     private Date startDate;
+
+    @JsonProperty
     private Date endDate;
+
+    @JsonProperty
     private long distance;
+
+    @JsonProperty
     private String purpose;
 
     public Long getId() {
