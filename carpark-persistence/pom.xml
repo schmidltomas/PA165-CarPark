@@ -50,10 +50,6 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
         </dependency>
@@ -83,7 +79,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-                <version>${maven.compiler.version}</version>
+                <version>3.6.0</version>
             </plugin>
         </plugins>
     </build>
