@@ -21,7 +21,7 @@ app.controller('carsController', function($scope, $http) {
     })
 });
 
-app.controller('AdminNewEmployeeCtrl',
+app.controller('newEmployeeController',
     function ($scope, $http, $location, $rootScope) {
         //set object bound to form fields
         $scope.employee = {
@@ -41,13 +41,12 @@ app.controller('AdminNewEmployeeCtrl',
                 console.log('employee registered');
                 var createdEmployee = response.data;
                 //display confirmation alert
-                $rootScope.successAlert = 'A new employee "'+createdEmployee.username+'" was regostered';
+                $rootScope.successAlert = 'A new employee "'+createdEmployee.username+'" was registered';
                 //change view to list of products
                 $location.path("/employees");
             }, function error(response) {
                 //display error
                 $scope.errorAlert = 'Cannot register employee !';
-                $location.path("/cars");
             });
         };
     });
