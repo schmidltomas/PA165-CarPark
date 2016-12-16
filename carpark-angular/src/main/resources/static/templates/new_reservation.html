@@ -1,0 +1,19 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="css/form.css">
+</head>
+<div class="form-style-5">
+    <form>
+        <fieldset>
+
+            <legend>Reservation Info</legend>
+            <input type="text" name="employee" placeholder="Employee *" ng-model="reservation.employee" required>
+            <input type="text" name="car" placeholder="Car *" ng-model="reservation.car" required>
+            <input type="text" name="startDate" placeholder="Start Date *" ng-model="reservation.startDate" required>
+            <input type="text" name="endDate" placeholder="End Date *" ng-model="reservation.endDate" required>
+            <input type="number" name="distance" placeholder="Distance *" ng-model="reservation.distance" required>
+            <input type="text" name="purpose" placeholder="Purpose *" ng-model="reservation.purpose">
+
+        </fieldset>
+        <input type="submit" value="Create Reservation" ng-click="create(reservation)" />
+    </form>
+</div>

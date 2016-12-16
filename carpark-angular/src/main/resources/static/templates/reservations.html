@@ -1,0 +1,34 @@
+<div class="section">
+    <h3>{{headingTitle}}</h3>
+    <h2>{{successAlert}}</h2>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Car</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Distance</th>
+                <th>Purpose</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <tr ng-repeat="reservation in reservations">
+                <td>{{reservation.id}}</td>
+                <td>{{reservation.employee.username}}</td>
+                <td>{{reservation.car.evidence_number}}</td>
+                <td>{{reservation.startDate}}</td>
+                <td>{{reservation.endDate}}</td>
+                <td>{{reservation.distance}}</td>
+                <td>{{reservation.purpose}}</td>
+                <td>
+                    <button ng-click="removeReservation(reservation.id)" type="submit" class="btn btn-primary">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -38,7 +38,7 @@ public class ReservationController {
         return ControllerResponse.processResponse(reservationDTO);
     }
 
-    @RequestMapping(value = "remove/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeReservation(@Min(0) @PathVariable Long id) {
         final ReservationDTO resToRemove = reservationFacade.findById(id);
         if (resToRemove != null) {
