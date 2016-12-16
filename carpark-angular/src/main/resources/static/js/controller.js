@@ -31,7 +31,7 @@ app.controller('newEmployeeController',
             'username': '',
             'password': ''
         };
-        // function called when submit button is clicked, creates product on server
+        
         $scope.create = function (employee) {
             $http({
                 method: 'POST',
@@ -42,11 +42,43 @@ app.controller('newEmployeeController',
                 var createdEmployee = response.data;
                 //display confirmation alert
                 $rootScope.successAlert = 'A new employee "'+createdEmployee.username+'" was registered';
-                //change view to list of products
+                //change view 
                 $location.path("/employees");
             }, function error(response) {
                 //display error
                 $scope.errorAlert = 'Cannot register employee !';
+            });
+        };
+    });
+
+app.controller('newCarController',
+    function ($scope, $http, $location, $rootScope) {
+        //set object bound to form fields
+        $scope.car = {
+            'evidence_number': '',
+            'brand': '',
+            'fuel_type': 'Petrol',
+            'fuel_consumption': 0,
+            'seats': 1,
+            'home_location': '',
+            'current_location': ''            
+        };
+        
+        $scope.create = function (car) {
+            $http({
+                method: 'POST',
+                url: '/pa165/rest/car/create',
+                data: car
+            }).then(function success(response) {
+                console.log('car registered');
+                var createdCar = response.data;
+                //display confirmation alert
+                $rootScope.successAlert = 'A new car "'+createdCar.evidence_number+'" was registered';
+                //change view 
+                $location.path("/cars");
+            }, function error(response) {
+                //display error
+                $scope.errorAlert = 'Cannot register car !';
             });
         };
     });
