@@ -8,7 +8,7 @@ var carParkControllers = angular.module('carParkControllers', []);
 pa165carPark.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
-            when('/cars', {templateUrl: 'templates/cars.html', controller: 'carCtrl'}).
+            when('/cars', {templateUrl: '/templates/cars.html', controller: 'carCtrl'}).
             otherwise({redirectTo: '/'});
     }]);
 
@@ -26,10 +26,7 @@ pa165carPark.run(function ($rootScope) {
 
 <!-- controllers -->
 
-carParkControllers.controller('carCtrl', function ($scope, $http) {
-    $http.get('/pa165/rest/car/getAll').then(function (response) {
-        var cars = response.data;
-        $scope.cars = cars;
-    });
+carParkControllers.controller('carCtrl', function ($scope) {
+    $scope.headingTitle = "Car list";
 });
 
