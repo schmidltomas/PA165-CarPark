@@ -9,21 +9,23 @@ import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
+import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import cz.muni.fi.pa165.carpark.service.service.AdminService;
 import cz.muni.fi.pa165.carpark.service.service.CarService;
 import cz.muni.fi.pa165.carpark.service.service.EmployeeService;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import cz.muni.fi.pa165.carpark.service.service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -116,6 +118,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         admin.setPassword(password);
         admin.setSecondName(surname);
         admin.setUsername(username);
+        admin.setUserRole(UserRole.ROLE_ADMIN);
         adminService.create(admin);
     }
 

@@ -27,7 +27,7 @@ public class AdminFacadeImpl implements AdminFacade {
 
     @Override
     public AdminDTO create(AdminDTO adminDTO) {
-        Admin admin = classMapper.mapTo(adminDTO, Admin.class);
+        final Admin admin = classMapper.mapTo(adminDTO, Admin.class);
         adminService.create(admin);
         return classMapper.mapTo(admin, AdminDTO.class);
     }
@@ -59,8 +59,9 @@ public class AdminFacadeImpl implements AdminFacade {
 
     @Override
     public List<AdminDTO> findAll() {
-        List<Admin> admins = adminService.findAll();
-        return classMapper.mapTo(admins, AdminDTO.class);
+        final List<Admin> admins = adminService.findAll();
+        List<AdminDTO> adminDTOs = classMapper.mapTo(admins, AdminDTO.class);
+        return adminDTOs;
     }
 
     @Override

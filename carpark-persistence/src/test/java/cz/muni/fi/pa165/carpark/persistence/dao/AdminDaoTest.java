@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.carpark.persistence.dao;
 
 import cz.muni.fi.pa165.carpark.persistence.configuration.PersistenceConfiguration;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
+import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,6 +58,7 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
         admin1.setSecondName(lastName1);
         admin1.setUsername(username1);
         admin1.setPassword(password1);
+        admin1.setUserRole(UserRole.ROLE_ADMIN);
 
         admin2 = new Admin();
         admin2.setEmail(email2);
@@ -65,6 +67,7 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
         admin2.setSecondName(lastName2);
         admin2.setUsername(username2);
         admin2.setPassword(password2);
+        admin2.setUserRole(UserRole.ROLE_ADMIN);
 
         adminDao.create(admin1);
         adminDao.create(admin2);

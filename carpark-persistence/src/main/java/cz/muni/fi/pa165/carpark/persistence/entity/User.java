@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,17 +48,17 @@ public class User implements Serializable {
     private String secondName;
     
     @Column
-    private String role;
+    private UserRole userRole;
 
-    public String getRole() {
-        return role;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
-    
-     public Long getId() {
+
+    public Long getId() {
         return id;
     }
 
