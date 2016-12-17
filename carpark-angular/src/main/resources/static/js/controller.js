@@ -295,8 +295,9 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, car) {
     $ctrl.car = car;
 
     $ctrl.ok = function (car) {
+        $uibModalInstance.close(car);
         if ($scope.modalForm.$valid) {
-            $uibModalInstance.close(car);
+
         }
     };
 
