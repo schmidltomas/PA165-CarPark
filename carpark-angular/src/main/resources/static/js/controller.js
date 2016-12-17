@@ -1,7 +1,3 @@
-//app.controller('carsController', function($scope) {
-//    $scope.headingTitle = "Car List";
-//});
-
 app.controller('employeesController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "Employee List";
     loadAllEmployees($http, $scope);
@@ -11,7 +7,21 @@ app.controller('employeesController', function($scope, $http, $rootScope) {
             function error(response) {
                 console.log("failed to remove employee " + employee.id);
                 console.log(response);
-                $rootScope.errorAlert = 'Cannot remove reserved employee!';
+                $rootScope.errorAlert = 'Cannot remove employee with a reservation!';
+            });
+    };
+});
+
+app.controller('adminsController', function($scope, $http, $rootScope) {
+    $scope.headingTitle = "Admin list";
+    loadAllAdmins($http, $scope);
+    $scope.deleteAdmin = function (admin) {
+        $http.delete('/pa165/rest/admin/remove/' + admin.id).then(function () {
+            loadAllAdmins($http, $scope);},
+            function error(response) {
+                console.log("failed to remove admin " + admin.id);
+                console.log(response);
+                $rootScope.errorAlert = 'Cannot remove admin!';
             });
     };
 });
@@ -39,6 +49,12 @@ function loadAllCars($http, $scope) {
 function loadAllEmployees($http, $scope) {
     $http.get('/pa165/rest/employee/getAll').success(function(data) {
         $scope.employees = data;
+    });
+}
+
+function loadAllAdmins($http, $scope) {
+    $http.get('/pa165/rest/admin/getAll').success(function(data) {
+        $scope.admins = data;
     });
 }
 
