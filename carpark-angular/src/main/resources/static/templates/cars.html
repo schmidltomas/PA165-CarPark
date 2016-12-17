@@ -42,10 +42,6 @@
             </tr>
             </tbody>
         </table>
-        <a href="#/admin/newcar" class="btn btn-success">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            New car
-        </a>
     </div>
     <div ng-controller="ModalController as $ctrl" class="modal-demo">
         <script type="text/ng-template" id="/templates/new_car.html">
@@ -54,7 +50,7 @@
             </div>
             <div class="modal-body" id="modal-body">
                 <div class="form-style-5">
-                    <form>
+                    <form name="modalForm">
                         <fieldset>
                             <legend> Car Info</legend>
                             <input type="text" name="evidence_number" placeholder="Evidence Number *" ng-model="car.evidence_number" required>
@@ -75,6 +71,9 @@
                 </div>
             </div>
         </script>
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.open()">Create car</button>
+    <button type="button" class="btn btn-success" ng-click="$ctrl.open()">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Create car
+    </button>
 </div>
 </div>

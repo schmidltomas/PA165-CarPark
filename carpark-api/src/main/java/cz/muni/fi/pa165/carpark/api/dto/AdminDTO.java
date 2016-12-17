@@ -7,7 +7,7 @@ public class AdminDTO extends UserDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" +
+        return "AdminDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

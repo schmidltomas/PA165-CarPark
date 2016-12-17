@@ -14,13 +14,14 @@ import java.util.Set;
  * @author Jakub Kriz
  */
 public class EmployeeDTO extends UserDTO {
-    private Set<Reservation> Reservations = new HashSet<>();
+
+    private Set<Reservation> reservations = new HashSet<>();
 
     public Set<Reservation> getReservations() {
-        return Reservations;
+        return reservations;
     }
 
     public void setReservations(Set<Reservation> Reservations) {
-        this.Reservations = Reservations;
+        this.reservations = Reservations;
     }
 }

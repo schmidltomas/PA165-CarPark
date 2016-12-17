@@ -17,15 +17,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee")
-public class Employee extends User {
+public class Employee extends User implements Serializable {
     
     public Employee(){
         super();
     }
-    
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Reservation> reservations = new ArrayList<>();
-    
+
     public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
     }
@@ -33,7 +33,7 @@ public class Employee extends User {
     public List<Reservation> getReservations() {
         return Collections.unmodifiableList(this.reservations);
     }
-    
+
     public void removeReservation(Reservation reservation) {
         this.reservations.remove(reservation);
     }

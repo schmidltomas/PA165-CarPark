@@ -8,9 +8,6 @@ package cz.muni.fi.pa165.carpark.rest.controller;
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
 import cz.muni.fi.pa165.carpark.api.facade.EmployeeFacade;
 import cz.muni.fi.pa165.carpark.rest.utils.ControllerResponse;
-import java.util.Collection;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Collection;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 /**
  *
@@ -49,10 +51,10 @@ public class EmployeeController {
         return ControllerResponse.processResponse(employeeFacade.update(employee));
     }
     
-    @RequestMapping(value = "remove/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeEmployee(@Min(0) @PathVariable Long id){
         final EmployeeDTO employee = employeeFacade.findById(id);
-        if(employee==null){
+        if (employee == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
         }
         employeeFacade.delete(employee);
