@@ -1,3 +1,6 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="css/form.css">
+</head>
 <div class="section">
     <h3>{{headingTitle}}</h3>
     <h2>{{successAlert}}</h2>
@@ -33,4 +36,34 @@
             </tbody>
         </table>
     </div>
+    <div ng-controller="ModalController as $ctrl" class="modal-demo">
+        <script type="text/ng-template" id="/templates/new_car.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Create new car</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="form-style-5">
+                    <form>
+                        <fieldset>
+                            <legend> Car Info</legend>
+                            <input type="text" name="evidence_number" placeholder="Evidence Number *" ng-model="car.evidence_number" required>
+                            <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
+                            <input type="number" name="fuel_consumption" placeholder="Fuel Consuption *" ng-model="car.fuel_consumption" required>
+                            <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" required>
+                            <input type="text" name="home_location" placeholder="Home Location *" ng-model="car.home_location" required>
+                            <input type="text" name="current_location" placeholder="Current Location *" ng-model="car.current_location">
+                            <input type="text" name="fuel_type" placeholder="Fuel Type" ng-model="car.fuel_type" required>
+                            <!--<select id="job" name="fuel_type" ng-model="car.fuel_type" required>
+                              <option value="petrol">Petrol</option>
+                              <option value="diesel">Diesel</option>
+                              <option value="lpg">LPG</option>
+                            </select>  -->
+                        </fieldset>
+                        <input type="submit" value="Create Car" ng-click="$ctrl.ok(car)" />
+                    </form>
+                </div>
+            </div>
+        </script>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.open()">Create car</button>
+</div>
 </div>

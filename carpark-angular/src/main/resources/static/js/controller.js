@@ -18,10 +18,10 @@ app.controller('employeesController', function($scope, $http, $rootScope) {
 
 app.controller('carsController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "Car list";
-    loadAllCars($http, $scope);
+    loadAllCars($http, $rootScope);
     $scope.deleteCar = function (car) {
         $http.delete('/pa165/rest/car/remove/' + car.id).then(function () {
-            loadAllCars($http, $scope);},
+            loadAllCars($http, $rootScope);},
             function error(response) {
                 console.log("failed to remove car " + car.id);
                 console.log(response);
@@ -30,9 +30,9 @@ app.controller('carsController', function($scope, $http, $rootScope) {
     };
 });
 
-function loadAllCars($http, $scope) {
+function loadAllCars($http, $rootScope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
-        $scope.cars = data;
+        $rootScope.cars = data;
     });
 }
 
@@ -150,6 +150,23 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
     fnGetReservations();
 });
 
+function createCar($http, car, $rootScope) {
+    $http({
+        method: 'POST',
+        url: '/pa165/rest/car/create',
+        data: car
+    }).then(function success(response) {
+        console.log('car registered');
+        var createdCar = response.data;
+        //display confirmation alert
+        $rootScope.successAlert = 'A new car "'+createdCar.evidence_number+'" was registered';
+        loadAllCars($http, $rootScope);
+    }, function error(response) {
+        //display error
+        $rootScope.errorAlert = 'Cannot register car !';
+    });
+}
+
 app.controller('newReservationController',
     function ($scope, $http, $location, $rootScope) {
         //set object bound to form fields
@@ -180,3 +197,89 @@ app.controller('newReservationController',
             });
         };
     });
+
+app.service('sharedProperties', function () {
+    var _car = {
+        'evidence_number': '',
+        'brand': '',
+        'fuel_type': 'Petrol',
+        'fuel_consumption': 0,
+        'seats': 1,
+        'home_location': '',
+        'current_location': ''
+    };
+    this.car = _car;
+});
+
+app.controller('ModalController', function ($scope, $uibModal, $log, sharedProperties, $http, $rootScope) {
+    var $ctrl = this;
+    $ctrl.car = sharedProperties.car;
+    $ctrl.animationsEnabled = true;
+
+    $ctrl.open = function (size) {
+        var modalInstance = $uibModal.open({
+            animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/templates/new_car.html',
+            controller: 'ModalInstanceCtrl',
+            controllerAs: '$ctrl',
+            size: size,
+            resolve: {
+                car: function () {
+                    return $ctrl.car;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (car) {
+            createCar($http, car, $rootScope);
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $ctrl.toggleAnimation = function () {
+        $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
+    };
+});
+
+// Please note that $uibModalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
+
+app.controller('ModalInstanceCtrl', function ($uibModalInstance, car) {
+    var $ctrl = this;
+    $ctrl.car = car;
+
+    $ctrl.ok = function (car) {
+        $uibModalInstance.close(car);
+    };
+
+    $ctrl.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});
+
+// Please note that the close and dismiss bindings are from $uibModalInstance.
+
+app.component('modalComponent', {
+    templateUrl: '/templates/new_car.html',
+    bindings: {
+        resolve: '<',
+        close: '&',
+        dismiss: '&'
+    },
+    controller: function () {
+        var $ctrl = this;
+
+        $ctrl.$onInit = function () {
+        };
+
+        $ctrl.ok = function (car) {
+            $ctrl.close(car);
+        };
+
+        $ctrl.cancel = function () {
+            $ctrl.dismiss({$value: 'cancel'});
+        };
+    }
+});
