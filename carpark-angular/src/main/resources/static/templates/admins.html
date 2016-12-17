@@ -13,7 +13,6 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
             <tr ng-repeat="admin in admins">
                 <td>{{admin.id}}</td>
                 <td>{{admin.username}}</td>
@@ -22,10 +21,23 @@
                 <td>{{admin.email}}</td>
                 <td>{{admin.userRole}}</td>
                 <td>
-                    <button ng-click="deleteAdmin(admin)" type="submit" class="btn btn-primary">Delete</button>
+                    <div class="btn-group" style="margin:5px 0 10px 0;">
+                        <button ng-click="updateAdmin(admin)" type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Update
+                        </button>
+                        <button ng-click="deleteAdmin(admin)" type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Delete
+                        </button>
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+    <a href="#/admin/newcar" class="btn btn-success disabled">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        New admin
+    </a>
 </div>

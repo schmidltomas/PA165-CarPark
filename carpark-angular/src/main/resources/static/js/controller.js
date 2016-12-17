@@ -1,5 +1,5 @@
 app.controller('employeesController', function($scope, $http, $rootScope) {
-    $scope.headingTitle = "Employee List";
+    $scope.headingTitle = "Employee list";
     loadAllEmployees($http, $scope);
     $scope.deleteEmployee = function (employee) {
         $http.delete('/pa165/rest/employee/remove/' + employee.id).then(function () {

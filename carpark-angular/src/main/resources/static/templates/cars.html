@@ -16,7 +16,6 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
             <tr ng-repeat="car in cars">
                 <td>{{car.id}}</td>
                 <td>{{car.brand}}</td>
@@ -27,10 +26,23 @@
                 <td>{{car.home_location}}</td>
                 <td>{{car.current_location}}</td>
                 <td>
-                    <button ng-click="deleteCar(car)" type="submit" class="btn btn-primary">Delete</button>
+                    <div class="btn-group" style="margin:5px 0 10px 0;">
+                        <button ng-click="updateCar(car)" type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Update
+                        </button>
+                        <button ng-click="deleteCar(car)" type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Delete
+                        </button>
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
+        <a href="#/admin/newcar" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            New car
+        </a>
     </div>
 </div>

@@ -7,7 +7,7 @@
             <tr>
                 <th>ID</th>
                 <th>Employee</th>
-                <th>Car</th>
+                <th>License plate</th>
                 <th>Start date</th>
                 <th>End date</th>
                 <th>Distance</th>
@@ -15,36 +15,45 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
             <tr ng-repeat="reservation in reservations">
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.id"/>
+                    <input ng-disabled="disabled" ng-model="reservation.id" size="5"/>
                 </td>
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.employee.username"/>
+                    <input ng-disabled="disabled" ng-model="reservation.employee.username" size="20"/>
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.car.evidence_number"/>
+                    <input ng-disabled="disabled" ng-model="reservation.car.evidence_number" size="5"/>
                 </td>
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.startDate"/>
+                    <input ng-disabled="disabled" ng-model="reservation.startDate" size="10"/>
                 </td>
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.endDate"/>
+                    <input ng-disabled="disabled" ng-model="reservation.endDate" size="10"/>
                 </td>
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.distance"/>
+                    <input ng-disabled="disabled" ng-model="reservation.distance" size="5"/>
                 </td>
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.purpose"/>
+                    <input ng-disabled="disabled" ng-model="reservation.purpose" size="15"/>
                 </td>
                 <td>
-                    <button ng-click="updateReservation(reservation)" type="submit" class="btn btn-primary">{{updateButtonText}}</button>
-                </td>
-                <td>
-                    <button ng-click="removeReservation(reservation.id)" type="submit" class="btn btn-primary">Delete</button>
+                    <div class="btn-group" style="margin:5px 0 10px 0;">
+                        <button ng-click="updateReservation(reservation)" type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            {{updateButtonText}}
+                        </button>
+                        <button ng-click="removeReservation(reservation.id)" type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Delete
+                        </button>
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+    <a href="#/admin/newreservation" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        New reservation
+    </a>
 </div>

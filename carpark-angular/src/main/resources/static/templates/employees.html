@@ -13,7 +13,6 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
             <tr ng-repeat="employee in employees">
                 <td>{{employee.id}}</td>
                 <td>{{employee.username}}</td>
@@ -22,10 +21,23 @@
                 <td>{{employee.email}}</td>
                 <td>{{employee.userRole}}</td>
                 <td>
-                    <button ng-click="deleteEmployee(employee)" type="submit" class="btn btn-primary">Delete</button>
+                    <div class="btn-group" style="margin:5px 0 10px 0;">
+                        <button ng-click="updateEmployee(employee)" type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Update
+                        </button>
+                        <button ng-click="deleteEmployee(employee)" type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Delete
+                        </button>
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
+        <a href="#/admin/newemployee" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            New employee
+        </a>
     </div>
 </div>
