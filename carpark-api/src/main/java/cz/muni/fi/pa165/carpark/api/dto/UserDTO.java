@@ -38,9 +38,6 @@ public class UserDTO {
     protected String secondName;
 
     @JsonProperty
-    protected boolean enabled;
-
-    @JsonProperty
     @NotBlank
     protected String userRole;
 
@@ -50,14 +47,6 @@ public class UserDTO {
 
     public void setUserRole(String userRole) {
         this.userRole = userRole;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -115,7 +104,6 @@ public class UserDTO {
                  ", username='" + username + '\'' +
                  ", password='" + password + '\'' +
                  ", email='" + email + '\'' +
-                 ", enabled=" + enabled +
                  ", firstName='" + firstName + '\'' +
                  ", secondName='" + secondName + '\'' +
                  '}';
