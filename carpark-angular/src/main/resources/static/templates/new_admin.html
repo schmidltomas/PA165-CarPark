@@ -1,0 +1,17 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="css/form.css">
+</head>
+<div class="form-style-5">
+    <h4>{{errorAlert}}</h4>
+    <form>
+        <fieldset>
+            <legend>New admin</legend>
+            <input type="text" name="first_name" placeholder="First Name *" ng-model="admin.firstName" required>
+            <input type="text" name="second_name" placeholder="Second Name *" ng-model="admin.secondName" required>
+            <input type="email" name="email" placeholder="Email *" ng-model="admin.email" required>
+            <input type="text" name="username" placeholder="Username *" ng-model="admin.username" required>
+            <input type="password" name="password" placeholder="Password *" ng-model="admin.password" required>
+        </fieldset>
+        <input type="submit" value="Create admin" ng-click="create(admin)" />
+    </form>
+</div>

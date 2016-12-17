@@ -1,9 +1,5 @@
-//app.controller('carsController', function($scope) {
-//    $scope.headingTitle = "Car List";
-//});
-
 app.controller('employeesController', function($scope, $http, $rootScope) {
-    $scope.headingTitle = "Employee List";
+    $scope.headingTitle = "Employee list";
     loadAllEmployees($http, $scope);
     $scope.deleteEmployee = function (employee) {
         $http.delete('/pa165/rest/employee/remove/' + employee.id).then(function () {
@@ -11,7 +7,21 @@ app.controller('employeesController', function($scope, $http, $rootScope) {
             function error(response) {
                 console.log("failed to remove employee " + employee.id);
                 console.log(response);
-                $rootScope.errorAlert = 'Cannot remove reserved employee!';
+                $rootScope.errorAlert = 'Cannot remove employee with a reservation!';
+            });
+    };
+});
+
+app.controller('adminsController', function($scope, $http, $rootScope) {
+    $scope.headingTitle = "Admin list";
+    loadAllAdmins($http, $scope);
+    $scope.deleteAdmin = function (admin) {
+        $http.delete('/pa165/rest/admin/remove/' + admin.id).then(function () {
+            loadAllAdmins($http, $scope);},
+            function error(response) {
+                console.log("failed to remove admin " + admin.id);
+                console.log(response);
+                $rootScope.errorAlert = 'Cannot remove admin!';
             });
     };
 });
@@ -42,6 +52,12 @@ function loadAllEmployees($http, $scope) {
     });
 }
 
+function loadAllAdmins($http, $scope) {
+    $http.get('/pa165/rest/admin/getAll').success(function(data) {
+        $scope.admins = data;
+    });
+}
+
 app.controller('newEmployeeController',
     function ($scope, $http, $location, $rootScope) {
         //set object bound to form fields
@@ -50,7 +66,8 @@ app.controller('newEmployeeController',
             'secondName': '',
             'email': '',
             'username': '',
-            'password': ''
+            'password': '',
+            'userRole': 'ROLE_ADMIN'
         };
         
         $scope.create = function (employee) {
@@ -63,7 +80,7 @@ app.controller('newEmployeeController',
                 var createdEmployee = response.data;
                 //display confirmation alert
                 $rootScope.successAlert = 'A new employee "'+createdEmployee.username+'" was registered';
-                //change view 
+                //change view
                 $location.path("/employees");
             }, function error(response) {
                 //display error
@@ -79,7 +96,7 @@ app.controller('newCarController',
             'evidence_number': '',
             'brand': '',
             'fuel_type': 'Petrol',
-            'fuel_consumption': 0,
+            'fuel_consumption': 1,
             'seats': 1,
             'home_location': '',
             'current_location': ''            
@@ -103,6 +120,33 @@ app.controller('newCarController',
             });
         };
     });
+
+app.controller('newAdminController', function ($scope, $http, $location, $rootScope) {
+        $scope.admin = {
+            'firstName': '',
+            'secondName': '',
+            'email': '',
+            'username': '',
+            'password': '',
+            'userRole': 'ROLE_ADMIN'
+        };
+
+        $scope.create = function (admin) {
+            $http({
+                method: 'POST',
+                url: '/pa165/rest/admin/create',
+                data: admin
+            }).then(function success(response) {
+                console.log('admin added');
+                var createdAdmin = response.data;
+                $rootScope.successAlert = 'A new admin "' + createdAdmin.username + '" was registered';
+                $location.path("/admins");
+            }, function error(response) {
+                $scope.errorAlert = 'Cannot create new admin!';
+            });
+        };
+    });
+
 
 app.controller('reservationsController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "One reservation";

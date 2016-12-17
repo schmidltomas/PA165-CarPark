@@ -79,7 +79,6 @@ public class AdminFacadeTest extends AbstractTransactionalTestNGSpringContextTes
         adminDTO1 = new AdminDTO();
         adminDTO1.setId(Integer.toUnsignedLong(1));
         adminDTO1.setEmail(email1);
-        adminDTO1.setEnabled(enabled1);
         adminDTO1.setFirstName(firstName1);
         adminDTO1.setSecondName(lastName1);
         adminDTO1.setUsername(username1);
@@ -97,7 +96,6 @@ public class AdminFacadeTest extends AbstractTransactionalTestNGSpringContextTes
         adminDTO2 = new AdminDTO();
         adminDTO2.setId(Integer.toUnsignedLong(2));
         adminDTO2.setEmail(email2);
-        adminDTO2.setEnabled(enabled2);
         adminDTO2.setFirstName(firstName2);
         adminDTO2.setSecondName(lastName2);
         adminDTO2.setUsername(username2);

@@ -109,6 +109,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
 
     private void createAdmin() {
         createAdmin("admin", "admin", "Pepa", "Ultra", "admin@company.com");
+        createAdmin("root", "admin", "Martin", "Adminovic", "admin2@company.com");
     }
 
     private void createAdmin(String username, String password, String name, String surname, String email) {
