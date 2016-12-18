@@ -57,7 +57,7 @@ public class EmployeeController {
         if (employee == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
         }
-        employeeFacade.delete(employee);
+        employeeFacade.delete(employee.getId());
         return ResponseEntity.ok("");
     }
     

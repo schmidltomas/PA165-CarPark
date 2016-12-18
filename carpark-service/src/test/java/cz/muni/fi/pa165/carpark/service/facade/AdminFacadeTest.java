@@ -147,7 +147,8 @@ public class AdminFacadeTest extends AbstractTransactionalTestNGSpringContextTes
     @Test
     public void removeAdminTest() {
         when(classMapper.mapTo(any(AdminDTO.class), eq(Admin.class))).thenReturn(admin1);
-        adminFacade.delete(adminDTO1);
+        when(adminService.findById(anyLong())).thenReturn(admin1);
+        adminFacade.delete(admin1.getId());
         verify(adminService).delete(admin1);
     }
 }

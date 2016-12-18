@@ -127,7 +127,8 @@ public class EmployeeFacadeTest extends AbstractTransactionalTestNGSpringContext
     @Test
     public void removeEmployeeTest(){
         when(classMapper.mapTo(any(EmployeeDTO.class), eq(Employee.class))).thenReturn(employee);
-        employeeFacade.delete(employeeDTO);
+        when(employeeService.findById(anyLong())).thenReturn(employee);
+        employeeFacade.delete(employee.getId());
         verify(employeeService).deleteEmployee(employee);
     }
 }

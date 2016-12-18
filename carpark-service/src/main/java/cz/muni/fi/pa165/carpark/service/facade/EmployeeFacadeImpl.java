@@ -60,8 +60,13 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
-    public void delete(EmployeeDTO employeeDTO) {
-        employeeService.deleteEmployee(classMapper.mapTo(employeeDTO, Employee.class));
+    public EmployeeDTO delete(Long id) {
+        final Employee employeeToRemove = employeeService.findById(id);
+        if (employeeToRemove != null) {
+            employeeService.deleteEmployee(employeeToRemove);
+            return classMapper.mapTo(employeeToRemove, EmployeeDTO.class);
+        }
+        return null;
     }
 
     @Override

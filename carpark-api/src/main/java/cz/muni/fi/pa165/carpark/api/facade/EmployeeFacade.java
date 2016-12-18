@@ -37,7 +37,7 @@ public interface EmployeeFacade extends UserFacade {
 
     EmployeeDTO update(EmployeeDTO employeeDTO);
     
-    void delete(EmployeeDTO employeeDTO);
+    EmployeeDTO delete(Long id);
     
     EmployeeDTO findById(Long userId);
     
