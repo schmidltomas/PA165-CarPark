@@ -1,9 +1,11 @@
 package cz.muni.fi.pa165.carpark.service.facade;
 
 import cz.muni.fi.pa165.carpark.api.dto.AdminDTO;
+import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
 import cz.muni.fi.pa165.carpark.api.dto.UserDTO;
 import cz.muni.fi.pa165.carpark.api.facade.AdminFacade;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
+import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.service.service.AdminService;
 import cz.muni.fi.pa165.carpark.service.utils.mapper.ClassMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,13 @@ public class AdminFacadeImpl implements AdminFacade {
     }
 
     @Override
-    public void delete(AdminDTO adminDTO) {
-        Admin admin = classMapper.mapTo(adminDTO, Admin.class);
-        adminService.delete(admin);
+    public AdminDTO delete(Long id) {
+        final Admin adminToRemove = adminService.findById(id);
+        if (adminToRemove != null) {
+            adminService.delete(adminToRemove);
+            return classMapper.mapTo(adminToRemove, AdminDTO.class);
+        }
+        return null;
     }
 
     @Override

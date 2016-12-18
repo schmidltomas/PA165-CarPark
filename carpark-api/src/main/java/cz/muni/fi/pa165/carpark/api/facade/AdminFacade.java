@@ -13,7 +13,7 @@ public interface AdminFacade extends UserFacade {
 
     AdminDTO update(AdminDTO adminDTO);
 
-    void delete(AdminDTO adminDTO);
+    AdminDTO delete(Long id);
 
     AdminDTO findById(Long id);
 

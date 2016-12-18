@@ -44,7 +44,7 @@ public class AdminController {
     public ResponseEntity<String> deleteAdmin(@Min(0) @PathVariable Long id) {
         final AdminDTO adminToRemove = adminFacade.findById(id);
         if (adminToRemove != null) {
-            adminFacade.delete(adminToRemove);
+            adminFacade.delete(adminToRemove.getId());
             return ResponseEntity.ok("");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
