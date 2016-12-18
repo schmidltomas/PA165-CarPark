@@ -1,9 +1,9 @@
 app.controller('employeesController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "Employee list";
-    loadAllEmployees($http, $scope);
+    loadAllEmployees($http, $rootScope);
     $scope.deleteEmployee = function (employee) {
         $http.delete('/pa165/rest/employee/remove/' + employee.id).then(function () {
-            loadAllEmployees($http, $scope);},
+            loadAllEmployees($http, $rootScope);},
             function error(response) {
                 console.log("failed to remove employee " + employee.id);
                 console.log(response);
@@ -14,10 +14,10 @@ app.controller('employeesController', function($scope, $http, $rootScope) {
 
 app.controller('adminsController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "Admin list";
-    loadAllAdmins($http, $scope);
+    loadAllAdmins($http, $rootScope);
     $scope.deleteAdmin = function (admin) {
         $http.delete('/pa165/rest/admin/remove/' + admin.id).then(function () {
-            loadAllAdmins($http, $scope);},
+            loadAllAdmins($http, $rootScope);},
             function error(response) {
                 console.log("failed to remove admin " + admin.id);
                 console.log(response);
@@ -46,122 +46,32 @@ function loadAllCars($http, $rootScope) {
     });
 }
 
-function loadAllEmployees($http, $scope) {
+function loadAllEmployees($http, $rootScope) {
     $http.get('/pa165/rest/employee/getAll').success(function(data) {
-        $scope.employees = data;
+        $rootScope.employees = data;
     });
 }
 
-function loadAllAdmins($http, $scope) {
+function loadAllAdmins($http, $rootScope) {
     $http.get('/pa165/rest/admin/getAll').success(function(data) {
-        $scope.admins = data;
+        $rootScope.admins = data;
     });
 }
 
-app.controller('newEmployeeController',
-    function ($scope, $http, $location, $rootScope) {
-        //set object bound to form fields
-        $scope.employee = {
-            'firstName': '',
-            'secondName': '',
-            'email': '',
-            'username': '',
-            'password': '',
-            'userRole': 'ROLE_ADMIN'
-        };
-        
-        $scope.create = function (employee) {
-            $http({
-                method: 'POST',
-                url: '/pa165/rest/employee/create',
-                data: employee
-            }).then(function success(response) {
-                console.log('employee registered');
-                var createdEmployee = response.data;
-                //display confirmation alert
-                $rootScope.successAlert = 'A new employee "'+createdEmployee.username+'" was registered';
-                //change view
-                $location.path("/employees");
-            }, function error(response) {
-                //display error
-                $scope.errorAlert = 'Cannot register employee !';
-            });
-        };
+function loadAllReservations($http, $rootScope) {
+    $http.get('/pa165/rest/reservation/getAll').success(function(data) {
+        $rootScope.reservations = data;
     });
-
-app.controller('newCarController',
-    function ($scope, $http, $location, $rootScope) {
-        //set object bound to form fields
-        $scope.car = {
-            'evidence_number': '',
-            'brand': '',
-            'fuel_type': 'Petrol',
-            'fuel_consumption': 1,
-            'seats': 1,
-            'home_location': '',
-            'current_location': ''            
-        };
-        
-        $scope.create = function (car) {
-            $http({
-                method: 'POST',
-                url: '/pa165/rest/car/create',
-                data: car
-            }).then(function success(response) {
-                console.log('car registered');
-                var createdCar = response.data;
-                //display confirmation alert
-                $rootScope.successAlert = 'A new car "'+createdCar.evidence_number+'" was registered';
-                //change view 
-                $location.path("/cars");
-            }, function error(response) {
-                //display error
-                $scope.errorAlert = 'Cannot register car !';
-            });
-        };
-    });
-
-app.controller('newAdminController', function ($scope, $http, $location, $rootScope) {
-        $scope.admin = {
-            'firstName': '',
-            'secondName': '',
-            'email': '',
-            'username': '',
-            'password': '',
-            'userRole': 'ROLE_ADMIN'
-        };
-
-        $scope.create = function (admin) {
-            $http({
-                method: 'POST',
-                url: '/pa165/rest/admin/create',
-                data: admin
-            }).then(function success(response) {
-                console.log('admin added');
-                var createdAdmin = response.data;
-                $rootScope.successAlert = 'A new admin "' + createdAdmin.username + '" was registered';
-                $location.path("/admins");
-            }, function error(response) {
-                $scope.errorAlert = 'Cannot create new admin!';
-            });
-        };
-    });
-
+}
 
 app.controller('reservationsController', function($scope, $http, $rootScope) {
-    $scope.headingTitle = "One reservation";
+    $scope.headingTitle = "All reservations";
     $scope.disabled = true;
     $scope.updateButtonText = "Update";
-    var fnGetReservations = function () {
-        $http.get('/pa165/rest/reservation/getAll').success(function(data) {
-            $scope.headingTitle = "All reservations";
-            $scope.reservations = data;
-        });
-    };
 
     $scope.removeReservation = function (id) {
         $http.delete('/pa165/rest/reservation/remove/'+id).success(function(data) {
-            fnGetReservations();
+            loadAllReservations($http, $rootScope);
             $rootScope.successAlert = 'Reservation "'+id+'" was deleted';
         })
     };
@@ -182,23 +92,23 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
                 console.log('reservation updated');
                 var updatedReservation = response.data;
                 //refresh reservations
-                fnGetReservations();
+                loadAllReservations($http, $rootScope);
                 //display confirmation alert
                 $rootScope.successAlert = 'Reservation "'+updatedReservation.id+'" was updated';
             }, function error(response) {
                 //display error
-                $scope.errorAlert = 'Cannot update reservation !';
+                $rootScope.errorAlert = 'Cannot update reservation !';
             });
         }
     };
-    fnGetReservations();
+    loadAllReservations($http, $rootScope);
 });
 
-function createCar($http, car, $rootScope) {
+function createCar($http, responseObject, $rootScope) {
     $http({
         method: 'POST',
         url: '/pa165/rest/car/create',
-        data: car
+        data: responseObject
     }).then(function success(response) {
         console.log('car registered');
         var createdCar = response.data;
@@ -211,36 +121,54 @@ function createCar($http, car, $rootScope) {
     });
 }
 
-app.controller('newReservationController',
-    function ($scope, $http, $location, $rootScope) {
-        //set object bound to form fields
-        $scope.reservation = {
-            'employee': '',
-            'car': '',
-            'startDate': '',
-            'endDate': '',
-            'distance': '',
-            'purpose': ''
-        };
-
-        $scope.create = function (reservation) {
-            $http({
-                method: 'POST',
-                url: '/pa165/rest/reservation/create',
-                data: reservation
-            }).then(function success(response) {
-                console.log('reservation created');
-                var createdReservation = response.data;
-                //display confirmation alert
-                $rootScope.successAlert = 'A new reservation "'+createdReservation.id+'" was created';
-                //change view 
-                $location.path("/reservations");
-            }, function error(response) {
-                //display error
-                $scope.errorAlert = 'Cannot create reservation !';
-            });
-        };
+function createEmployee($http, employee, $rootScope) {
+    $http({
+        method: 'POST',
+        url: '/pa165/rest/employee/create',
+        data: employee
+    }).then(function success(response) {
+        console.log('employee registered');
+        var createdEmployee = response.data;
+        //display confirmation alert
+        $rootScope.successAlert = 'A new employee "'+createdEmployee.username+'" was registered';
+        loadAllEmployees($http, $rootScope);
+    }, function error(response) {
+        //display error
+        $rootScope.errorAlert = 'Cannot register employee !';
     });
+}
+
+function createAdmin($http, admin, $rootScope) {
+    $http({
+        method: 'POST',
+        url: '/pa165/rest/admin/create',
+        data: admin
+    }).then(function success(response) {
+        console.log('admin added');
+        var createdAdmin = response.data;
+        $rootScope.successAlert = 'A new admin "' + createdAdmin.username + '" was registered';
+        loadAllAdmins($http, $rootScope);
+    }, function error(response) {
+        $rootScope.errorAlert = 'Cannot create new admin!';
+    });
+}
+
+function createReservation($http, reservation, $rootScope) {
+    $http({
+        method: 'POST',
+        url: '/pa165/rest/reservation/create',
+        data: reservation
+    }).then(function success(response) {
+        console.log('reservation created');
+        var createdReservation = response.data;
+        loadAllReservations($http, $rootScope);
+        //display confirmation alert
+        $rootScope.successAlert = 'A new reservation "'+createdReservation.id+'" was created';
+    }, function error(response) {
+        //display error
+        $rootScope.errorAlert = 'Cannot create reservation !';
+    });
+}
 
 app.service('sharedProperties', function () {
     var _car = {
@@ -252,12 +180,61 @@ app.service('sharedProperties', function () {
         'home_location': '',
         'current_location': ''
     };
+
+    var _employee = {
+        'firstName': '',
+        'secondName': '',
+        'email': '',
+        'username': '',
+        'password': '',
+        'userRole': 'ROLE_ADMIN'
+    };
+
+    var _admin = {
+        'firstName': '',
+        'secondName': '',
+        'email': '',
+        'username': '',
+        'password': '',
+        'userRole': 'ROLE_ADMIN'
+    };
+
+    var _reservation = {
+        'employee': '',
+        'car': '',
+        'startDate': '',
+        'endDate': '',
+        'distance': '',
+        'purpose': ''
+    };
+    this.reservation = _reservation;
+    this.admin = _admin;
+    this.employee = _employee;
     this.car = _car;
 });
 
+app.run(function($rootScope, sharedProperties) {
+    $rootScope.getResponseObject = function(objectName) {
+        switch (objectName) {
+            case 'car':
+                return sharedProperties.car;
+            case 'employee':
+                return sharedProperties.employee;
+            case 'admin':
+                return sharedProperties.admin;
+            case 'reservation':
+                return sharedProperties.reservation;
+        }
+    }
+});
+
 app.controller('ModalController', function ($scope, $uibModal, $log, sharedProperties, $http, $rootScope) {
+    $scope.init = function (type, objectName) {
+       $scope.responseMethodName = type;
+       $scope.objectName = objectName;
+    };
+
     var $ctrl = this;
-    $ctrl.car = sharedProperties.car;
     $ctrl.animationsEnabled = true;
 
     $ctrl.open = function (size) {
@@ -265,40 +242,34 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             animation: $ctrl.animationsEnabled,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: '/templates/new_car.html',
+            templateUrl: 'myModalContent.html',
             controller: 'ModalInstanceCtrl',
             controllerAs: '$ctrl',
             size: size,
             resolve: {
-                car: function () {
-                    return $ctrl.car;
+                responseObject: function () {
+                    return $rootScope.getResponseObject($scope.objectName);
                 }
             }
         });
 
-        modalInstance.result.then(function (car) {
-            createCar($http, car, $rootScope);
+        modalInstance.result.then(function (responseObject) {
+            var resultFunction = window[$scope.responseMethodName];
+            if (typeof resultFunction === "function") resultFunction($http, responseObject, $rootScope);
             $log.info('Modal dismissed at: ' + new Date());
         });
-    };
-
-    $ctrl.toggleAnimation = function () {
-        $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
     };
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-app.controller('ModalInstanceCtrl', function ($uibModalInstance, car) {
+app.controller('ModalInstanceCtrl', function ($uibModalInstance, responseObject) {
     var $ctrl = this;
-    $ctrl.car = car;
+    $ctrl.responseObject = responseObject;
 
-    $ctrl.ok = function (car) {
-        $uibModalInstance.close(car);
-        if ($scope.modalForm.$valid) {
-
-        }
+    $ctrl.ok = function (responseObject) {
+        $uibModalInstance.close(responseObject);
     };
 
     $ctrl.cancel = function () {
@@ -309,7 +280,7 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, car) {
 // Please note that the close and dismiss bindings are from $uibModalInstance.
 
 app.component('modalComponent', {
-    templateUrl: '/templates/new_car.html',
+    templateUrl: 'myModalContent.html',
     bindings: {
         resolve: '<',
         close: '&',
@@ -321,8 +292,8 @@ app.component('modalComponent', {
         $ctrl.$onInit = function () {
         };
 
-        $ctrl.ok = function (car) {
-            $ctrl.close(car);
+        $ctrl.ok = function (responseObject) {
+            $ctrl.close(responseObject);
         };
 
         $ctrl.cancel = function () {

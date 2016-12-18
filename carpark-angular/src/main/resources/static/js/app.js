@@ -19,18 +19,6 @@ app.config(function($routeProvider){
             templateUrl: '/templates/reservations.html',
             controller: 'reservationsController'
         })
-        .when('/admin/newadmin', {
-            templateUrl: '/templates/new_admin.html',
-            controller: 'newAdminController'})
-        .when('/admin/newemployee', {
-            templateUrl: '/templates/new_employee.html', 
-            controller: 'newEmployeeController'})
-        .when('/admin/newcar', {
-            templateUrl: '/templates/new_car.html',
-            controller: 'newCarController'})
-        .when('/admin/newreservation', {
-            templateUrl: '/templates/new_reservation.html',
-            controller: 'newReservationController'})
         .otherwise({
             redirectTo: '/'
         });

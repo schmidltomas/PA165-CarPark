@@ -38,7 +38,6 @@ public class UserDTO {
     protected String secondName;
 
     @JsonProperty
-    @NotBlank
     protected String userRole;
 
     public String getUserRole() {

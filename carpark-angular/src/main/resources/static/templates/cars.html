@@ -43,8 +43,8 @@
             </tbody>
         </table>
     </div>
-    <div ng-controller="ModalController as $ctrl" class="modal-demo">
-        <script type="text/ng-template" id="/templates/new_car.html">
+    <div ng-controller="ModalController as $ctrl" ng-init="init('createCar', 'car')" class="modal-demo">
+        <script type="text/ng-template" id="myModalContent.html">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-title">Create new car</h3>
             </div>
@@ -59,15 +59,14 @@
                             <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
                             <input type="text" name="home_location" placeholder="Home Location *" ng-model="car.home_location" required>
                             <input type="text" name="current_location" placeholder="Current Location *" ng-model="car.current_location" required>
-                            <input type="text" name="fuel_type" placeholder="Fuel Type" ng-model="car.fuel_type" required>
-                            <!--<select id="job" name="fuel_type" ng-model="car.fuel_type" required>
+                            <select id="job" name="fuel_type" ng-model="car.fuel_type" required>
                               <option value="petrol">Petrol</option>
                               <option value="diesel">Diesel</option>
                               <option value="lpg">LPG</option>
-                            </select>  -->
+                            </select>
                         </fieldset>
                         <!--<input type="submit" value="Create Car" ng-click="$ctrl.ok(car)" />-->
-                        <button class="btn btn-primary" ng-click="$ctrl.ok(car)" ng-disabled="modalForm.$invalid">Create car</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.ok(car)" ng-disabled="modalForm.$invalid">New car</button>
                         <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
                     </form>
                 </div>
