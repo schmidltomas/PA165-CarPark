@@ -40,6 +40,12 @@ app.controller('carsController', function($scope, $http, $rootScope) {
     };
 });
 
+function loadCar($http, $rootScope, $scope){
+    $http.get('/pa165/rest/car/getById' + $rootScope.car.id).success(function (data){
+        var car = data;
+    });
+};
+
 function loadAllCars($http, $rootScope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
         $rootScope.cars = data;
@@ -103,6 +109,23 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
     };
     loadAllReservations($http, $rootScope);
 });
+
+function updateCar($http, responseObject, $rootScope) {
+    $http({
+        method: 'POST',
+        url: '/pa165/rest/car/update',
+        data: responseObject
+    }).then(function success(response) {
+                console.log('car updated');
+                var updatedcar = response.data;
+
+                loadAllCars($http, $rootScope);
+                
+                $rootScope.successAlert = 'car "'+updatedcar.id+'" was updated';
+            }, function error(response) {
+                $rootScope.errorAlert = 'Cannot update car !';
+            });
+}
 
 function createCar($http, responseObject, $rootScope) {
     $http({
@@ -232,6 +255,12 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
     $scope.init = function (type, objectName) {
        $scope.responseMethodName = type;
        $scope.objectName = objectName;
+    };
+    
+    $scope.init = function (type, objectName, car) {
+       $scope.responseMethodName = type;
+       $scope.objectName = objectName;
+       $rootScope.car = car;
     };
 
     var $ctrl = this;

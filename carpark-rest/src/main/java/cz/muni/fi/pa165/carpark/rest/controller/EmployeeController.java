@@ -53,11 +53,10 @@ public class EmployeeController {
     
     @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeEmployee(@Min(0) @PathVariable Long id){
-        final EmployeeDTO employee = employeeFacade.findById(id);
-        if (employee == null) {
+        if (id == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
         }
-        employeeFacade.delete(employee.getId());
+        employeeFacade.delete(id);
         return ResponseEntity.ok("");
     }
     

@@ -55,12 +55,13 @@ public class CarController {
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public ResponseEntity updateCar(@Valid @RequestBody CarDTO request) throws Exception {
+        
         if (request.getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Field ID is missing.");
         }
         final CarDTO carToUpdate = carFacade.findById(request.getId());
         if (carToUpdate != null) {
-            return ControllerResponse.processResponse(carFacade.updateCar(carToUpdate));
+            return ControllerResponse.processResponse(carFacade.updateCar(request));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
     }
