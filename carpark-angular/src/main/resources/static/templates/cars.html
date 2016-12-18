@@ -33,7 +33,7 @@
                         <div ng-controller="ModalController as $ctrl" ng-init="init('updateCar', 'car')">
                         <script type="text/ng-template" id="myModalContent.html">
                             <div class="modal-header">
-                                <h3 class="modal-title" id="modal-title">Car Update</h3>
+                                <h3 class="modal-title" id="modal-title">{{tittle}}</h3>
                             </div>
                             <div class="modal-body" id="modal-body">
                                 <div class="form-style-5">
@@ -75,11 +75,11 @@
         </table>
     </div>
     <div ng-controller="ModalController as $ctrl" ng-init="init('createCar', 'car')" class="modal-demo">
-        <script type="text/ng-template" id="myModalContent2.html">
+        <script type="text/ng-template" id="myModalContent-create.html">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Create new car</h3>
+                <h3 class="modal-title-create" id="modal-title-create">Create new car</h3>
             </div>
-            <div class="modal-body" id="modal-body">
+            <div class="modal-body-create" id="modal-body-create">
                 <div class="form-style-5">
                     <form name="modalForm">
                         <fieldset>
@@ -103,11 +103,9 @@
                 </div>
             </div>
         </script>
-        <button type="button" class="btn btn-success" ng-click="$ctrl.open()">
+        <button type="button" class="btn btn-success" ng-click="$ctrl.openCreate()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             Create car
         </button>
     </div>
-    
-    
 </div>

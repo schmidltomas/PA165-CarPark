@@ -24,7 +24,6 @@ public class CarRepository implements CarDAO {
 
     @Override
     public void update(Car car) {
-        System.out.println(car);
         entityManager.merge(car);
     }
 

@@ -288,6 +288,29 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+    
+    $ctrl.openCreate = function (size) {
+        var modalInstance = $uibModal.open({
+            animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title-create',
+            ariaDescribedBy: 'modal-body-create',
+            templateUrl: 'myModalContent-create.html',
+            controller: 'ModalInstanceCtrl',
+            controllerAs: '$ctrl',
+            size: size,
+            resolve: {
+                responseObject: function () {
+                    return $rootScope.getResponseObject($scope.objectName);
+                }
+            }
+        });
+
+        modalInstance.result.then(function (responseObject) {
+            var resultFunction = window[$scope.responseMethodName];
+            if (typeof resultFunction === "function") resultFunction($http, responseObject, $rootScope);
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
 });
 
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
