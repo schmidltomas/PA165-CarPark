@@ -1,7 +1,14 @@
 package cz.muni.fi.pa165.carpark.service.facade;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyCollectionOf;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import cz.muni.fi.pa165.carpark.api.dto.CarDTO;
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import cz.muni.fi.pa165.carpark.service.service.CarService;
@@ -20,10 +27,6 @@ import org.testng.Assert;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 /**
  * Created by karelfajkus on 20/11/2016.
  */
@@ -35,7 +38,7 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
     private CarService carService;
 
     @Mock
-    private CarDao carDao;
+    private CarDAO carDAO;
 
     @Mock
     private ClassMapper classMapper;

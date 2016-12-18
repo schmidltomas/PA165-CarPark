@@ -24,10 +24,10 @@ import javax.persistence.PersistenceContext;
 @ContextConfiguration(classes=PersistenceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class AdminDaoTest extends AbstractTestNGSpringContextTests {
+public class AdminDAOTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    private AdminDao adminDao;
+    private AdminDAO adminDAO;
 
     private Admin admin1;
     private Admin admin2;
@@ -69,27 +69,27 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
         admin2.setPassword(password2);
         admin2.setUserRole(UserRole.ROLE_ADMIN);
 
-        adminDao.create(admin1);
-        adminDao.create(admin2);
+        adminDAO.create(admin1);
+        adminDAO.create(admin2);
     }
 
     @Test
     public void testGetAdminById() {
-        Admin persistedAdmin = adminDao.findById(admin1.getId());
+        Admin persistedAdmin = adminDAO.findById(admin1.getId());
         Assert.assertNotNull(persistedAdmin);
         adminEquals(persistedAdmin, admin1);
     }
 
     @Test
     public void testGetAdminByName() {
-        List<Admin> persistedAdmin = adminDao.findByName(firstName1, lastName1);
+        List<Admin> persistedAdmin = adminDAO.findByName(firstName1, lastName1);
         Assert.assertNotNull(persistedAdmin);
         adminEquals(persistedAdmin.get(0), admin1);
     }
 
     @Test
     public void testFindAllAdmins(){
-        List<Admin> admins  = adminDao.findAll();
+        List<Admin> admins  = adminDAO.findAll();
         Assert.assertEquals(admins.size(), 2);
         Assert.assertTrue(admins.contains(admin1));
         Assert.assertTrue(admins.contains(admin2));
@@ -97,20 +97,20 @@ public class AdminDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testUpdateAdmin(){
-        Admin persistedAdmin = adminDao.findById(admin1.getId());
+        Admin persistedAdmin = adminDAO.findById(admin1.getId());
 
         persistedAdmin.setEmail("martin.new@company.com");
         persistedAdmin.setEnabled(false);
-        adminDao.update(persistedAdmin);
-        Admin updatedAdmin = adminDao.findById(persistedAdmin.getId());
+        adminDAO.update(persistedAdmin);
+        Admin updatedAdmin = adminDAO.findById(persistedAdmin.getId());
 
         adminEquals(persistedAdmin, updatedAdmin);
     }
 
     @Test
     public void testDeleteAdmin() {
-        adminDao.delete(admin2);
-        Assert.assertNull(adminDao.findById(admin2.getId()));
+        adminDAO.delete(admin2);
+        Assert.assertNull(adminDAO.findById(admin2.getId()));
     }
 
     public void adminEquals(Admin expected, Admin actual) {

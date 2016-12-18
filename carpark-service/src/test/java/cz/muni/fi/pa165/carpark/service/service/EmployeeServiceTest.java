@@ -7,9 +7,9 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
-import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
-import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDAO;
+import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDAO;
+import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
@@ -46,11 +46,11 @@ import java.util.List;
 public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
 
     @Mock
-    private EmployeeDao employeeDao;
+    private EmployeeDAO employeeDAO;
     
-    private CarDao carDao;
+    private CarDAO carDAO;
     
-    private ReservationDao reservationDao;
+    private ReservationDAO reservationDAO;
     
     @InjectMocks
     private EmployeeServiceImpl employeeService;
@@ -75,8 +75,8 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
     
     @Before
     public void createEmployee() {
-        reservationDao = Mockito.mock(ReservationRepository.class);
-        carDao = Mockito.mock(CarRepository.class);
+        reservationDAO = Mockito.mock(ReservationRepository.class);
+        carDAO = Mockito.mock(CarRepository.class);
         
         employee = new Employee();
         employee.setEmail("JFK@email.com");
@@ -133,39 +133,39 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
     @Test
     public void createNewEmployee(){
         employeeService.createEmployee(employee);
-        verify(employeeDao).create(any(Employee.class));
+        verify(employeeDAO).create(any(Employee.class));
     }
     
     @Test
     public void makeReservationTest(){
-        doNothing().when(employeeDao).update(any(Employee.class));
-        when(reservationDao.create(any(Reservation.class))).thenReturn(1L);
-        when(carDao.findByHomeLocation("Praha")).thenReturn(carList);
+        doNothing().when(employeeDAO).update(any(Employee.class));
+        when(reservationDAO.create(any(Reservation.class))).thenReturn(1L);
+        when(carDAO.findByHomeLocation("Praha")).thenReturn(carList);
         long l = employeeService.makeReservation(employee, 3, startDate, "Praha", 25, "really good purpose", endDate, car);
         Assert.assertNotNull(l);
     }
     
     @Test(expected = CarParkServiceException.class)
     public void makeReservationTooManySeatsTest(){
-        doNothing().when(employeeDao).update(any(Employee.class));
-        when(reservationDao.create(any(Reservation.class))).thenReturn(1L);
-        when(carDao.findByHomeLocation("Praha")).thenReturn(carList);
+        doNothing().when(employeeDAO).update(any(Employee.class));
+        when(reservationDAO.create(any(Reservation.class))).thenReturn(1L);
+        when(carDAO.findByHomeLocation("Praha")).thenReturn(carList);
         long l = employeeService.makeReservation(employee, 7, startDate, "Praha", 25, "really good purpose", endDate, null);
     }
     
     @Test(expected = CarParkServiceException.class)
     public void makeReservationNoCarsAtLocationTest(){
-        doNothing().when(employeeDao).update(any(Employee.class));
-        when(reservationDao.create(any(Reservation.class))).thenReturn(1L);
-        when(carDao.findByHomeLocation("Praha")).thenReturn(carList);
+        doNothing().when(employeeDAO).update(any(Employee.class));
+        when(reservationDAO.create(any(Reservation.class))).thenReturn(1L);
+        when(carDAO.findByHomeLocation("Praha")).thenReturn(carList);
         long l = employeeService.makeReservation(employee, 7, startDate, "Brno", 25, "really good purpose", endDate, null);
     }
 
     @Test
     public void getMostUsedCarsTest() {
-        when(reservationDao.getAll()).thenReturn(Arrays.asList(reservation, secondReservation, thirdReservation));
-        when(carDao.findBySpz(car.getEvidenceNumber())).thenReturn(car);
-        when(carDao.findBySpz(secondCar.getEvidenceNumber())).thenReturn(secondCar);
+        when(reservationDAO.getAll()).thenReturn(Arrays.asList(reservation, secondReservation, thirdReservation));
+        when(carDAO.findBySpz(car.getEvidenceNumber())).thenReturn(car);
+        when(carDAO.findBySpz(secondCar.getEvidenceNumber())).thenReturn(secondCar);
 
         final List<Car> mostUsedCars = employeeService.getMostUsedCars(1);
         Assert.assertNotNull(mostUsedCars);
@@ -174,8 +174,8 @@ public class EmployeeServiceTest extends AbstractTestNGSpringContextTests{
 
     @Test(expected = CarParkServiceException.class)
     public void getMostUsedCarsNoFound() {
-        when(reservationDao.getAll()).thenReturn(Collections.emptyList());
+        when(reservationDAO.getAll()).thenReturn(Collections.emptyList());
         employeeService.getMostUsedCars(1);
-        Mockito.verify(carDao, never()).findBySpz(anyString());
+        Mockito.verify(carDAO, never()).findBySpz(anyString());
     }
 }

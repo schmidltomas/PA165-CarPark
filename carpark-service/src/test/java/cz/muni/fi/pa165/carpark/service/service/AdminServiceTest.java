@@ -6,7 +6,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.AdminDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.AdminDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import org.junit.Assert;
@@ -31,7 +31,7 @@ import java.util.List;
 public class AdminServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    AdminDao adminDao;
+    AdminDAO adminDAO;
 
     @InjectMocks
     AdminServiceImpl adminService;
@@ -79,19 +79,19 @@ public class AdminServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void createTest() {
         adminService.create(admin1);
-        verify(adminDao).create(any(Admin.class));
+        verify(adminDAO).create(any(Admin.class));
     }
 
     @Test
     public void updateTest() {
         adminService.update(admin1);
-        verify(adminDao).update(any(Admin.class));
+        verify(adminDAO).update(any(Admin.class));
     }
 
     @Test
     public void deleteTest() {
         adminService.delete(admin1);
-        verify(adminDao).delete(any(Admin.class));
+        verify(adminDAO).delete(any(Admin.class));
     }
 
     @Test

@@ -7,11 +7,11 @@ package cz.muni.fi.pa165.carpark.api.facade;
 
 import cz.muni.fi.pa165.carpark.api.dto.CarDTO;
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
-import cz.muni.fi.pa165.carpark.persistence.entity.Car;
-import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
+import cz.muni.fi.pa165.carpark.api.dto.LoginRequestDTO;
+import cz.muni.fi.pa165.carpark.api.dto.LoginResponseDTO;
+
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 /**
  *
@@ -33,7 +33,8 @@ public interface EmployeeFacade extends UserFacade {
      * @param distance
      * @return id of reservation
      */
-    long makeReservation(EmployeeDTO employeeDTO, int seats, java.sql.Date departureTime, String departureLocation, long distance, String purpose, Date freeFrom, CarDTO preferedCarDTO);
+    long makeReservation(EmployeeDTO employeeDTO, int seats, java.sql.Date departureTime, String departureLocation,
+                         long distance, String purpose, Date freeFrom, CarDTO preferedCarDTO);
 
     EmployeeDTO update(EmployeeDTO employeeDTO);
     
@@ -44,4 +45,6 @@ public interface EmployeeFacade extends UserFacade {
     Collection<EmployeeDTO> findByName(String firstName, String secondName);
     
     Collection<EmployeeDTO> findAllEmployees();
+
+    LoginResponseDTO login(LoginRequestDTO loginRequestDTO);
 }

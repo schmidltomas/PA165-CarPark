@@ -1,9 +1,16 @@
 package cz.muni.fi.pa165.carpark.service.facade;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyCollectionOf;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import cz.muni.fi.pa165.carpark.api.dto.CarDTO;
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
 import cz.muni.fi.pa165.carpark.api.dto.ReservationDTO;
-import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
@@ -16,7 +23,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
@@ -25,10 +31,6 @@ import org.testng.Assert;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by robot on 25.11.16.
@@ -41,7 +43,7 @@ public class ReservationFacadeTest extends AbstractTransactionalTestNGSpringCont
     private ReservationService reservationService;
 
     @Mock
-    private ReservationDao reservationDao;
+    private ReservationDAO reservationDAO;
 
     @Mock
     private ClassMapper classMapper;

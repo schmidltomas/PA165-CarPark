@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import cz.muni.fi.pa165.carpark.api.dto.AdminDTO;
-import cz.muni.fi.pa165.carpark.persistence.dao.AdminDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.AdminDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import cz.muni.fi.pa165.carpark.service.service.AdminService;
@@ -38,7 +38,7 @@ public class AdminFacadeTest extends AbstractTransactionalTestNGSpringContextTes
     private AdminService adminService;
 
     @Mock
-    private AdminDao adminDao;
+    private AdminDAO adminDAO;
 
     @Mock
     private ClassMapper classMapper;

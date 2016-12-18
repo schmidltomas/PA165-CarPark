@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.carpark.service.service;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,40 +14,40 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
 
     @Autowired
-    private CarDao carDao;
+    private CarDAO carDAO;
 
     @Override
     public void createNewCar(Car car) {
-        carDao.create(car);
+        carDAO.create(car);
     }
 
     @Override
     public void deleteCar(Car car) {
-        carDao.delete(car);
+        carDAO.delete(car);
     }
 
     @Override
     public void updateCar(Car car) {
-        carDao.update(car);
+        carDAO.update(car);
     }
 
     @Override
     public Car findById(Long id) {
-        return carDao.findById(id);
+        return carDAO.findById(id);
     }
 
     @Override
     public Car findBySpz(String spz) {
-        return carDao.findBySpz(spz);
+        return carDAO.findBySpz(spz);
     }
 
     @Override
     public List<Car> findAll() {
-        return carDao.findAll();
+        return carDAO.findAll();
     }
 
     @Override
     public List<Car> findByHomeLocation(String location) {
-        return carDao.findByHomeLocation(location);
+        return carDAO.findByHomeLocation(location);
     }
 }

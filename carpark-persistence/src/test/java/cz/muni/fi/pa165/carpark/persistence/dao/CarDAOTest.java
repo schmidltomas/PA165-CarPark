@@ -24,10 +24,10 @@ import javax.persistence.PersistenceContext;
 @ContextConfiguration(classes=PersistenceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class CarDaoTest extends AbstractTestNGSpringContextTests {
+public class CarDAOTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    private CarDao carDao;
+    private CarDAO carDAO;
 
     private Car car;
     private Car secondCar;
@@ -57,34 +57,34 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests {
         secondCar.setSeats(5);
         secondCar.setHomeLocation("Brno");
 
-        carDao.create(secondCar);
-        carDao.create(car);
+        carDAO.create(secondCar);
+        carDAO.create(car);
     }
     
     @Test
     public void homeLocationTest(){
-        Assert.assertEquals(2, carDao.findByHomeLocation("Brno").size());
+        Assert.assertEquals(2, carDAO.findByHomeLocation("Brno").size());
     }
 
     @Test
     public void testGetCar() {
-        Assert.assertNotNull(carDao.findById(car.getId()));
+        Assert.assertNotNull(carDAO.findById(car.getId()));
     }
 
     @Test
     public void testRemoveCar() {
-        carDao.delete(car);
-        Assert.assertNull(carDao.findById(car.getId()));
+        carDAO.delete(car);
+        Assert.assertNull(carDAO.findById(car.getId()));
     }
 
     @Test
     public void testFindAll() {
-        Assert.assertEquals(2, carDao.findAll().size());
+        Assert.assertEquals(2, carDAO.findAll().size());
     }
 
     @Test
     public void testUpdateCar() {
-        Car updatedCar = carDao.findBySpz(secondEvidenceNumber);
+        Car updatedCar = carDAO.findBySpz(secondEvidenceNumber);
         updatedCar.setBrand("fiat");
         updatedCar.setCurrentLocation("Ostrava");
         updatedCar.setFuelConsumption(4.5);
@@ -92,8 +92,8 @@ public class CarDaoTest extends AbstractTestNGSpringContextTests {
         updatedCar.setSeats(3);
         updatedCar.setHomeLocation("Brno");
 
-        carDao.update(updatedCar);
-        Car result = carDao.findById(secondCar.getId());
+        carDAO.update(updatedCar);
+        Car result = carDAO.findById(secondCar.getId());
         Assert.assertEquals("Ostrava", result.getCurrentLocation());
     }
 }

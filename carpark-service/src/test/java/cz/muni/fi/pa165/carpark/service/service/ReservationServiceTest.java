@@ -1,8 +1,12 @@
 package cz.muni.fi.pa165.carpark.service.service;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
-import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
-import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDAO;
+import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDAO;
+import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
@@ -18,16 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeMethod;
 
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by robot on 25.11.16.
@@ -35,14 +33,15 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class ReservationServiceTest extends AbstractTestNGSpringContextTests {
-    @Mock
-    private ReservationDao reservationDao;
 
     @Mock
-    private EmployeeDao employeeDao;
+    private ReservationDAO reservationDAO;
 
     @Mock
-    private CarDao carDao;
+    private EmployeeDAO employeeDAO;
+
+    @Mock
+    private CarDAO carDAO;
 
     @Autowired
     @InjectMocks
@@ -92,7 +91,7 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests {
         employee.setSecondName("Novak");
         employee.setUsername("Jan.Novak");
         employee.setPassword("0000");
-        employeeDao.create(employee);
+        employeeDAO.create(employee);
 
         reservation.setId(Integer.toUnsignedLong(1));
         reservation.setCar(car);
@@ -114,27 +113,27 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void createReservationTest() {
         reservationService.create(reservation);
-        verify(reservationDao).create(any(Reservation.class));
+        verify(reservationDAO).create(any(Reservation.class));
     }
 
     @Test
     public void deleteReservationTest() {
         reservationService.delete(reservation);
-        verify(reservationDao).delete(reservation);
+        verify(reservationDAO).delete(reservation);
     }
 
     @Test
     public void updateResTest() {
         reservationService.update(reservation);
-        verify(reservationDao).update(any(Reservation.class));
+        verify(reservationDAO).update(any(Reservation.class));
     }
 
     @Test
     public void findByIdTest() {
         Long id = reservation.getId();
-        when(reservationDao.findById(any(Long.class))).thenReturn(reservation);
+        when(reservationDAO.findById(any(Long.class))).thenReturn(reservation);
         reservationService.findById(id);
-        verify(reservationDao).findById(id);
+        verify(reservationDAO).findById(id);
     }
 
     @Test
@@ -143,6 +142,6 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests {
         final List<Reservation> res = reservationService.getAll();
         Assert.assertNotNull(res);
         Assert.assertEquals(2, res.size());
-        verify(reservationDao).getAll();
+        verify(reservationDAO).getAll();
     }
 }

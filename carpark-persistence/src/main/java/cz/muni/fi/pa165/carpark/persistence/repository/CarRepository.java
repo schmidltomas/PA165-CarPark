@@ -1,9 +1,8 @@
 package cz.muni.fi.pa165.carpark.persistence.repository;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +12,7 @@ import java.util.List;
  * Created by karelfajkus on 26/10/2016.
  */
 @Repository
-public class CarRepository implements CarDao {
+public class CarRepository implements CarDAO {
 
     @PersistenceContext
     private EntityManager entityManager;

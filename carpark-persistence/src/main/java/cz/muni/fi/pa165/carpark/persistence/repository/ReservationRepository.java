@@ -1,16 +1,16 @@
 package cz.muni.fi.pa165.carpark.persistence.repository;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
-import java.util.Date;
-import java.util.Calendar;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * Reservation DAO implementation
@@ -20,7 +20,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class ReservationRepository implements ReservationDao {
+public class ReservationRepository implements ReservationDAO {
 
     @PersistenceContext
     private EntityManager entityManager;

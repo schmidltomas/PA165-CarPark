@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.repository;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.AdminDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.AdminDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional
-public class AdminRepository implements AdminDao {
+public class AdminRepository implements AdminDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -35,6 +35,16 @@ public class AdminRepository implements AdminDao {
     @Override
     public Admin findById(Long id) {
         return entityManager.find(Admin.class, id);
+    }
+
+    @Override
+    public Admin findByEmail(String email) {
+        try {
+            return entityManager.createQuery("SELECT a FROM Admin a WHERE a.email = :email", Admin.class)
+                    .setParameter("email", email).getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     @Override

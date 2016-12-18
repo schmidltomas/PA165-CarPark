@@ -1,7 +1,14 @@
 package cz.muni.fi.pa165.carpark.service.facade;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyCollectionOf;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
-import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import cz.muni.fi.pa165.carpark.service.service.EmployeeService;
@@ -18,12 +25,7 @@ import org.springframework.test.context.testng.AbstractTransactionalTestNGSpring
 import org.testng.Assert;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 /**
  *
  * @author Jakub Kriz
@@ -37,7 +39,7 @@ public class EmployeeFacadeTest extends AbstractTransactionalTestNGSpringContext
     private EmployeeService employeeService;
 
     @Mock
-    private EmployeeDao employeeDao;
+    private EmployeeDAO employeeDAO;
 
     @Mock
     private ClassMapper classMapper;

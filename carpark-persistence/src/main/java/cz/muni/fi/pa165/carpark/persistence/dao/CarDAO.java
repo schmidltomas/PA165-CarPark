@@ -1,11 +1,10 @@
 package cz.muni.fi.pa165.carpark.persistence.dao;
 
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface CarDao {
+public interface CarDAO {
 
     /**
      * Saves entity into db

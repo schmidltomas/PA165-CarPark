@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.carpark.api.facade;
 
 import cz.muni.fi.pa165.carpark.api.dto.AdminDTO;
+import cz.muni.fi.pa165.carpark.api.dto.LoginRequestDTO;
+import cz.muni.fi.pa165.carpark.api.dto.LoginResponseDTO;
 
 import java.util.List;
 
@@ -20,4 +22,6 @@ public interface AdminFacade extends UserFacade {
     List<AdminDTO> findByName(String firstName, String secondName);
 
     List<AdminDTO> findAll();
+
+    LoginResponseDTO login(LoginRequestDTO loginRequestDTO);
 }

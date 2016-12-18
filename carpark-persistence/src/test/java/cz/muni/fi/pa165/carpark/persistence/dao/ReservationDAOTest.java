@@ -16,13 +16,11 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Date;
-import java.util.Calendar;
 
 /**
  *
@@ -33,19 +31,19 @@ import java.util.Calendar;
 @ContextConfiguration(classes=PersistenceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
+public class ReservationDAOTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceContext
     private EntityManager em;
 
     @Autowired
-    private EmployeeDao employeeDao;
+    private EmployeeDAO employeeDAO;
 
     @Autowired
-    private ReservationDao reservationDao;
+    private ReservationDAO reservationDAO;
 
     @Autowired
-    private CarDao carDao;
+    private CarDAO carDAO;
 
     private Reservation reservation;
     private Reservation reservation2;
@@ -87,15 +85,15 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         car2.setSeats(5);
         car2.setHomeLocation("Brno");
 
-        carDao.create(car);
-        carDao.create(car2);
+        carDAO.create(car);
+        carDAO.create(car2);
 
         employee.setEmail("jn@mail.com");
         employee.setFirstName("Jan");
         employee.setSecondName("Novak");
         employee.setUsername("Jan.Novak");
         employee.setPassword("0000");
-        employeeDao.create(employee);
+        employeeDAO.create(employee);
 
         reservation.setCar(car);
         reservation.setDistance(250);
@@ -111,8 +109,8 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         reservation2.setStartDate(startDate2);
         reservation2.setEndDate(endDate2);
 
-        reservationDao.create(reservation);
-        reservationDao.create(reservation2);
+        reservationDAO.create(reservation);
+        reservationDAO.create(reservation2);
     }
 
     @Test
@@ -132,32 +130,32 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetReservation() {
-        Assert.assertNotNull(reservationDao.findById(reservation.getId()));
+        Assert.assertNotNull(reservationDAO.findById(reservation.getId()));
     }
 
     @Test
     public void testRemoveReservation() {
-        reservationDao.delete(reservation);
-        Assert.assertNull(reservationDao.findById(reservation.getId()));
+        reservationDAO.delete(reservation);
+        Assert.assertNull(reservationDAO.findById(reservation.getId()));
     }
 
     @Test
     public void testUpdateReservation() {
         reservation.setPurpose("holiday");
-        reservationDao.update(reservation);
+        reservationDAO.update(reservation);
         Reservation foundReservation = em.find(Reservation.class, reservation.getId());
         Assert.assertEquals(foundReservation.getPurpose(), "holiday");
     }
 
     @Test
     public void testFindAllReservations() {
-        Assert.assertEquals(2, reservationDao.getAll().size());
+        Assert.assertEquals(2, reservationDAO.getAll().size());
     }
 
     @Test
     public void getReservationsForEmployee() {
         Assert.assertNotNull(employee.getId());
-        Assert.assertTrue(reservationDao.getReservations(employee).size() == 2);
+        Assert.assertTrue(reservationDAO.getReservations(employee).size() == 2);
     }
     
     @Test
@@ -167,6 +165,6 @@ public class ReservationDaoTest extends AbstractTestNGSpringContextTests {
         Date startDate = cal.getTime();
         cal.set(2017, 1, 14);
         Date endDate = cal.getTime();
-        Assert.assertEquals(1, reservationDao.getReservations(startDate, endDate).size());
+        Assert.assertEquals(1, reservationDAO.getReservations(startDate, endDate).size());
     }
 }

@@ -1,14 +1,15 @@
 
 package cz.muni.fi.pa165.carpark.service.service;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
-import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
-import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDAO;
+import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDAO;
+import cz.muni.fi.pa165.carpark.persistence.dao.ReservationDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import cz.muni.fi.pa165.carpark.service.service.exception.CarParkServiceException;
+import cz.muni.fi.pa165.carpark.service.utils.AuthnResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,56 +30,57 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
-    private EmployeeDao employeeDao;
+    private EmployeeDAO employeeDAO;
     
     @Autowired
-    private CarDao carDao;
+    private CarDAO carDAO;
     
     @Autowired
-    private ReservationDao reservationDao;
+    private ReservationDAO reservationDAO;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     
     @Override
     public void createEmployee(Employee employee) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         employee.setPassword(bCryptPasswordEncoder.encode(employee.getPassword()));
-        employee.setUserRole(UserRole.ROLE_USER);
-        employeeDao.create(employee);
+        employee.setUserRole(UserRole.ROLE_EMPLOYEE);
+        employeeDAO.create(employee);
     }
 
     @Override
     public void updateEmployee(Employee employee) {
-        employeeDao.update(employee);
+        employeeDAO.update(employee);
     }
 
     @Override
     public void deleteEmployee(Employee employee) {
-        employeeDao.delete(employee);
+        employeeDAO.delete(employee);
     }
 
     @Override
     public Employee findById(Long id) {
-        return employeeDao.findById(id);
+        return employeeDAO.findById(id);
     }
 
     @Override
     public Collection<Employee> findByName(String firstName, String secondName) {
-        return employeeDao.findByName(firstName, secondName);
+        return employeeDAO.findByName(firstName, secondName);
     }
 
     @Override
     public Collection<Employee> findAllEmployees() {
-        return employeeDao.findAll();
+        return employeeDAO.findAll();
     }
 
     @Override
     public long makeReservation(Employee employee, int seats, Date departureTime, String departureLocation,
                                 long distance, String purpose, Date freeFrom, Car preferedCar) {
-        final List<Car> cars = carDao.findByHomeLocation(departureLocation);
+        final List<Car> cars = carDAO.findByHomeLocation(departureLocation);
         if (cars == null || cars.isEmpty()) {
             throw new CarParkServiceException("there are no available cars at the time and location you chose");
         }
 
-        final List<Reservation> reservationsAtTheSameTime = reservationDao.getReservations(departureTime, freeFrom);
+        final List<Reservation> reservationsAtTheSameTime = reservationDAO.getReservations(departureTime, freeFrom);
         reservationsAtTheSameTime.stream()
                 .filter(reservation -> cars.contains(reservation.getCar()))
                 .forEach(reservation -> cars.remove(reservation.getCar()));
@@ -105,9 +107,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         reservation.setPurpose(purpose);
         reservation.setDistance(distance);
 
-        final long reservationId = reservationDao.create(reservation);
+        final long reservationId = reservationDAO.create(reservation);
         employee.addReservation(reservation);
-        employeeDao.update(employee);
+        employeeDAO.update(employee);
 
         return reservationId;
     }
@@ -115,7 +117,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Car> getMostUsedCars(int number) {
         final Map<String, Integer> carUsageStatistic = new HashMap<>();
-        final List<Car> cars = reservationDao.getAll().stream()
+        final List<Car> cars = reservationDAO.getAll().stream()
                 .map(Reservation::getCar)
                 .collect(Collectors.toList());
 
@@ -135,7 +137,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         return carUsageStatistic.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
                 .limit(number)
-                .map(entry -> carDao.findBySpz(entry.getKey()))
+                .map(entry -> carDAO.findBySpz(entry.getKey()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public AuthnResponse authenticate(String email, String password) {
+        Employee employee = employeeDAO.findByEmail(email);
+
+        if (employee == null) {
+            return AuthnResponse.NOT_FOUND;
+        } else {
+            String encodedPassword = employee.getPassword();
+            if (!bCryptPasswordEncoder.matches(password, encodedPassword)) {
+                return AuthnResponse.INCORRECT_PASSWORD;
+            }
+        }
+
+        return AuthnResponse.OK;
     }
 }

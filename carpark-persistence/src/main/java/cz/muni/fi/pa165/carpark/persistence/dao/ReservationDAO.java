@@ -2,9 +2,8 @@ package cz.muni.fi.pa165.carpark.persistence.dao;
 
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
-import java.util.Date;
-import java.util.Calendar;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
  *
  * @author Robert Taptik
  */
-public interface ReservationDao {
+public interface ReservationDAO {
 
     /** Creates a reservation entity in the database.
      *

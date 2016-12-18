@@ -5,7 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.persistence.repository;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDao;
+import cz.muni.fi.pa165.carpark.persistence.dao.EmployeeDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ import javax.persistence.PersistenceContext;
 
 @Repository
 @Transactional
-public class EmployeeRepository implements EmployeeDao{
+public class EmployeeRepository implements EmployeeDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -45,6 +45,16 @@ public class EmployeeRepository implements EmployeeDao{
     @Override
     public Employee findById(Long id) {
         return entityManager.find(Employee.class, id);
+    }
+
+    @Override
+    public Employee findByEmail(String email) {
+        try {
+            return entityManager.createQuery("SELECT e FROM Employee e WHERE e.email = :email", Employee.class)
+                    .setParameter("email", email).getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     @Override

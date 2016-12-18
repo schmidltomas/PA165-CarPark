@@ -32,9 +32,9 @@ import javax.persistence.PersistenceContext;
 @ContextConfiguration(classes=PersistenceConfiguration.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
+public class EmployeeDAOTest extends AbstractTestNGSpringContextTests {
     @Autowired
-    private EmployeeDao employeeDao;
+    private EmployeeDAO employeeDAO;
 
     private Employee employee;
     private Employee employee2;
@@ -59,25 +59,25 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         employee2.setUsername(userName2);
         employee2.setPassword("321");
 
-        employeeDao.create(employee2);
-        employeeDao.create(employee);
+        employeeDAO.create(employee2);
+        employeeDAO.create(employee);
     }
 
 
     @Test
     public void testGetEmployee() {
-        Assert.assertNotNull(employeeDao.findById(employee.getId()));
+        Assert.assertNotNull(employeeDAO.findById(employee.getId()));
     }
 
     @Test
     public void testRemoveEmployee() {
-        employeeDao.delete(employee);
-        Assert.assertNull(employeeDao.findById(employee.getId()));
+        employeeDAO.delete(employee);
+        Assert.assertNull(employeeDAO.findById(employee.getId()));
     }
 
     @Test
     public void testFindAll() {
-        Assert.assertEquals(2, employeeDao.findAll().size());
+        Assert.assertEquals(2, employeeDAO.findAll().size());
     }
 
     @Test
@@ -91,13 +91,13 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         newEmployee.setId(employee.getId());
         
         
-        employeeDao.update(newEmployee);
-        Employee result = employeeDao.findById(employee.getId());
+        employeeDAO.update(newEmployee);
+        Employee result = employeeDAO.findById(employee.getId());
         Assert.assertEquals("Smith", result.getSecondName());
     }
     
     @Test
     public void testSearchByName(){
-        Assert.assertNotNull(employeeDao.findByName("Pavel", null));
+        Assert.assertNotNull(employeeDAO.findByName("Pavel", null));
     }
 }

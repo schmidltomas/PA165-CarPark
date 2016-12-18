@@ -1,6 +1,12 @@
 package cz.muni.fi.pa165.carpark.service.service;
 
-import cz.muni.fi.pa165.carpark.persistence.dao.CarDao;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import cz.muni.fi.pa165.carpark.persistence.dao.CarDAO;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.service.configuration.ServiceConfiguration;
 import org.junit.Assert;
@@ -17,8 +23,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
-
 /**
  * Created by karelfajkus on 20/11/2016.
  */
@@ -27,7 +31,7 @@ import static org.mockito.Mockito.*;
 public class CarServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    private CarDao carDao;
+    private CarDAO carDAO;
 
     @InjectMocks
     private CarServiceImpl carService;
@@ -64,21 +68,21 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
     public void createNewCarTest() {
 
         carService.createNewCar(car);
-        verify(carDao).create(any(Car.class));
+        verify(carDAO).create(any(Car.class));
     }
 
     @Test
     public void updateCarTest() {
 
         carService.updateCar(car);
-        verify(carDao).update(any(Car.class));
+        verify(carDAO).update(any(Car.class));
     }
 
     @Test
     public void removeCarTest() {
 
         carService.deleteCar(car);
-        verify(carDao).delete(any(Car.class));
+        verify(carDAO).delete(any(Car.class));
     }
 
     @Test

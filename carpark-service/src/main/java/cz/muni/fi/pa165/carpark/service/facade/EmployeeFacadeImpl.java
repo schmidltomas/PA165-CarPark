@@ -7,19 +7,22 @@ package cz.muni.fi.pa165.carpark.service.facade;
 
 import cz.muni.fi.pa165.carpark.api.dto.CarDTO;
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
-import cz.muni.fi.pa165.carpark.api.dto.UserDTO;
+import cz.muni.fi.pa165.carpark.api.dto.LoginRequestDTO;
+import cz.muni.fi.pa165.carpark.api.dto.LoginResponseDTO;
 import cz.muni.fi.pa165.carpark.api.facade.EmployeeFacade;
 import cz.muni.fi.pa165.carpark.persistence.entity.Car;
 import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
+import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import cz.muni.fi.pa165.carpark.service.service.CarService;
 import cz.muni.fi.pa165.carpark.service.service.EmployeeService;
+import cz.muni.fi.pa165.carpark.service.utils.AuthnResponse;
 import cz.muni.fi.pa165.carpark.service.utils.mapper.ClassMapper;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -40,7 +43,7 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 
     @Override
     public EmployeeDTO create(EmployeeDTO employeeDTO) {
-        final Employee employee =classMapper.mapTo(employeeDTO, Employee.class);
+        final Employee employee = classMapper.mapTo(employeeDTO, Employee.class);
         employeeService.createEmployee(employee);
         return classMapper.mapTo(employee, EmployeeDTO.class);
     }
@@ -86,16 +89,22 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
         return classMapper.mapTo(employeeService.findAllEmployees(), EmployeeDTO.class);
     }
 
-    
-    ///_____________USER STUFF_______________
     @Override
-    public void register(UserDTO userDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
+        LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+        AuthnResponse authnResponse = employeeService.authenticate(loginRequestDTO.getEmail(),
+                loginRequestDTO.getPassword());
 
-    @Override
-    public boolean authenticate(UserDTO userDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (authnResponse.equals(AuthnResponse.OK)) {
+            loginResponseDTO.setAuthenticated(true);
+            loginResponseDTO.setUserRole(UserRole.ROLE_EMPLOYEE.toString());
+        } else {
+            if (authnResponse.equals(AuthnResponse.INCORRECT_PASSWORD)) {
+                loginResponseDTO.setUserRole(UserRole.ROLE_EMPLOYEE.toString());
+                loginResponseDTO.setAuthenticated(false);
+            }
+        }
+
+        return loginResponseDTO;
     }
-    
 }

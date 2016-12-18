@@ -5,7 +5,7 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
  * @author Jakub Kriz
  */
 public enum UserRole {
-    ROLE_USER("ROLE_USER"), ROLE_ADMIN("ROLE_ADMIN");
+    ROLE_EMPLOYEE("ROLE_EMPLOYEE"), ROLE_ADMIN("ROLE_ADMIN");
 
 	private String role;
 

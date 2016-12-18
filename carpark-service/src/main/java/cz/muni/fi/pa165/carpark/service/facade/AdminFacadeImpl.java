@@ -1,12 +1,13 @@
 package cz.muni.fi.pa165.carpark.service.facade;
 
 import cz.muni.fi.pa165.carpark.api.dto.AdminDTO;
-import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
-import cz.muni.fi.pa165.carpark.api.dto.UserDTO;
+import cz.muni.fi.pa165.carpark.api.dto.LoginRequestDTO;
+import cz.muni.fi.pa165.carpark.api.dto.LoginResponseDTO;
 import cz.muni.fi.pa165.carpark.api.facade.AdminFacade;
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
-import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
+import cz.muni.fi.pa165.carpark.persistence.entity.UserRole;
 import cz.muni.fi.pa165.carpark.service.service.AdminService;
+import cz.muni.fi.pa165.carpark.service.utils.AuthnResponse;
 import cz.muni.fi.pa165.carpark.service.utils.mapper.ClassMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,17 +67,24 @@ public class AdminFacadeImpl implements AdminFacade {
     @Override
     public List<AdminDTO> findAll() {
         final List<Admin> admins = adminService.findAll();
-        List<AdminDTO> adminDTOs = classMapper.mapTo(admins, AdminDTO.class);
-        return adminDTOs;
+        return classMapper.mapTo(admins, AdminDTO.class);
     }
 
     @Override
-    public void register(UserDTO userDTO) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
+        LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+        AuthnResponse authnResponse = adminService.authenticate(loginRequestDTO.getEmail(),
+                loginRequestDTO.getPassword());
 
-    @Override
-    public boolean authenticate(UserDTO userDTO) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (authnResponse.equals(AuthnResponse.OK)) {
+            loginResponseDTO.setAuthenticated(true);
+            loginResponseDTO.setUserRole(UserRole.ROLE_ADMIN.toString());
+        } else {
+            if (authnResponse.equals(AuthnResponse.INCORRECT_PASSWORD)) {
+                loginResponseDTO.setAuthenticated(false);
+            }
+        }
+
+        return loginResponseDTO;
     }
 }

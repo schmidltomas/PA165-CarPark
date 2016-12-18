@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.carpark.persistence.dao;
 
 import cz.muni.fi.pa165.carpark.persistence.entity.Admin;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,8 +9,7 @@ import java.util.List;
  *
  * @Author Tomáš Schmidl
  */
-@Service
-public interface AdminDao {
+public interface AdminDAO {
 
     /**
      * Persist a new administrator in the database.
@@ -41,6 +39,14 @@ public interface AdminDao {
      * @return Administrator object if found, null if not found.
      */
     Admin findById(Long id);
+
+    /**
+     * Find and return an administrator based on his email.
+     *
+     * @param email Existing administrator email adress.
+     * @return Administrator object if found, null if not found.
+     */
+    Admin findByEmail(String email);
 
     /**
      * Find and return an administrator based on his first and last name.
