@@ -4,23 +4,23 @@ var app = angular.module('app', ['ngRoute','ngResource', 'ui.bootstrap']);
 
 app.config(function($routeProvider){
     $routeProvider
-        .when('/cars',{
+        .when('/pa165/cars',{
             templateUrl: '/templates/cars.html',
             controller: 'carsController'
         })
-        .when('/employees',{
+        .when('/pa165/employees',{
             templateUrl: '/templates/employees.html',
             controller: 'employeesController'
         })
-        .when('/admins',{
+        .when('/pa165/admins',{
             templateUrl: '/templates/admins.html',
             controller: 'adminsController'
         })
-        .when('/reservations',{
+        .when('/pa165/reservations',{
             templateUrl: '/templates/reservations.html',
             controller: 'reservationsController'
         })
-        .when('/', {
+        .when('/pa165', {
             controller: 'loginController',
             templateUrl: '/templates/login.html'
         })
@@ -34,7 +34,7 @@ app.config(function($routeProvider){
         });
 });
 
-app.run(function ($rootScope) {
+app.run(function ($rootScope, $location, $http) {
     $rootScope.hideSuccessAlert = function () {
         $rootScope.successAlert = undefined;
     };
@@ -44,4 +44,13 @@ app.run(function ($rootScope) {
     $rootScope.hideErrorAlert = function () {
         $rootScope.errorAlert = undefined;
     };
+//    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+//        // redirect to login page if not logged in and trying to access a restricted page
+//        var restrictedPage = $.inArray($location.path(), ['/pa165']) === -1;
+//        var loggedIn = $rootScope.globals.currentUser;
+//        console.log($rootScope.globals.currentUser);
+//        if (restrictedPage && !loggedIn) {
+//            $location.path('/pa165');
+//        }
+//    });
 });

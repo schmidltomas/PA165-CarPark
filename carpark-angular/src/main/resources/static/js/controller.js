@@ -279,8 +279,10 @@ app.controller('submitController', ['$scope', '$rootScope', '$http', '$location'
                 console.log($scope.loginResponse);
                 if ($scope.loginResponse.authenticated == true) {
                     $scope.formModel.dataLoading = false;
-                    $location.path("/cars");
+                    $location.path("/pa165/cars");
                     $rootScope.successAlert = 'Login successful!';
+                    $rootScope.currentUser = $scope.formModel.email;
+                    console.log($rootScope.currentUser);
                 } else {
                     $scope.formModel.dataLoading = false;
                     flashService.Error("Login failed! Incorrect email or password.");
@@ -444,44 +446,53 @@ app.component('modalComponent', {
 });
 
 var navbar = [
-  '<nav class="navbar navbar-default">',
-  '<div class="container">',
-  '<div class="navbar-header">',
-  '<a class="navbar-brand" href="#">{{$ctrl.brand}}</a>',
-  '</div>',
-  '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">',
-  '<ul class="nav navbar-nav">',
-  '<li ng-repeat="menu in $ctrl.menu">',
-  '<a href="{{menu.component}}">{{menu.name}} <span class="sr-only">(current)</span></a>',
-  '</li>',
-  '</ul>',
-  '</div>',
-  '</div>',
-  '</nav>'
+    '<nav class="navbar navbar-inverse navbar-fixed-top">',
+        '<div class="container-fluid">',
+            '<div class="navbar-header">',
+                '<a class="navbar-brand" href="#">PA165 - CarPark</a>',
+            '</div>',
+            '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">',
+                '<ul class="nav navbar-nav navbar-center">',
+                    '<li ng-repeat="menu in $ctrl.menu">',
+                        '<a href="{{menu.component}}">{{menu.name}} <span class="sr-only">(current)</span></a>',
+                    '</li>',
+                '</ul>',
+                '<ul class="nav navbar-nav navbar-right">',
+                    '<li><a href="#/pa165/login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>',
+                '</ul>',
+            '</div>',
+        '</div>',
+    '</nav>',
+    '<br/>',
+    '<br/>',
+    '<br/>',
+    '<br/>'
 ].join(' ')
 
 app.component('menuBar', {
-  template: navbar,
-  controller: function() {
-    this.menu = [{
-      name: "Login",
-      component: "#/"
-    }, {
-      name: "Home",
-      component: "#/home"
-    }, {
-      name: "Cars",
-      component: "#/cars"
-    }, {
-      name: "Employees",
-      component: "#/employees"
-    }, {
-        name: "Admins",
-        component: "#/admins"
-    }, {
-        name: "Reservations",
-        component: "#/reservations"
+    template: navbar,
+    controller: function($rootScope) {
+//        if ($rootScope.currentUser) {
+            this.menu = [{
+                  name: "Login",
+                  component: "#/pa165"
+                }, {
+//                  name: "Home",
+//                  component: "#/pa165/home"
+//                }, {
+                  name: "Cars",
+                  component: "#/pa165/cars"
+                }, {
+                  name: "Employees",
+                  component: "#/pa165/employees"
+                }, {
+                    name: "Admins",
+                    component: "#/pa165/admins"
+                }, {
+                    name: "Reservations",
+                    component: "#/pa165/reservations"
+                }
+            ];
+//        }
     }
-    ];
-  }
 });

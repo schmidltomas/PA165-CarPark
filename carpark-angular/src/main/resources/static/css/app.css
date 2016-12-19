@@ -4,12 +4,12 @@
 }
 .home-section {
     padding-left: 30px;
-    float:left;
+    float: left;
     width: 10%;
 }
 .section {
     margin-left: 10%;
-    float:left;
+    float: left;
 }
 .alerts {
     margin-bottom: 10%;
@@ -17,4 +17,7 @@
 }
 .h3 {
     padding-bottom: 20px;
+}
+.navbar {
+   background-color: #ff0000;
 }
