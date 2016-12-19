@@ -282,7 +282,7 @@ app.controller('submitController', ['$scope', '$rootScope', '$http', '$location'
                     $location.path("/cars");
                     $rootScope.successAlert = 'Login successful!';
                 } else {
-                    formModel.dataLoading = false;
+                    $scope.formModel.dataLoading = false;
                     flashService.Error("Login failed! Incorrect email or password.");
                 }
             }).error(function (data) {
