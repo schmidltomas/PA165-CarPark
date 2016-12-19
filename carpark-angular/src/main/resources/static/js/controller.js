@@ -230,10 +230,17 @@ app.service('sharedProperties', function () {
         'distance': '',
         'purpose': ''
     };
+
+    var _loginResponse = {
+        'authenticated': '',
+        'userRole': ''
+    };
+
     this.reservation = _reservation;
     this.admin = _admin;
     this.employee = _employee;
     this.car = _car;
+    this.loginResponse = _loginResponse;
 });
 
 app.run(function($rootScope, sharedProperties) {
@@ -247,8 +254,90 @@ app.run(function($rootScope, sharedProperties) {
                 return sharedProperties.admin;
             case 'reservation':
                 return sharedProperties.reservation;
+            case 'loginResponse':
+                return sharedProperties.loginResponse;
         }
     }
+});
+
+app.controller('homeController', ['$scope', 'flashService', function($scope, flashService) {
+    $rootScope.successAlert = 'Login successful!';
+    //flashService.Success("Login successful!");
+}]);
+
+app.controller('submitController', ['$scope', '$rootScope', '$http', '$location', 'flashService',
+    function($scope, $rootScope, $http, $location, flashService) {
+    $scope.formModel = {};
+    $scope.loginResponse = {};
+
+    $scope.onSubmit = function() {
+        $scope.formModel.dataLoading = true;
+        $http.post('/pa165/rest/login', $scope.formModel).
+            success(function (data) {
+                $scope.loginResponse = data;
+                console.log("login request successful")
+                console.log($scope.loginResponse);
+                if ($scope.loginResponse.authenticated == true) {
+                    $scope.formModel.dataLoading = false;
+                    $location.path("/cars");
+                    $rootScope.successAlert = 'Login successful!';
+                } else {
+                    formModel.dataLoading = false;
+                    flashService.Error("Login failed! Incorrect email or password.");
+                }
+            }).error(function (data) {
+                console.log("login request failed");
+            });
+    };
+}]);
+
+app.service('flashService', ['$rootScope', function ($rootScope) {
+    var service = {};
+
+    service.Success = Success;
+    service.Error = Error;
+
+    initService();
+
+    return service;
+
+    function initService() {
+        $rootScope.$on('$locationChangeStart', function () {
+            clearFlashMessage();
+        });
+
+        function clearFlashMessage() {
+            var flash = $rootScope.flash;
+            if (flash) {
+                if (!flash.keepAfterLocationChange) {
+                    delete $rootScope.flash;
+                } else {
+                    // only keep for a single location change
+                    flash.keepAfterLocationChange = false;
+                }
+            }
+        }
+    }
+
+    function Success(message, keepAfterLocationChange) {
+        $rootScope.flash = {
+            message: message,
+            type: 'success',
+            keepAfterLocationChange: keepAfterLocationChange
+        };
+    }
+
+    function Error(message, keepAfterLocationChange) {
+        $rootScope.flash = {
+            message: message,
+            type: 'error',
+            keepAfterLocationChange: keepAfterLocationChange
+        };
+    }
+}]);
+
+app.controller('loginController', function($scope, $location) {
+
 });
 
 app.controller('ModalController', function ($scope, $uibModal, $log, sharedProperties, $http, $rootScope) {
@@ -352,4 +441,47 @@ app.component('modalComponent', {
             $ctrl.dismiss({$value: 'cancel'});
         };
     }
+});
+
+var navbar = [
+  '<nav class="navbar navbar-default">',
+  '<div class="container">',
+  '<div class="navbar-header">',
+  '<a class="navbar-brand" href="#">{{$ctrl.brand}}</a>',
+  '</div>',
+  '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">',
+  '<ul class="nav navbar-nav">',
+  '<li ng-repeat="menu in $ctrl.menu">',
+  '<a href="{{menu.component}}">{{menu.name}} <span class="sr-only">(current)</span></a>',
+  '</li>',
+  '</ul>',
+  '</div>',
+  '</div>',
+  '</nav>'
+].join(' ')
+
+app.component('menuBar', {
+  template: navbar,
+  controller: function() {
+    this.menu = [{
+      name: "Login",
+      component: "#/"
+    }, {
+      name: "Home",
+      component: "#/home"
+    }, {
+      name: "Cars",
+      component: "#/cars"
+    }, {
+      name: "Employees",
+      component: "#/employees"
+    }, {
+        name: "Admins",
+        component: "#/admins"
+    }, {
+        name: "Reservations",
+        component: "#/reservations"
+    }
+    ];
+  }
 });

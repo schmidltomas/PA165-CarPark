@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('app', ['ngRoute','ngResource', 'ui.bootstrap']);
+
 app.config(function($routeProvider){
     $routeProvider
         .when('/cars',{
@@ -19,8 +20,17 @@ app.config(function($routeProvider){
             templateUrl: '/templates/reservations.html',
             controller: 'reservationsController'
         })
+        .when('/', {
+            controller: 'loginController',
+            templateUrl: '/templates/login.html'
+        })
+//        .when('/login', {
+//            controller: 'loginController',
+//            templateUrl: '/templates/login.html'
+//        })
         .otherwise({
-            redirectTo: '/'
+            controller: 'homeController',
+            templateUrl: '/templates/home.html'
         });
 });
 
