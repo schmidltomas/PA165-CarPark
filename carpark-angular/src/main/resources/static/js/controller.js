@@ -260,7 +260,7 @@ app.run(function($rootScope, sharedProperties) {
     }
 });
 
-app.controller('homeController', ['$scope', 'flashService', function($scope, flashService) {
+app.controller('homeController', ['$scope', 'flashService', function($rootScope, flashService, $location) {
     $rootScope.successAlert = 'Login successful!';
     //flashService.Success("Login successful!");
 }]);
@@ -449,7 +449,7 @@ var navbar = [
     '<nav class="navbar navbar-inverse navbar-fixed-top">',
         '<div class="container-fluid">',
             '<div class="navbar-header">',
-                '<a class="navbar-brand" href="#">PA165 - CarPark</a>',
+                '<a class="navbar-brand" href="#/pa165/home">PA165 - CarPark</a>',
             '</div>',
             '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">',
                 '<ul class="nav navbar-nav navbar-center">',
@@ -458,7 +458,7 @@ var navbar = [
                     '</li>',
                 '</ul>',
                 '<ul class="nav navbar-nav navbar-right">',
-                    '<li><a href="#/pa165/login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>',
+                    '<li><a href="#/pa165"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>',
                 '</ul>',
             '</div>',
         '</div>',
@@ -467,16 +467,13 @@ var navbar = [
     '<br/>',
     '<br/>',
     '<br/>'
-].join(' ')
+].join(' ');
 
 app.component('menuBar', {
     template: navbar,
     controller: function($rootScope) {
 //        if ($rootScope.currentUser) {
             this.menu = [{
-                  name: "Login",
-                  component: "#/pa165"
-                }, {
 //                  name: "Home",
 //                  component: "#/pa165/home"
 //                }, {

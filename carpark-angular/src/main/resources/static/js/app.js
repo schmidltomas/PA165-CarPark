@@ -24,10 +24,6 @@ app.config(function($routeProvider){
             controller: 'loginController',
             templateUrl: '/templates/login.html'
         })
-//        .when('/login', {
-//            controller: 'loginController',
-//            templateUrl: '/templates/login.html'
-//        })
         .otherwise({
             controller: 'homeController',
             templateUrl: '/templates/home.html'
