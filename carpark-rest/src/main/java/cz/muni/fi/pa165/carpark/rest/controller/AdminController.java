@@ -35,7 +35,7 @@ public class AdminController {
         }
         final AdminDTO adminToUpdate = adminFacade.findById(adminDTO.getId());
         if (adminToUpdate != null) {
-            return ControllerResponse.processResponse(adminFacade.update(adminToUpdate));
+            return ControllerResponse.processResponse(adminFacade.update(adminDTO));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
     }

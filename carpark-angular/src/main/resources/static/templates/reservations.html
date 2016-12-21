@@ -18,37 +18,50 @@
             </thead>
             <tbody>
             <tr ng-repeat="reservation in reservations">
+                <td>{{reservation.id}}</td>
+                <td>{{reservation.employee.username}}</td>
+                <td>{{reservation.car.evidence_number}}</td>
+                <td>{{reservation.startDate}}</td>
+                <td>{{reservation.endDate}}</td>
+                <td>{{reservation.distance}}</td>
+                <td>{{reservation.purpose}}</td>
                 <td>
-                    <input ng-disabled="disabled" ng-model="reservation.id" size="5"/>
-                </td>
-                <td>
-                    <input ng-disabled="disabled" ng-model="reservation.employee.username" size="20"/>
-                </td>
-                <td>
-                    <input ng-disabled="disabled" ng-model="reservation.car.evidence_number" size="5"/>
-                </td>
-                <td>
-                    <input ng-disabled="disabled" ng-model="reservation.startDate" size="10"/>
-                </td>
-                <td>
-                    <input ng-disabled="disabled" ng-model="reservation.endDate" size="10"/>
-                </td>
-                <td>
-                    <input ng-disabled="disabled" ng-model="reservation.distance" size="5"/>
-                </td>
-                <td>
-                    <input ng-disabled="disabled" ng-model="reservation.purpose" size="15"/>
-                </td>
-                <td>
-                    <div class="btn-group" style="margin:5px 0 10px 0;">
-                        <button ng-click="updateReservation(reservation)" type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            {{updateButtonText}}
-                        </button>
-                        <button ng-click="removeReservation(reservation.id)" type="submit" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>
-                            Delete
-                        </button>
+                    <div ng-controller="ModalController as $ctrl" ng-click="init('loadCar', 'reservation', reservation)">
+                        <div ng-controller="ModalController as $ctrl" ng-init="init('updateObject', 'reservation')" class="modal-demo">
+                            <script type="text/ng-template" id="myModalContent.html">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="modal-title">Update reservation</h3>
+                                </div>
+                                <div class="modal-body" id="modal-body">
+                                    <div class="form-style-5">
+                                        <h4>{{errorAlert}}</h4>
+                                        <form name="modalForm">
+                                            <fieldset>
+                                                <legend>Reservation Info</legend>
+                                                <input type="text" name="employee" placeholder="Employee *" ng-model="reservation.employee.username" required>
+                                                <input type="text" name="car" placeholder="Car *" ng-model="reservation.car.evidence_number" required>
+                                                <input type="text" name="startDate" placeholder="Start Date *" ng-model="reservation.startDate" required>
+                                                <input type="text" name="endDate" placeholder="End Date *" ng-model="reservation.endDate" required>
+                                                <input type="number" name="distance" placeholder="Distance *" ng-model="reservation.distance" required>
+                                                <input type="text" name="purpose" placeholder="Purpose *" ng-model="reservation.purpose">
+                                            </fieldset>
+                                            <button class="btn btn-primary" ng-click="$ctrl.ok(reservation)" ng-disabled="modalForm.$invalid">Update reservation</button>
+                                            <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </script>
+                            <div class="btn-group" style="margin:5px 0 10px 0;">
+                                <button type="button" class="btn btn-primary" ng-click="$ctrl.open()">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    Update
+                                </button>
+                                <button ng-click="deleteAdmin(reservation)" type="submit" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -56,11 +69,11 @@
         </table>
     </div>
     <div ng-controller="ModalController as $ctrl" ng-init="init('createReservation', 'reservation')" class="modal-demo">
-        <script type="text/ng-template" id="myModalContent.html">
+        <script type="text/ng-template" id="myModalContent-create.html">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Create new reservation</h3>
+                <h3 class="modal-title" id="modal-title-create">Create new reservation</h3>
             </div>
-            <div class="modal-body" id="modal-body">
+            <div class="modal-body" id="modal-body-create">
                 <div class="form-style-5">
                     <form name="modalForm">
                         <fieldset>
@@ -78,7 +91,7 @@
                 </div>
             </div>
         </script>
-        <button type="button" class="btn btn-success" ng-click="$ctrl.open()">
+        <button type="button" class="btn btn-success" ng-click="$ctrl.openCreate()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             Create reservation
         </button>

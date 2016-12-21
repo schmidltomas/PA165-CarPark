@@ -40,11 +40,12 @@ app.controller('carsController', function($scope, $http, $rootScope) {
     };
 });
 
-function loadCar($http, $rootScope, $scope){
-    $http.get('/pa165/rest/car/getById' + $rootScope.car.id).success(function (data){
-        var car = data;
-    });
-};
+// think about it...is it really necessary?
+//function loadCar($http, $rootScope){
+//    $http.get('/pa165/rest/car/getById' + $rootScope.car.id).success(function (data){
+//        var car = data;
+//    });
+//};
 
 function loadAllCars($http, $rootScope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
@@ -110,21 +111,34 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
     loadAllReservations($http, $rootScope);
 });
 
-function updateCar($http, responseObject, $rootScope) {
+function updateObject($http, responseObject, $rootScope) {
     $http({
         method: 'POST',
-        url: '/pa165/rest/car/update',
+        url: '/pa165/rest/'+ $rootScope.objectName + '/update',
         data: responseObject
     }).then(function success(response) {
-                console.log('car updated');
-                var updatedcar = response.data;
+        console.log($rootScope.objectName + 'updated');
+        console.log('/pa165/rest/'+ $rootScope.objectName + '/update');
+        var updatedData = response.data;
+        loadAll($http, $rootScope, $rootScope.objectName);
 
-                loadAllCars($http, $rootScope);
-                
-                $rootScope.successAlert = 'car "'+updatedcar.id+'" was updated';
-            }, function error(response) {
-                $rootScope.errorAlert = 'Cannot update car !';
-            });
+        $rootScope.successAlert = $rootScope.objectName + updatedData.id + '" was updated';
+    }, function error(response) {
+        $rootScope.errorAlert = 'Cannot update object!';
+    });
+}
+
+function loadAll($http, $rootScope, objectName) {
+    switch (objectName) {
+        case 'car':
+            return loadAllCars($http, $rootScope);
+        case 'admin':
+            return loadAllAdmins($http, $rootScope);
+        case 'employee':
+            return loadAllEmployees($http, $rootScope);
+        case 'reservation':
+            return loadAllReservations($http, $rootScope);
+    }
 }
 
 function createCar($http, responseObject, $rootScope) {
@@ -345,13 +359,26 @@ app.controller('loginController', function($scope, $location) {
 app.controller('ModalController', function ($scope, $uibModal, $log, sharedProperties, $http, $rootScope) {
     $scope.init = function (type, objectName) {
        $scope.responseMethodName = type;
-       $scope.objectName = objectName;
+       $rootScope.objectName = objectName;
     };
-    
-    $scope.init = function (type, objectName, car) {
-       $scope.responseMethodName = type;
-       $scope.objectName = objectName;
-       $rootScope.car = car;
+
+    $scope.init = function (type, objectName, originalObject) {
+       switch (objectName) {
+           case 'car':
+               $rootScope.car = originalObject;
+               break;
+           case 'employee':
+               $rootScope.employee = originalObject;
+               break;
+           case 'admin':
+               $rootScope.admin = originalObject;
+               break;
+           case 'reservation':
+               $rootScope.reservation = originalObject;
+               break;
+       }
+        $scope.responseMethodName = type;
+        $rootScope.objectName = objectName;
     };
 
     var $ctrl = this;
@@ -368,7 +395,7 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             size: size,
             resolve: {
                 responseObject: function () {
-                    return $rootScope.getResponseObject($scope.objectName);
+                    return $rootScope.getResponseObject($rootScope.objectName);
                 }
             }
         });
@@ -391,7 +418,7 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             size: size,
             resolve: {
                 responseObject: function () {
-                    return $rootScope.getResponseObject($scope.objectName);
+                    return $rootScope.getResponseObject($rootScope.objectName);
                 }
             }
         });

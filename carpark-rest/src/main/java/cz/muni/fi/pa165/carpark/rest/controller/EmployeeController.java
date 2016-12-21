@@ -48,7 +48,7 @@ public class EmployeeController {
         if(employee == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
         }
-        return ControllerResponse.processResponse(employeeFacade.update(employee));
+        return ControllerResponse.processResponse(employeeFacade.update(request));
     }
     
     @RequestMapping(value = "remove/{id}", method = RequestMethod.DELETE)

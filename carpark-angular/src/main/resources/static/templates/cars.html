@@ -29,10 +29,10 @@
                 <td>{{car.current_location}}</td>
                 <td>
                     <div ng-controller="ModalController as $ctrl" ng-click="init('loadCar', 'car', car)">
-                    <div ng-controller="ModalController as $ctrl" ng-init="init('updateCar', 'car')">
+                    <div ng-controller="ModalController as $ctrl" ng-init="init('updateObject', 'car')">
                     <script type="text/ng-template" id="myModalContent.html">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="modal-title">{{tittle}}</h3>
+                            <h3 class="modal-title" id="modal-title">Update car</h3>
                         </div>
                         <div class="modal-body" id="modal-body">
                             <div class="form-style-5">
@@ -83,7 +83,7 @@
                 <div class="form-style-5">
                     <form name="modalForm">
                         <fieldset>
-                            <legend> Car Info</legend>
+                            <legend>Car Info</legend>
                             <input type="text" name="evidence_number" placeholder="Evidence Number *" ng-model="car.evidence_number" required>
                             <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
                             <input type="number" name="fuel_consumption" placeholder="Fuel Consuption *" min="1" ng-model="car.fuel_consumption" required>

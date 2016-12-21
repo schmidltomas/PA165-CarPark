@@ -48,7 +48,7 @@ public class ReservationController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public ResponseEntity updateReservation(@Valid @RequestBody ReservationDTO request) throws Exception {
         if (request.getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Field ID is missing.");
