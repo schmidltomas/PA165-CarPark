@@ -22,7 +22,7 @@
                 <td>{{admin.secondName}}</td>
                 <td>{{admin.email}}</td>
                 <td>
-                    <div ng-controller="ModalController as $ctrl" ng-click="init('loadCar', 'admin', admin)">
+                    <div ng-controller="ModalController as $ctrl" ng-click="init('loadAdmin', 'admin', admin)">
                     <div ng-controller="ModalController as $ctrl" ng-init="init('updateObject', 'admin')" class="modal-demo">
                         <script type="text/ng-template" id="myModalContent.html">
                             <div class="modal-header">
@@ -62,7 +62,7 @@
             </tbody>
         </table>
     </div>
-    <div ng-controller="ModalController as $ctrl" ng-init="init('createAdmin', 'admin')" class="modal-demo">
+    <div ng-controller="ModalController as $ctrl" ng-init="init('createObject', 'admin')" class="modal-demo">
         <script type="text/ng-template" id="myModalContent-create.html">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-title-create">Create new admin</h3>

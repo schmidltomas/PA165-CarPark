@@ -26,7 +26,7 @@
                 <td>{{reservation.distance}}</td>
                 <td>{{reservation.purpose}}</td>
                 <td>
-                    <div ng-controller="ModalController as $ctrl" ng-click="init('loadCar', 'reservation', reservation)">
+                    <div ng-controller="ModalController as $ctrl" ng-click="init('loadReservation', 'reservation', reservation)">
                         <div ng-controller="ModalController as $ctrl" ng-init="init('updateObject', 'reservation')" class="modal-demo">
                             <script type="text/ng-template" id="myModalContent.html">
                                 <div class="modal-header">
@@ -68,7 +68,7 @@
             </tbody>
         </table>
     </div>
-    <div ng-controller="ModalController as $ctrl" ng-init="init('createReservation', 'reservation')" class="modal-demo">
+    <div ng-controller="ModalController as $ctrl" ng-init="init('createObject', 'reservation')" class="modal-demo">
         <script type="text/ng-template" id="myModalContent-create.html">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-title-create">Create new reservation</h3>

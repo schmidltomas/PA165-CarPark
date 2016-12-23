@@ -22,7 +22,7 @@
                 <td>{{employee.secondName}}</td>
                 <td>{{employee.email}}</td>
                 <td>
-                    <div ng-controller="ModalController as $ctrl" ng-click="init('loadCar', 'employee', employee)">
+                    <div ng-controller="ModalController as $ctrl" ng-click="init('loadEmployee', 'employee', employee)">
                         <div ng-controller="ModalController as $ctrl" ng-init="init('updateObject', 'employee')" class="modal-demo">
                             <script type="text/ng-template" id="myModalContent.html">
                                 <div class="modal-header">
@@ -61,7 +61,7 @@
             </tr>
             </tbody>
         </table>
-        <div ng-controller="ModalController as $ctrl" ng-init="init('createEmployee', 'employee')" class="modal-demo">
+        <div ng-controller="ModalController as $ctrl" ng-init="init('createObject', 'employee')" class="modal-demo">
             <script type="text/ng-template" id="myModalContent-create.html">
                 <div class="modal-header">
                     <h3 class="modal-title" id="modal-title-create">Create new employee</h3>

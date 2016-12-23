@@ -40,13 +40,6 @@ app.controller('carsController', function($scope, $http, $rootScope) {
     };
 });
 
-// think about it...is it really necessary?
-//function loadCar($http, $rootScope){
-//    $http.get('/pa165/rest/car/getById' + $rootScope.car.id).success(function (data){
-//        var car = data;
-//    });
-//};
-
 function loadAllCars($http, $rootScope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
         $rootScope.cars = data;
@@ -111,6 +104,22 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
     loadAllReservations($http, $rootScope);
 });
 
+function createObject($http, responseObject, $rootScope) {
+    $http({
+        method: 'POST',
+        url: '/pa165/rest/' + $rootScope.objectName + '/create',
+        data: responseObject
+    }).then(function success(response) {
+        console.log($rootScope.objectName + ' created');
+        console.log('/pa165/rest/'+ $rootScope.objectName + '/create');
+        var createdObject = response.data;
+        loadAll($http, $rootScope, $rootScope.objectName);
+        $rootScope.successAlert = $rootScope.objectName + createdObject.id + '" was created';
+    }, function error(response) {
+        $rootScope.errorAlert = 'Cannot create ' + $rootScope.objectName;
+    });
+}
+
 function updateObject($http, responseObject, $rootScope) {
     $http({
         method: 'POST',
@@ -121,7 +130,6 @@ function updateObject($http, responseObject, $rootScope) {
         console.log('/pa165/rest/'+ $rootScope.objectName + '/update');
         var updatedData = response.data;
         loadAll($http, $rootScope, $rootScope.objectName);
-
         $rootScope.successAlert = $rootScope.objectName + updatedData.id + '" was updated';
     }, function error(response) {
         $rootScope.errorAlert = 'Cannot update object!';
@@ -139,72 +147,6 @@ function loadAll($http, $rootScope, objectName) {
         case 'reservation':
             return loadAllReservations($http, $rootScope);
     }
-}
-
-function createCar($http, responseObject, $rootScope) {
-    $http({
-        method: 'POST',
-        url: '/pa165/rest/car/create',
-        data: responseObject
-    }).then(function success(response) {
-        console.log('car registered');
-        var createdCar = response.data;
-        //display confirmation alert
-        $rootScope.successAlert = 'A new car "'+createdCar.evidence_number+'" was registered';
-        loadAllCars($http, $rootScope);
-    }, function error(response) {
-        //display error
-        $rootScope.errorAlert = 'Cannot register car !';
-    });
-}
-
-function createEmployee($http, employee, $rootScope) {
-    $http({
-        method: 'POST',
-        url: '/pa165/rest/employee/create',
-        data: employee
-    }).then(function success(response) {
-        console.log('employee registered');
-        var createdEmployee = response.data;
-        //display confirmation alert
-        $rootScope.successAlert = 'A new employee "'+createdEmployee.username+'" was registered';
-        loadAllEmployees($http, $rootScope);
-    }, function error(response) {
-        //display error
-        $rootScope.errorAlert = 'Cannot register employee !';
-    });
-}
-
-function createAdmin($http, admin, $rootScope) {
-    $http({
-        method: 'POST',
-        url: '/pa165/rest/admin/create',
-        data: admin
-    }).then(function success(response) {
-        console.log('admin added');
-        var createdAdmin = response.data;
-        $rootScope.successAlert = 'A new admin "' + createdAdmin.username + '" was registered';
-        loadAllAdmins($http, $rootScope);
-    }, function error(response) {
-        $rootScope.errorAlert = 'Cannot create new admin!';
-    });
-}
-
-function createReservation($http, reservation, $rootScope) {
-    $http({
-        method: 'POST',
-        url: '/pa165/rest/reservation/create',
-        data: reservation
-    }).then(function success(response) {
-        console.log('reservation created');
-        var createdReservation = response.data;
-        loadAllReservations($http, $rootScope);
-        //display confirmation alert
-        $rootScope.successAlert = 'A new reservation "'+createdReservation.id+'" was created';
-    }, function error(response) {
-        //display error
-        $rootScope.errorAlert = 'Cannot create reservation !';
-    });
 }
 
 app.service('sharedProperties', function () {
