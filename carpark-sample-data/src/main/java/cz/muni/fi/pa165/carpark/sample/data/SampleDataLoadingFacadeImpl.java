@@ -93,23 +93,23 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
     }
 
     private void createEmployees() {
-        createEmployee("employee", "employee", "jmeno_1", "prijmeni_1", "employee@company.com");
-        createEmployee("employee2", "employee", "jmeno_2", "prijmeni_2", "employee2@company.com");
-        createEmployee("employee3", "employee", "jmeno_3", "prijmeni_3", "employee3@company.com");
+        createEmployee("jenda", "12345", "Jan", "Novák", "novak@company.com");
+        createEmployee("petr.dvorak", "hunter2", "Petr", "Dvořák", "dvorak@company.com");
+        createEmployee("jana", "abcde54321", "Jana", "Svobodová", "svobodova@company.com");
     }
 
     private void createCars() {
-        createCar("12BG2", "bmw", "diesel", 6.7, 5, "Brno", "Brno");
-        createCar("12BG5", "audi", "petrol", 10, 5, "Praha", "Brno");
-        createCar("12BG7", "skoda", "diesel", 4.2, 2, "Brno", "Praha");
-        createCar("15BG2", "kia", "petrol", 5, 3, "Brno", "Brno");
-        createCar("10BG2", "mercedes", "petrol", 8.5, 6, "Brno", "Brno");
-        createCar("14BG2", "ferrari", "petrol", 15, 2, "Brno", "Brno");
+        createCar("2B38206", "BMW", "diesel", 6.7, 5, "Brno", "Brno");
+        createCar("7A21534", "Audi", "petrol", 10, 2, "Praha", "Brno");
+        createCar("8B30395", "Škoda", "diesel", 4.2, 8, "Brno", "Praha");
+        createCar("1A69031", "Kia", "petrol", 5, 5, "Praha", "Praha");
+        createCar("4B27372", "Mercedes", "petrol", 8.5, 4, "Brno", "Brno");
+        createCar("3B13073", "Ferrari", "petrol", 15, 2, "Brno", "Brno");
     }
 
     private void createAdmin() {
-        createAdmin("admin", "admin", "Pepa", "Ultra", "admin@company.com");
-        createAdmin("root", "admin", "Martin", "Adminovic", "admin2@company.com");
+        createAdmin("admin", "pG4cvK5pSY38", "Pavel", "Černý", "admin@company.com");
+        createAdmin("root", "aAVrEszft3Se", "Martin", "Veselý", "vesely@company.com");
     }
 
     private void createAdmin(String username, String password, String name, String surname, String email) {
@@ -125,12 +125,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
 
     private void createReservations() throws ParseException {
         final DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        createReservation(allCars.get(0), allEmployees.get(0), format.parse("02.06.2016"), format.parse("04.06.2016"),
-                150, "business");
-        createReservation(allCars.get(1), allEmployees.get(1), format.parse("06.08.2016"), format.parse("08.08.2016"),
-                150, "business");
-        createReservation(allCars.get(2), allEmployees.get(2), format.parse("09.06.2016"), format.parse("11.06.2016"),
-                150, "business");
+        createReservation(allCars.get(0), allEmployees.get(0), format.parse("01.12.2016"), format.parse("01.12.2016"),
+                120, "Marketing presentation.");
+        createReservation(allCars.get(1), allEmployees.get(1), format.parse("15.12.2016"), format.parse("16.12.2016"),
+                150, "Christmas party.");
+        createReservation(allCars.get(2), allEmployees.get(2), format.parse("09.01.2017"), format.parse("16.01.2017"),
+                85, "Business trip.");
     }
 
     private void createReservation(Car car, Employee employee, Date start, Date end, long distance, String purpose) {

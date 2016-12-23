@@ -39,7 +39,7 @@ public class EmployeeController {
         return ControllerResponse.processResponse(employeeFacade.create(request));
     }
     
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
     public ResponseEntity updateEmployee(@Valid @RequestBody EmployeeDTO request) throws Exception {
         if (request.getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Field ID is missing.");

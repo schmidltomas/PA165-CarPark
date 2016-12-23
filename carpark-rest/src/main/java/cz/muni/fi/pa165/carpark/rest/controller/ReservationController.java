@@ -3,12 +3,15 @@ package cz.muni.fi.pa165.carpark.rest.controller;
 import cz.muni.fi.pa165.carpark.api.dto.ReservationDTO;
 import cz.muni.fi.pa165.carpark.api.facade.ReservationFacade;
 import cz.muni.fi.pa165.carpark.rest.utils.ControllerResponse;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -48,7 +51,7 @@ public class ReservationController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
     public ResponseEntity updateReservation(@Valid @RequestBody ReservationDTO request) throws Exception {
         if (request.getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Field ID is missing.");

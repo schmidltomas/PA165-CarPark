@@ -65,14 +65,14 @@ function loadAllReservations($http, $rootScope) {
 }
 
 app.controller('reservationsController', function($scope, $http, $rootScope) {
-    $scope.headingTitle = "All reservations";
+    $scope.headingTitle = "Reservation list";
     $scope.disabled = true;
     $scope.updateButtonText = "Update";
 
     $scope.removeReservation = function (id) {
         $http.delete('/pa165/rest/reservation/remove/'+id).success(function(data) {
             loadAllReservations($http, $rootScope);
-            $rootScope.successAlert = 'Reservation "'+id+'" was deleted';
+            $rootScope.successAlert = 'Reservation "' + id + '" was deleted.';
         })
     };
 
@@ -94,10 +94,10 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
                 //refresh reservations
                 loadAllReservations($http, $rootScope);
                 //display confirmation alert
-                $rootScope.successAlert = 'Reservation "'+updatedReservation.id+'" was updated';
+                $rootScope.successAlert = 'Reservation "' + updatedReservation.id + '" was updated.';
             }, function error(response) {
                 //display error
-                $rootScope.errorAlert = 'Cannot update reservation !';
+                $rootScope.errorAlert = 'Cannot update reservation.';
             });
         }
     };
@@ -114,15 +114,15 @@ function createObject($http, responseObject, $rootScope) {
         console.log('/pa165/rest/'+ $rootScope.objectName + '/create');
         var createdObject = response.data;
         loadAll($http, $rootScope, $rootScope.objectName);
-        $rootScope.successAlert = $rootScope.objectName + createdObject.id + '" was created';
+        $rootScope.successAlert = $rootScope.objectName + ' "' + createdObject.id + '" was created.';
     }, function error(response) {
-        $rootScope.errorAlert = 'Cannot create ' + $rootScope.objectName;
+        $rootScope.errorAlert = 'Cannot create ' + $rootScope.objectName + '.';
     });
 }
 
 function updateObject($http, responseObject, $rootScope) {
     $http({
-        method: 'POST',
+        method: 'PUT',
         url: '/pa165/rest/'+ $rootScope.objectName + '/update',
         data: responseObject
     }).then(function success(response) {
@@ -130,9 +130,9 @@ function updateObject($http, responseObject, $rootScope) {
         console.log('/pa165/rest/'+ $rootScope.objectName + '/update');
         var updatedData = response.data;
         loadAll($http, $rootScope, $rootScope.objectName);
-        $rootScope.successAlert = $rootScope.objectName + updatedData.id + '" was updated';
+        $rootScope.successAlert = $rootScope.objectName + ' "' + updatedData.id + '" was updated.';
     }, function error(response) {
-        $rootScope.errorAlert = 'Cannot update object!';
+        $rootScope.errorAlert = 'Cannot update ' + $rootScope.objectName + '.';
     });
 }
 

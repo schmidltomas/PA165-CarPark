@@ -28,7 +28,7 @@ public class AdminController {
         return ControllerResponse.processResponse(adminFacade.create(adminDTO));
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
     public ResponseEntity updateAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
         if (adminDTO.getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Field ID is missing.");
