@@ -53,12 +53,19 @@ app.run(['$rootScope', '$location', '$http', '$timeout', function ($rootScope, $
 
     // triggered on every location change
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        var restrictedPages = ['/pa165/admin/employees', '/pa165/admin/admins', '/pa165/admin/cars',
-            '/pa165/admin/reservations'];
+        //var restrictedPages = ['/pa165/admin/employees', '/pa165/admin/admins', '/pa165/admin/cars', '/pa165/admin/reservations'];
+
+        // redirect after page refresh
+        if (!isLoggedIn()) {
+            $location.path('/pa165');
+        }
 
         // if the user is not logged in and trying to access a restricted page, switch to login page
-        if (isOnRestrictedPage() && !isLoggedIn() && !isAdmin()) {
+        if ((isOnRestrictedPage() && !isAdmin()) || (!isOnRestrictedPage() && isAdmin())) {
             $location.path('/pa165');
+            $rootScope.loggedIn = false;
+            $rootScope.isAdmin = false;
+            $rootScope.currentUser = undefined;
         }
 
         function isAdmin() {
@@ -66,7 +73,8 @@ app.run(['$rootScope', '$location', '$http', '$timeout', function ($rootScope, $
         }
 
         function isOnRestrictedPage() {
-            return restrictedPages.indexOf($location.path()) > 0;
+            return $location.path().indexOf('admin') > 0;
+            //return restrictedPages.indexOf($location.path()) > 0;
         }
 
         function isLoggedIn() {

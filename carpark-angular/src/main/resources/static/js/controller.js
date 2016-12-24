@@ -1,4 +1,4 @@
-app.controller('employeesController', function($scope, $http, $rootScope) {
+app.controller('employeesController', function($scope, $http, $rootScope, $timeout) {
     $scope.headingTitle = "Employee list";
     loadAllEmployees($http, $rootScope);
     $scope.deleteEmployee = function (employee) {
@@ -13,7 +13,7 @@ app.controller('employeesController', function($scope, $http, $rootScope) {
     };
 });
 
-app.controller('adminsController', function($scope, $http, $rootScope) {
+app.controller('adminsController', function($scope, $http, $rootScope, $timeout) {
     $scope.headingTitle = "Admin list";
     loadAllAdmins($http, $rootScope);
     $scope.deleteAdmin = function (admin) {
