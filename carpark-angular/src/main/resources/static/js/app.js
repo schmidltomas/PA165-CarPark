@@ -4,25 +4,33 @@ var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
 app.config(function($routeProvider){
     $routeProvider
-        .when('/pa165/cars',{
-            templateUrl: '/templates/cars.html',
+        .when('/pa165/admin/cars',{
+            templateUrl: '/templates/admin-cars.html',
             controller: 'carsController'
         })
-        .when('/pa165/employees',{
+        .when('/pa165/admin/employees',{
             templateUrl: '/templates/employees.html',
             controller: 'employeesController'
         })
-        .when('/pa165/admins',{
+        .when('/pa165/admin/admins',{
             templateUrl: '/templates/admins.html',
             controller: 'adminsController'
         })
-        .when('/pa165/reservations',{
-            templateUrl: '/templates/reservations.html',
+        .when('/pa165/admin/reservations',{
+            templateUrl: '/templates/admin-reservations.html',
             controller: 'reservationsController'
         })
         .when('/pa165', {
-            controller: 'loginController',
-            templateUrl: '/templates/login.html'
+            templateUrl: '/templates/login.html',
+            controller: 'loginController'
+        })
+        .when('/pa165/employee/cars', {
+            templateUrl: '/templates/employee-cars.html',
+            controller: 'carsController'
+        })
+        .when('/pa165/employee/reservations', {
+            templateUrl: '/templates/employee-reservations.html',
+            controller: 'reservationsController'
         })
         .otherwise({
             templateUrl: '/templates/login.html'
@@ -31,6 +39,7 @@ app.config(function($routeProvider){
 
 app.run(['$rootScope', '$location', '$http', '$timeout', function ($rootScope, $location, $http, $timeout) {
     $rootScope.loggedIn = false;
+    $rootScope.isAdmin = false;
 
     $rootScope.hideSuccessAlert = function () {
         $rootScope.successAlert = undefined;
@@ -44,11 +53,16 @@ app.run(['$rootScope', '$location', '$http', '$timeout', function ($rootScope, $
 
     // triggered on every location change
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        var restrictedPages = ['/pa165/employees', '/pa165/admins', '/pa165/cars', '/pa165/reservations'];
+        var restrictedPages = ['/pa165/admin/employees', '/pa165/admin/admins', '/pa165/admin/cars',
+            '/pa165/admin/reservations'];
 
         // if the user is not logged in and trying to access a restricted page, switch to login page
-        if (isOnRestrictedPage() && !isLoggedIn()) {
+        if (isOnRestrictedPage() && !isLoggedIn() && !isAdmin()) {
             $location.path('/pa165');
+        }
+
+        function isAdmin() {
+            return $rootScope.isAdmin;
         }
 
         function isOnRestrictedPage() {

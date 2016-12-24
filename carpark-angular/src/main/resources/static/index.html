@@ -23,10 +23,12 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-center">
-                            <li><a href='#/pa165/cars' ng-show="loggedIn">Cars</a></li>
-                            <li><a href='#/pa165/employees' ng-show="loggedIn">Employees</a></li>
-                            <li><a href='#/pa165/admins' ng-show="loggedIn">Admins</a></li>
-                            <li><a href='#/pa165/reservations' ng-show="loggedIn">Reservations</a></li>
+                            <li><a href='#/pa165/admin/cars' ng-show="loggedIn && isAdmin">Cars</a></li>
+                            <li><a href='#/pa165/admin/employees' ng-show="loggedIn && isAdmin">Employees</a></li>
+                            <li><a href='#/pa165/admin/admins' ng-show="loggedIn && isAdmin">Admins</a></li>
+                            <li><a href='#/pa165/admin/reservations' ng-show="loggedIn && isAdmin">Reservations</a></li>
+                            <li><a href='#/pa165/employee/cars' ng-show="loggedIn && !isAdmin">Cars</a></li>
+                            <li><a href='#/pa165/employee/reservations' ng-show="loggedIn && !isAdmin">Reservations</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><p class="navbar-text" ng-show="loggedIn">Logged in as {{currentUser}}</p></li>

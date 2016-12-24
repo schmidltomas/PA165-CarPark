@@ -67,6 +67,12 @@ function loadAllReservations($http, $rootScope) {
     });
 }
 
+function loadAllReservations($http, $rootScope) {
+    $http.get('/pa165/rest/reservation/getAll').success(function(data) {
+        $rootScope.reservations = data;
+    });
+}
+
 app.controller('reservationsController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "Reservation list";
     $scope.disabled = true;
@@ -219,7 +225,8 @@ app.controller('navbarController', ['$rootScope', '$scope', '$location', '$timeo
         console.log("Logging out " + $rootScope.currentUser);
         $rootScope.successAlert = 'User logged out.';
         $rootScope.loggedIn = false;
-        $rootScope.currentUser = null;
+        $rootScope.isAdmin = false;
+        $rootScope.currentUser = undefined;
         hideAlert($timeout, $rootScope, 'success');
     };
 }]);
@@ -238,10 +245,16 @@ app.controller('loginController', ['$scope', '$rootScope', '$http', '$location',
                 console.log($scope.loginResponse);
                 if ($scope.loginResponse.authenticated == true) {
                     $scope.formModel.dataLoading = false;
-                    $location.path("/pa165/cars");
                     $rootScope.successAlert = 'Login successful.';
                     $rootScope.currentUser = $scope.formModel.email;
                     $rootScope.loggedIn = true;
+                    if ($scope.loginResponse.userRole == 'ROLE_ADMIN') {
+                        $rootScope.isAdmin = true;
+                        $location.path("/pa165/admin/cars");
+                    } else {
+                        $rootScope.isAdmin = false;
+                        $location.path("/pa165/employee/cars");
+                    }
                     hideAlert($timeout, $rootScope, 'success');
                 } else {
                     $scope.formModel.dataLoading = false;

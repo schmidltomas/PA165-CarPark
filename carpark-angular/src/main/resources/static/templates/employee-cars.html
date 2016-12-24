@@ -1,0 +1,35 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="css/form.css">
+</head>
+<div class="section">
+    <h3>{{headingTitle}}</h3>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Manufacturer</th>
+                <th>Seats</th>
+                <th>License plate</th>
+                <th>Fuel type</th>
+                <th>Fuel consumption</th>
+                <th>Home location</th>
+                <th>Current location</th>
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="car in cars">
+                <td>{{car.id}}</td>
+                <td>{{car.brand}}</td>
+                <td>{{car.seats}}</td>
+                <td>{{car.evidence_number}}</td>
+                <td>{{car.fuel_type}}</td>
+                <td>{{car.fuel_consumption}}</td>
+                <td>{{car.home_location}}</td>
+                <td>{{car.current_location}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
