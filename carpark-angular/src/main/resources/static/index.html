@@ -13,14 +13,43 @@
     </head>
 
     <body>
-        <div ng-app="app">
-            <menu-bar/>
+        <div ng-app="app"/>
+
+        <div class="navbar" ng-controller="navbarController as $ctrl">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href>PA165 CarPark</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-center">
+                            <li><a href='#/pa165/cars' ng-show="loggedIn">Cars</a></li>
+                            <li><a href='#/pa165/employees' ng-show="loggedIn">Employees</a></li>
+                            <li><a href='#/pa165/admins' ng-show="loggedIn">Admins</a></li>
+                            <li><a href='#/pa165/reservations' ng-show="loggedIn">Reservations</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><p class="navbar-text" ng-show="loggedIn">Logged in as {{currentUser}}</p></li>
+                            <li>
+                                <a href="#/pa165" ng-show="loggedIn" ng-click="$ctrl.logout()">
+                                    <span class="glyphicon glyphicon-log-out"></span>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div ng-view class="main"></div>
         </div>
+
         <div class="col-sm-8 col-sm-offset-2">
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-
         </div>
-        <div ng-view class="main"></div>
 
         <script src="/webjars/angularjs/1.5.8/angular.js"></script>
         <script src="/webjars/angularjs/1.5.8/angular-resource.js"></script>

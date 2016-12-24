@@ -1,6 +1,6 @@
 <div class="col-md-6 col-md-offset-3">
     <h2>PA165 CarPark</h2>
-    <form name="form" ng-submit="vm.login()" role="form" ng-controller="submitController">
+    <form name="form" ng-submit="vm.login()" role="form" ng-controller="loginController">
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
             <label for="email">Company email</label>
             <input type="text" name="email" id="email" class="form-control" ng-model="formModel.email" ng-init="formModel.email='admin@company.com'" required />

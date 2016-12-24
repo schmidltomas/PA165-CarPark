@@ -25,12 +25,13 @@ app.config(function($routeProvider){
             templateUrl: '/templates/login.html'
         })
         .otherwise({
-            controller: 'homeController',
-            templateUrl: '/templates/home.html'
+            templateUrl: '/templates/login.html'
         });
 });
 
 app.run(function ($rootScope, $location, $http) {
+    $rootScope.loggedIn = false;
+
     $rootScope.hideSuccessAlert = function () {
         $rootScope.successAlert = undefined;
     };
@@ -40,13 +41,22 @@ app.run(function ($rootScope, $location, $http) {
     $rootScope.hideErrorAlert = function () {
         $rootScope.errorAlert = undefined;
     };
-//    $rootScope.$on('$locationChangeStart', function (event, next, current) {
-//        // redirect to login page if not logged in and trying to access a restricted page
-//        var restrictedPage = $.inArray($location.path(), ['/pa165']) === -1;
-//        var loggedIn = $rootScope.globals.currentUser;
-//        console.log($rootScope.globals.currentUser);
-//        if (restrictedPage && !loggedIn) {
-//            $location.path('/pa165');
-//        }
-//    });
+
+    // triggered on every location change
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        var restrictedPages = ['/pa165/employees', '/pa165/admins', '/pa165/cars', '/pa165/reservations'];
+
+        // if the user is not logged in and trying to access a restricted page, switch to login page
+        if (isOnRestrictedPage() && !isLoggedIn()) {
+            $location.path('/pa165');
+        }
+
+        function isOnRestrictedPage() {
+            return restrictedPages.indexOf($location.path()) > 0;
+        }
+
+        function isLoggedIn() {
+            return $rootScope.loggedIn;
+        }
+    });
 });

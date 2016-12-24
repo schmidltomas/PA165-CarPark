@@ -102,7 +102,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         createCar("2B38206", "BMW", "diesel", 6.7, 5, "Brno", "Brno");
         createCar("7A21534", "Audi", "petrol", 10, 2, "Praha", "Brno");
         createCar("8B30395", "Škoda", "diesel", 4.2, 8, "Brno", "Praha");
-        createCar("1A69031", "Kia", "petrol", 5, 5, "Praha", "Praha");
+        createCar("1A69031", "Kia", "lpg", 5, 5, "Praha", "Praha");
         createCar("4B27372", "Mercedes", "petrol", 8.5, 4, "Brno", "Brno");
         createCar("3B13073", "Ferrari", "petrol", 15, 2, "Brno", "Brno");
     }

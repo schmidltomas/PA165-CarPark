@@ -126,7 +126,7 @@ function updateObject($http, responseObject, $rootScope) {
         url: '/pa165/rest/'+ $rootScope.objectName + '/update',
         data: responseObject
     }).then(function success(response) {
-        console.log($rootScope.objectName + 'updated');
+        console.log($rootScope.objectName + ' updated');
         console.log('/pa165/rest/'+ $rootScope.objectName + '/update');
         var updatedData = response.data;
         loadAll($http, $rootScope, $rootScope.objectName);
@@ -187,16 +187,10 @@ app.service('sharedProperties', function () {
         'purpose': ''
     };
 
-    var _loginResponse = {
-        'authenticated': '',
-        'userRole': ''
-    };
-
     this.reservation = _reservation;
     this.admin = _admin;
     this.employee = _employee;
     this.car = _car;
-    this.loginResponse = _loginResponse;
 });
 
 app.run(function($rootScope, sharedProperties) {
@@ -210,18 +204,22 @@ app.run(function($rootScope, sharedProperties) {
                 return sharedProperties.admin;
             case 'reservation':
                 return sharedProperties.reservation;
-            case 'loginResponse':
-                return sharedProperties.loginResponse;
         }
     }
 });
 
-app.controller('homeController', ['$scope', 'flashService', function($rootScope, flashService, $location) {
-    $rootScope.successAlert = 'Login successful!';
-    //flashService.Success("Login successful!");
+app.controller('navbarController', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
+    var $ctrl = this;
+
+    $ctrl.logout = function () {
+        console.log("Logging out " + $rootScope.currentUser);
+        $rootScope.successAlert = 'User logged out.';
+        $rootScope.loggedIn = false;
+        $rootScope.currentUser = null;
+    };
 }]);
 
-app.controller('submitController', ['$scope', '$rootScope', '$http', '$location', 'flashService',
+app.controller('loginController', ['$scope', '$rootScope', '$http', '$location', 'flashService',
     function($scope, $rootScope, $http, $location, flashService) {
     $scope.formModel = {};
     $scope.loginResponse = {};
@@ -231,14 +229,14 @@ app.controller('submitController', ['$scope', '$rootScope', '$http', '$location'
         $http.post('/pa165/rest/login', $scope.formModel).
             success(function (data) {
                 $scope.loginResponse = data;
-                console.log("login request successful")
+                console.log("login request successful");
                 console.log($scope.loginResponse);
                 if ($scope.loginResponse.authenticated == true) {
                     $scope.formModel.dataLoading = false;
                     $location.path("/pa165/cars");
-                    $rootScope.successAlert = 'Login successful!';
+                    $rootScope.successAlert = 'Login successful.';
                     $rootScope.currentUser = $scope.formModel.email;
-                    console.log($rootScope.currentUser);
+                    $rootScope.loggedIn = true;
                 } else {
                     $scope.formModel.dataLoading = false;
                     flashService.Error("Login failed! Incorrect email or password.");
@@ -293,10 +291,6 @@ app.service('flashService', ['$rootScope', function ($rootScope) {
         };
     }
 }]);
-
-app.controller('loginController', function($scope, $location) {
-
-});
 
 app.controller('ModalController', function ($scope, $uibModal, $log, sharedProperties, $http, $rootScope) {
     $scope.init = function (type, objectName) {
@@ -411,54 +405,5 @@ app.component('modalComponent', {
         $ctrl.cancel = function () {
             $ctrl.dismiss({$value: 'cancel'});
         };
-    }
-});
-
-var navbar = [
-    '<nav class="navbar navbar-inverse navbar-fixed-top">',
-        '<div class="container-fluid">',
-            '<div class="navbar-header">',
-                '<a class="navbar-brand" href="#/pa165/home">PA165 - CarPark</a>',
-            '</div>',
-            '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">',
-                '<ul class="nav navbar-nav navbar-center">',
-                    '<li ng-repeat="menu in $ctrl.menu">',
-                        '<a href="{{menu.component}}">{{menu.name}} <span class="sr-only">(current)</span></a>',
-                    '</li>',
-                '</ul>',
-                '<ul class="nav navbar-nav navbar-right">',
-                    '<li><a href="#/pa165"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>',
-                '</ul>',
-            '</div>',
-        '</div>',
-    '</nav>',
-    '<br/>',
-    '<br/>',
-    '<br/>',
-    '<br/>'
-].join(' ');
-
-app.component('menuBar', {
-    template: navbar,
-    controller: function($rootScope) {
-//        if ($rootScope.currentUser) {
-            this.menu = [{
-//                  name: "Home",
-//                  component: "#/pa165/home"
-//                }, {
-                  name: "Cars",
-                  component: "#/pa165/cars"
-                }, {
-                  name: "Employees",
-                  component: "#/pa165/employees"
-                }, {
-                    name: "Admins",
-                    component: "#/pa165/admins"
-                }, {
-                    name: "Reservations",
-                    component: "#/pa165/reservations"
-                }
-            ];
-//        }
     }
 });
