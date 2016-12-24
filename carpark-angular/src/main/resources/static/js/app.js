@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('app', ['ngRoute','ngResource', 'ui.bootstrap']);
+var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
 app.config(function($routeProvider){
     $routeProvider
@@ -29,7 +29,7 @@ app.config(function($routeProvider){
         });
 });
 
-app.run(function ($rootScope, $location, $http) {
+app.run(['$rootScope', '$location', '$http', '$timeout', function ($rootScope, $location, $http, $timeout) {
     $rootScope.loggedIn = false;
 
     $rootScope.hideSuccessAlert = function () {
@@ -59,4 +59,4 @@ app.run(function ($rootScope, $location, $http) {
             return $rootScope.loggedIn;
         }
     });
-});
+}]);

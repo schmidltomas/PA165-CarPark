@@ -8,6 +8,7 @@ app.controller('employeesController', function($scope, $http, $rootScope) {
                 console.log("failed to remove employee " + employee.id);
                 console.log(response);
                 $rootScope.errorAlert = 'Cannot remove employee with a reservation!';
+                hideAlert($timeout, $rootScope, 'error');
             });
     };
 });
@@ -22,11 +23,12 @@ app.controller('adminsController', function($scope, $http, $rootScope) {
                 console.log("failed to remove admin " + admin.id);
                 console.log(response);
                 $rootScope.errorAlert = 'Cannot remove admin!';
+                hideAlert($timeout, $rootScope, 'error');
             });
     };
 });
 
-app.controller('carsController', function($scope, $http, $rootScope) {
+app.controller('carsController', function($scope, $http, $rootScope, $timeout) {
     $scope.headingTitle = "Car list";
     loadAllCars($http, $rootScope);
     $scope.deleteCar = function (car) {
@@ -36,6 +38,7 @@ app.controller('carsController', function($scope, $http, $rootScope) {
                 console.log("failed to remove car " + car.id);
                 console.log(response);
                 $rootScope.errorAlert = 'Cannot remove reserved car!';
+                hideAlert($timeout, $rootScope, 'error');
             });
     };
 });
@@ -69,8 +72,8 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
     $scope.disabled = true;
     $scope.updateButtonText = "Update";
 
-    $scope.removeReservation = function (id) {
-        $http.delete('/pa165/rest/reservation/remove/'+id).success(function(data) {
+    $scope.deleteReservation = function (id) {
+        $http.delete('/pa165/rest/reservation/remove/' + id).success(function(data) {
             loadAllReservations($http, $rootScope);
             $rootScope.successAlert = 'Reservation "' + id + '" was deleted.';
         })
@@ -208,7 +211,8 @@ app.run(function($rootScope, sharedProperties) {
     }
 });
 
-app.controller('navbarController', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
+app.controller('navbarController', ['$rootScope', '$scope', '$location', '$timeout',
+    function ($rootScope, $scope, $location, $timeout) {
     var $ctrl = this;
 
     $ctrl.logout = function () {
@@ -216,11 +220,12 @@ app.controller('navbarController', ['$rootScope', '$scope', '$location', functio
         $rootScope.successAlert = 'User logged out.';
         $rootScope.loggedIn = false;
         $rootScope.currentUser = null;
+        hideAlert($timeout, $rootScope, 'success');
     };
 }]);
 
-app.controller('loginController', ['$scope', '$rootScope', '$http', '$location', 'flashService',
-    function($scope, $rootScope, $http, $location, flashService) {
+app.controller('loginController', ['$scope', '$rootScope', '$http', '$location', 'flashService', '$timeout',
+    function($scope, $rootScope, $http, $location, flashService, $timeout) {
     $scope.formModel = {};
     $scope.loginResponse = {};
 
@@ -237,6 +242,7 @@ app.controller('loginController', ['$scope', '$rootScope', '$http', '$location',
                     $rootScope.successAlert = 'Login successful.';
                     $rootScope.currentUser = $scope.formModel.email;
                     $rootScope.loggedIn = true;
+                    hideAlert($timeout, $rootScope, 'success');
                 } else {
                     $scope.formModel.dataLoading = false;
                     flashService.Error("Login failed! Incorrect email or password.");
@@ -370,12 +376,13 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-app.controller('ModalInstanceCtrl', function ($uibModalInstance, responseObject) {
+app.controller('ModalInstanceCtrl', function ($uibModalInstance, responseObject, $timeout, $rootScope) {
     var $ctrl = this;
     $ctrl.responseObject = responseObject;
 
     $ctrl.ok = function (responseObject) {
         $uibModalInstance.close(responseObject);
+        hideAlert($timeout, $rootScope, 'success');
     };
 
     $ctrl.cancel = function () {
@@ -407,3 +414,18 @@ app.component('modalComponent', {
         };
     }
 });
+
+function hideAlert($timeout, $rootScope, alertType) {
+    switch (alertType) {
+        case 'success':
+            $timeout(function() {
+                $rootScope.successAlert = undefined;
+            }, 3500);
+            break;
+        case 'error':
+            $timeout(function() {
+                $rootScope.errorAlert = undefined;
+            }, 3500);
+            break;
+        }
+}
