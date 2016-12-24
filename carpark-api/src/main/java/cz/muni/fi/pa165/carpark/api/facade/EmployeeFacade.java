@@ -41,6 +41,8 @@ public interface EmployeeFacade extends UserFacade {
     EmployeeDTO delete(Long id);
     
     EmployeeDTO findById(Long userId);
+
+    EmployeeDTO findByEmail(String email);
     
     Collection<EmployeeDTO> findByName(String firstName, String secondName);
     

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by robot on 25.11.16.
  */
 @Service
-public class ReservationServiceImpl implements ReservationService{
+public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private ReservationDAO reservationDAO;
@@ -46,6 +46,4 @@ public class ReservationServiceImpl implements ReservationService{
     public List<Reservation> getReservations(Employee employee) {
         return reservationDAO.getReservations(employee);
     }
-
-
 }

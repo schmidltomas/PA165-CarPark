@@ -2,8 +2,6 @@ package cz.muni.fi.pa165.carpark.api.facade;
 
 import cz.muni.fi.pa165.carpark.api.dto.EmployeeDTO;
 import cz.muni.fi.pa165.carpark.api.dto.ReservationDTO;
-import cz.muni.fi.pa165.carpark.persistence.entity.Employee;
-import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 
 import java.util.List;
 

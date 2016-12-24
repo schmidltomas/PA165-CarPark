@@ -79,6 +79,12 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
+    public EmployeeDTO findByEmail(String email) {
+        Employee employee = employeeService.findByEmail(email);
+        return (employee == null) ? null : classMapper.mapTo(employee, EmployeeDTO.class);
+    }
+
+    @Override
     public Collection<EmployeeDTO> findByName(String firstName, String secondName) {
         Collection<Employee> employee = employeeService.findByName(firstName, secondName);
         return (employee == null) ? null : classMapper.mapTo(employee, EmployeeDTO.class);

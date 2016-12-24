@@ -125,12 +125,16 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
 
     private void createReservations() throws ParseException {
         final DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        createReservation(allCars.get(0), allEmployees.get(0), format.parse("01.12.2016"), format.parse("01.12.2016"),
-                120, "Marketing presentation.");
         createReservation(allCars.get(1), allEmployees.get(1), format.parse("15.12.2016"), format.parse("16.12.2016"),
-                150, "Christmas party.");
+                150, "Christmas party");
+        createReservation(allCars.get(0), allEmployees.get(0), format.parse("01.12.2016"), format.parse("01.12.2016"),
+                120, "Marketing presentation");
+        createReservation(allCars.get(0), allEmployees.get(0), format.parse("15.12.2016"), format.parse("15.12.2016"),
+                90, "Customer meeting");
         createReservation(allCars.get(2), allEmployees.get(2), format.parse("09.01.2017"), format.parse("16.01.2017"),
-                85, "Business trip.");
+                85, "Business trip");
+        createReservation(allCars.get(3), allEmployees.get(2), format.parse("22.12.2016"), format.parse("22.12.2016"),
+                35, "Office supplies shopping");
     }
 
     private void createReservation(Car car, Employee employee, Date start, Date end, long distance, String purpose) {

@@ -183,14 +183,14 @@ public class ReservationFacadeTest extends AbstractTransactionalTestNGSpringCont
     }
 
     @Test
-    public void UpdateResTest() {
+    public void updateResTest() {
         when(classMapper.mapTo(any(ReservationDTO.class), eq(Reservation.class))).thenReturn(reservation);
         reservationFacade.update(reservationDTO);
         verify(reservationService).update(reservation);
     }
 
     @Test
-    public void RemoveResTest() {
+    public void removeResTest() {
         when(classMapper.mapTo(any(ReservationDTO.class), eq(Reservation.class))).thenReturn(reservation);
         reservationFacade.delete(reservationDTO);
         verify(reservationService).delete(reservation);

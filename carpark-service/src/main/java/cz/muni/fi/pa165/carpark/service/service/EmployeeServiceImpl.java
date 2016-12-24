@@ -63,6 +63,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee findByEmail(String email) {
+        return employeeDAO.findByEmail(email);
+    }
+
+    @Override
     public Collection<Employee> findByName(String firstName, String secondName) {
         return employeeDAO.findByName(firstName, secondName);
     }

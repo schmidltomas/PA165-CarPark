@@ -24,6 +24,8 @@ public interface EmployeeService {
     
     Employee findById(Long id);
 
+    Employee findByEmail(String email);
+
     Collection<Employee> findByName(String firstName, String secondName);
 
     Collection<Employee> findAllEmployees();
