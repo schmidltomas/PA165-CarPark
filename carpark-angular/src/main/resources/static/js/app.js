@@ -2,7 +2,8 @@
 
 var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
-app.config(function($routeProvider){
+app.config(function($routeProvider, $locationProvider){
+    $locationProvider.html5Mode(true);
     $routeProvider
         .when('/pa165/admin/cars',{
             templateUrl: '/templates/admin-cars.html',
@@ -33,9 +34,11 @@ app.config(function($routeProvider){
             controller: 'reservationsController'
         })
         .otherwise({
-            templateUrl: '/templates/login.html'
+            redirectTo: '/pa165'
         });
 });
+
+
 
 app.run(['$rootScope', '$location', '$http', '$timeout', function ($rootScope, $location, $http, $timeout) {
     $rootScope.loggedIn = false;
