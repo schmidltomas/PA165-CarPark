@@ -92,7 +92,6 @@ function createObjectNoChecks($http, responseObject, $rootScope) {
         var createdObject = response.data;
         loadAll($http, $rootScope, $rootScope.objectName);
         $rootScope.successAlert = $rootScope.objectName + ' "' + createdObject.id + '" was created.';
-        $rootScope.reservation = undefined;
     }, function error(response) {
         $rootScope.errorAlert = 'Cannot create ' + $rootScope.objectName + '.';
     });
@@ -131,6 +130,7 @@ function updateObjectNoChecks($http, responseObject, $rootScope) {
         console.log($rootScope.objectName + ' updated');
         console.log('/pa165/rest/'+ $rootScope.objectName + '/update');
         var updatedData = response.data;
+        loadAll($http, $rootScope, $rootScope.objectName);
         $rootScope.successAlert = $rootScope.objectName + ' "' + updatedData.id + '" was updated.';
     }, function error(response) {
         $rootScope.errorAlert = 'Cannot update ' + $rootScope.objectName + '.';
