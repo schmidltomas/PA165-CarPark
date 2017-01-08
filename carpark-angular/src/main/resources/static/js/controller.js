@@ -67,12 +67,6 @@ function loadAllReservations($http, $rootScope) {
     });
 }
 
-function loadAllReservations($http, $rootScope) {
-    $http.get('/pa165/rest/reservation/getAll').success(function(data) {
-        $rootScope.reservations = data;
-    });
-}
-
 app.controller('reservationsController', function($scope, $http, $rootScope) {
     $scope.headingTitle = "Reservation list";
     $scope.disabled = true;
@@ -84,36 +78,10 @@ app.controller('reservationsController', function($scope, $http, $rootScope) {
             $rootScope.successAlert = 'Reservation "' + id + '" was deleted.';
         })
     };
-
-    $scope.updateReservation = function (reservation) {
-        if ($scope.disabled) {
-            $scope.disabled = false;
-            $scope.updateButtonText = "Submit";
-        } else {
-            $scope.disabled = true;
-            $scope.updateButtonText = "Update";
-            console.log(reservation.purpose);
-            $http({
-                method: "PUT",
-                url: "/pa165/rest/reservation/update",
-                data: reservation
-            }).then(function success(response) {
-                console.log('reservation updated');
-                var updatedReservation = response.data;
-                //refresh reservations
-                loadAllReservations($http, $rootScope);
-                //display confirmation alert
-                $rootScope.successAlert = 'Reservation "' + updatedReservation.id + '" was updated.';
-            }, function error(response) {
-                //display error
-                $rootScope.errorAlert = 'Cannot update reservation.';
-            });
-        }
-    };
     loadAllReservations($http, $rootScope);
 });
 
-function createObject($http, responseObject, $rootScope) {
+function createObjectNoChecks($http, responseObject, $rootScope) {
     $http({
         method: 'POST',
         url: '/pa165/rest/' + $rootScope.objectName + '/create',
@@ -124,12 +92,37 @@ function createObject($http, responseObject, $rootScope) {
         var createdObject = response.data;
         loadAll($http, $rootScope, $rootScope.objectName);
         $rootScope.successAlert = $rootScope.objectName + ' "' + createdObject.id + '" was created.';
+        $rootScope.reservation = undefined;
     }, function error(response) {
         $rootScope.errorAlert = 'Cannot create ' + $rootScope.objectName + '.';
     });
 }
 
-function updateObject($http, responseObject, $rootScope) {
+function createObject($http, responseObject, $rootScope) {
+    if ($rootScope.objectName === "reservation") {
+        if($rootScope.isAdmin){
+            $http.get('/pa165/rest/employee/getByEmail?email=' + responseObject.employee.email).success(function(data) {
+                responseObject.employee = data;
+                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+                    responseObject.car = data;
+                    createObjectNoChecks($http, responseObject, $rootScope);
+                });
+            });
+        } else {
+            $http.get('/pa165/rest/employee/getByEmail?email=' + $rootScope.currentUser).success(function(data) {
+                responseObject.employee = data;
+                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+                    responseObject.car = data;
+                    createObjectNoChecks($http, responseObject, $rootScope);
+                });
+            });
+        }
+    } else {
+        createObjectNoChecks($http, responseObject, $rootScope);
+    }
+}
+
+function updateObjectNoChecks($http, responseObject, $rootScope) {
     $http({
         method: 'PUT',
         url: '/pa165/rest/'+ $rootScope.objectName + '/update',
@@ -138,11 +131,31 @@ function updateObject($http, responseObject, $rootScope) {
         console.log($rootScope.objectName + ' updated');
         console.log('/pa165/rest/'+ $rootScope.objectName + '/update');
         var updatedData = response.data;
-        loadAll($http, $rootScope, $rootScope.objectName);
         $rootScope.successAlert = $rootScope.objectName + ' "' + updatedData.id + '" was updated.';
     }, function error(response) {
         $rootScope.errorAlert = 'Cannot update ' + $rootScope.objectName + '.';
     });
+}
+
+function updateObject($http, responseObject, $rootScope) {
+    if ($rootScope.objectName === "reservation") {
+        if($rootScope.isAdmin){
+            $http.get('/pa165/rest/employee/getByEmail?email=' + responseObject.employee.email).success(function(data) {
+                responseObject.employee = data;
+                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+                    responseObject.car = data;
+                    updateObjectNoChecks($http, responseObject, $rootScope);
+                });
+            });
+        } else {
+            $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+                responseObject.car = data;
+                updateObjectNoChecks($http, responseObject, $rootScope);
+            });
+        }
+    } else {
+        updateObjectNoChecks($http, responseObject, $rootScope);
+    }
 }
 
 function loadAll($http, $rootScope, objectName) {

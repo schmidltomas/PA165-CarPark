@@ -71,6 +71,12 @@ public class EmployeeController {
         final Collection<EmployeeDTO> employee = employeeFacade.findByName(name, surName);
         return ControllerResponse.processResponse(employee);
     }
+
+    @RequestMapping(value = "getByEmail", method = RequestMethod.GET, params = {"email"})
+    public ResponseEntity getEmployeeByEmail(String email) throws Exception {
+        final EmployeeDTO employee = employeeFacade.findByEmail(email);
+        return ControllerResponse.processResponse(employee);
+    }
     
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
     public ResponseEntity getAllEmployees() throws Exception {
