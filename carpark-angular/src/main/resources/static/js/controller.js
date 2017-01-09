@@ -158,6 +158,13 @@ function updateObject($http, responseObject, $rootScope) {
     }
 }
 
+function clearForm($rootScope) {
+    $rootScope.car = null;
+    $rootScope.employee = null;
+    $rootScope.admin = null;
+    $rootScope.reservation = null;
+}
+
 function loadAll($http, $rootScope, objectName) {
     switch (objectName) {
         case 'car':
@@ -413,6 +420,7 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, responseObject,
 
     $ctrl.cancel = function () {
         $uibModalInstance.dismiss('cancel');
+        clearForm($rootScope);
     };
 });
 
@@ -437,6 +445,7 @@ app.component('modalComponent', {
 
         $ctrl.cancel = function () {
             $ctrl.dismiss({$value: 'cancel'});
+            clearForm($rootScope);
         };
     }
 });
