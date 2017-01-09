@@ -379,6 +379,8 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             var resultFunction = window[$scope.responseMethodName];
             if (typeof resultFunction === "function") resultFunction($http, responseObject, $rootScope);
             $log.info('Modal dismissed at: ' + new Date());
+        }, function () {
+            clearForm($rootScope);
         });
     };
     
@@ -402,6 +404,8 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             var resultFunction = window[$scope.responseMethodName];
             if (typeof resultFunction === "function") resultFunction($http, responseObject, $rootScope);
             $log.info('Modal dismissed at: ' + new Date());
+        }, function () {
+            clearForm($rootScope);
         });
     };
 });
@@ -420,7 +424,6 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, responseObject,
 
     $ctrl.cancel = function () {
         $uibModalInstance.dismiss('cancel');
-        clearForm($rootScope);
     };
 });
 
@@ -445,7 +448,6 @@ app.component('modalComponent', {
 
         $ctrl.cancel = function () {
             $ctrl.dismiss({$value: 'cancel'});
-            clearForm($rootScope);
         };
     }
 });
