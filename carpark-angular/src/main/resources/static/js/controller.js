@@ -381,6 +381,7 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             $log.info('Modal dismissed at: ' + new Date());
         }, function () {
             clearForm($rootScope);
+            loadAll($http, $rootScope, $rootScope.objectName);
         });
     };
     
@@ -406,6 +407,7 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
             $log.info('Modal dismissed at: ' + new Date());
         }, function () {
             clearForm($rootScope);
+            loadAll($http, $rootScope, $rootScope.objectName);
         });
     };
 });
