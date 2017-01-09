@@ -43,6 +43,20 @@ app.controller('carsController', function($scope, $http, $rootScope, $timeout) {
     };
 });
 
+app.controller('reservationsController', function($scope, $http, $rootScope, $timeout) {
+    $scope.headingTitle = "Reservation list";
+    $scope.disabled = true;
+
+    $scope.deleteReservation = function (id) {
+        $http.delete('/pa165/rest/reservation/remove/' + id).success(function(data) {
+            loadAllReservations($http, $rootScope);
+            $rootScope.successAlert = 'Reservation "' + id + '" was deleted.';
+            hideAlert($timeout, $rootScope, 'success');
+        })
+    };
+    loadAllReservations($http, $rootScope);
+});
+
 function loadAllCars($http, $rootScope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
         $rootScope.cars = data;
@@ -67,20 +81,6 @@ function loadAllReservations($http, $rootScope) {
     });
 }
 
-app.controller('reservationsController', function($scope, $http, $rootScope) {
-    $scope.headingTitle = "Reservation list";
-    $scope.disabled = true;
-    $scope.updateButtonText = "Update";
-
-    $scope.deleteReservation = function (id) {
-        $http.delete('/pa165/rest/reservation/remove/' + id).success(function(data) {
-            loadAllReservations($http, $rootScope);
-            $rootScope.successAlert = 'Reservation "' + id + '" was deleted.';
-        })
-    };
-    loadAllReservations($http, $rootScope);
-});
-
 function createObjectNoChecks($http, responseObject, $rootScope) {
     $http({
         method: 'POST',
@@ -99,7 +99,7 @@ function createObjectNoChecks($http, responseObject, $rootScope) {
 
 function createObject($http, responseObject, $rootScope) {
     if ($rootScope.objectName === "reservation") {
-        if($rootScope.isAdmin){
+        if ($rootScope.isAdmin) {
             $http.get('/pa165/rest/employee/getByEmail?email=' + responseObject.employee.email).success(function(data) {
                 responseObject.employee = data;
                 $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
@@ -139,7 +139,7 @@ function updateObjectNoChecks($http, responseObject, $rootScope) {
 
 function updateObject($http, responseObject, $rootScope) {
     if ($rootScope.objectName === "reservation") {
-        if($rootScope.isAdmin){
+        if ($rootScope.isAdmin) {
             $http.get('/pa165/rest/employee/getByEmail?email=' + responseObject.employee.email).success(function(data) {
                 responseObject.employee = data;
                 $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
@@ -420,6 +420,7 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, responseObject,
     $ctrl.ok = function (responseObject) {
         $uibModalInstance.close(responseObject);
         hideAlert($timeout, $rootScope, 'success');
+        hideAlert($timeout, $rootScope, 'error');
     };
 
     $ctrl.cancel = function () {
