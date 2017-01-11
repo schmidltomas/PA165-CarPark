@@ -16,5 +16,5 @@ Or respectively, run the AngularApp.main() from your IDE.
 
 The webapp is then available on:
 ```
-http://localhost:8080/#/pa165
+http://localhost:8080/pa165
 ```
