@@ -66,9 +66,9 @@ public class EmployeeController {
         return ControllerResponse.processResponse(employee);
     }
     
-    @RequestMapping(value = "getByName", method = RequestMethod.GET, params = {"name", "surName"})
-    public ResponseEntity getEmployeeByName(String name, String surName) throws Exception {
-        final Collection<EmployeeDTO> employee = employeeFacade.findByName(name, surName);
+    @RequestMapping(value = "getByName", method = RequestMethod.GET, params = {"firstName", "lastName"})
+    public ResponseEntity getEmployeeByName(String firstName, String lastName) throws Exception {
+        final Collection<EmployeeDTO> employee = employeeFacade.findByName(firstName, lastName);
         return ControllerResponse.processResponse(employee);
     }
 
