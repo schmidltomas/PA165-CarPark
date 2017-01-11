@@ -18,3 +18,4 @@ The webapp is then available on:
 ```
 http://localhost:8080/pa165
 ```
+For more information about REST API, visit [rest](https://github.com/schmidltomas/PA165-CarPark/wiki/Rest-Controller) page
