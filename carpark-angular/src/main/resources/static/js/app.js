@@ -38,8 +38,6 @@ app.config(function($routeProvider, $locationProvider){
         });
 });
 
-
-
 app.run(['$rootScope', '$location', '$http', '$timeout', function ($rootScope, $location, $http, $timeout) {
     $rootScope.loggedIn = false;
     $rootScope.isAdmin = false;

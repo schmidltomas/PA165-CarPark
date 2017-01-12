@@ -9,6 +9,7 @@
             <tr>
                 <th>ID</th>
                 <th>Employee</th>
+                <th>Car</th>
                 <th>License plate</th>
                 <th>Start date</th>
                 <th>End date</th>
@@ -21,7 +22,8 @@
             <tr ng-repeat="reservation in reservations">
                 <td>{{reservation.id}}</td>
                 <td>{{reservation.employee.username}}</td>
-                <td>{{reservation.car.evidence_number}}</td>
+                <td>{{reservation.car.brand}} model</td>
+                <td>{{reservation.car.evidenceNumber}}</td>
                 <td>{{reservation.startDate}}</td>
                 <td>{{reservation.endDate}}</td>
                 <td>{{reservation.distance}}</td>
@@ -40,9 +42,9 @@
                                             <fieldset>
                                                 <legend>Reservation Info</legend>
                                                 <input type="text" name="employee" placeholder="Employee *" ng-model="reservation.employee.email" required>
-                                                <input type="text" name="car" placeholder="Car *" ng-model="reservation.car.evidence_number" required>
-                                                <input type="text" name="startDate" placeholder="Start Date *" ng-model="reservation.startDate" required>
-                                                <input type="text" name="endDate" placeholder="End Date *" ng-model="reservation.endDate" required>
+                                                <input type="text" name="car" placeholder="Car *" ng-model="reservation.car.evidenceNumber" required>
+                                                <input type="text" name="startDate" placeholder="Start date *" ng-model="reservation.startDate" required>
+                                                <input type="text" name="endDate" placeholder="End date *" ng-model="reservation.endDate" required>
                                                 <input type="number" name="distance" placeholder="Distance *" ng-model="reservation.distance" required>
                                                 <input type="text" name="purpose" placeholder="Purpose *" ng-model="reservation.purpose">
                                             </fieldset>
@@ -79,14 +81,22 @@
                     <form name="modalForm">
                         <fieldset>
                             <legend>Reservation Info</legend>
-                            <input type="text" name="employee" placeholder="Employee *" ng-model="reservation.employee.email" required>
-                            <input type="text" name="car" placeholder="Car *" ng-model="reservation.car.evidence_number" required>
-                            <input type="text" name="startDate" placeholder="Start Date *" ng-model="reservation.startDate" required>
-                            <input type="text" name="endDate" placeholder="End Date *" ng-model="reservation.endDate" required>
-                            <input type="number" name="distance" placeholder="Distance *" ng-model="reservation.distance" required>
-                            <input type="text" name="purpose" placeholder="Purpose *" ng-model="reservation.purpose">
+                            <select ng-model="reservation.employee.email"
+                                    ng-options="employee.email as employee.firstName + ' ' + employee.secondName + ' (' + employee.email + ')' for employee in employees">
+                                <option value="">-- Select employee --</option>
+                            </select>
+                            <select ng-model="reservation.car.evidenceNumber"
+                                    ng-options="car.evidenceNumber as car.brand + ' (' + car.evidenceNumber + ')' for car in cars">
+                                <option value="">-- Select car --</option>
+                            </select>
+                            <input type="text" name="startDate" placeholder="Start date *" ng-model="reservation.startDate" ng-init="reservation.startDate='2017-01-01'" required>
+                            <input type="text" name="endDate" placeholder="End date *" ng-model="reservation.endDate" ng-init="reservation.endDate='2017-01-01'" required>
+                            <input type="number" name="distance" placeholder="Distance *" min="1" ng-model="reservation.distance" required>
+                            <input type="text" name="purpose" placeholder="Purpose *" ng-model="reservation.purpose" required>
                         </fieldset>
-                        <button class="btn btn-primary" ng-click="$ctrl.ok(reservation)" ng-disabled="modalForm.$invalid">New reservation</button>
+                        <button class="btn btn-primary"
+                                ng-click="$ctrl.ok(reservation)"
+                                ng-disabled="modalForm.$invalid || (reservation.car.evidenceNumber === null) || (reservation.employee.email === null)">New reservation</button>
                         <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
                     </form>
                 </div>

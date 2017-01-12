@@ -54,6 +54,8 @@ app.controller('reservationsController', function($scope, $http, $rootScope, $ti
             hideAlert($timeout, $rootScope, 'success');
         })
     };
+    loadAllCars($http, $rootScope);
+    loadAllEmployees($http, $rootScope);
     loadAllReservations($http, $rootScope);
 });
 
@@ -102,7 +104,7 @@ function createObject($http, responseObject, $rootScope) {
         if ($rootScope.isAdmin) {
             $http.get('/pa165/rest/employee/getByEmail?email=' + responseObject.employee.email).success(function(data) {
                 responseObject.employee = data;
-                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidenceNumber).success(function(data) {
                     responseObject.car = data;
                     createObjectNoChecks($http, responseObject, $rootScope);
                 });
@@ -110,7 +112,7 @@ function createObject($http, responseObject, $rootScope) {
         } else {
             $http.get('/pa165/rest/employee/getByEmail?email=' + $rootScope.currentUser).success(function(data) {
                 responseObject.employee = data;
-                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidenceNumber).success(function(data) {
                     responseObject.car = data;
                     createObjectNoChecks($http, responseObject, $rootScope);
                 });
@@ -142,13 +144,13 @@ function updateObject($http, responseObject, $rootScope) {
         if ($rootScope.isAdmin) {
             $http.get('/pa165/rest/employee/getByEmail?email=' + responseObject.employee.email).success(function(data) {
                 responseObject.employee = data;
-                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+                $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidenceNumber).success(function(data) {
                     responseObject.car = data;
                     updateObjectNoChecks($http, responseObject, $rootScope);
                 });
             });
         } else {
-            $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidence_number).success(function(data) {
+            $http.get('/pa165/rest/car/getBySpz?spz=' + responseObject.car.evidenceNumber).success(function(data) {
                 responseObject.car = data;
                 updateObjectNoChecks($http, responseObject, $rootScope);
             });
@@ -180,13 +182,13 @@ function loadAll($http, $rootScope, objectName) {
 
 app.service('sharedProperties', function () {
     var _car = {
-        'evidence_number': '',
+        'evidenceNumber': '',
         'brand': '',
-        'fuel_type': 'Petrol',
-        'fuel_consumption': 0,
+        'fuelType': 'Petrol',
+        'fuelConsumption': 0,
         'seats': 1,
-        'home_location': '',
-        'current_location': ''
+        'homeLocation': '',
+        'currentLocation': ''
     };
 
     var _employee = {

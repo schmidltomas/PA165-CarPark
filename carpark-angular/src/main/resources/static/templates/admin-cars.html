@@ -23,11 +23,11 @@
                 <td>{{car.id}}</td>
                 <td>{{car.brand}}</td>
                 <td>{{car.seats}}</td>
-                <td>{{car.evidence_number}}</td>
-                <td>{{car.fuel_type}}</td>
-                <td>{{car.fuel_consumption}}</td>
-                <td>{{car.home_location}}</td>
-                <td>{{car.current_location}}</td>
+                <td>{{car.evidenceNumber}}</td>
+                <td>{{car.fuelType}}</td>
+                <td>{{car.fuelConsumption}}</td>
+                <td>{{car.homeLocation}}</td>
+                <td>{{car.currentLocation}}</td>
                 <td>
                     <div ng-controller="ModalController as $ctrl" ng-click="init('loadCar', 'car', car)">
                     <div ng-controller="ModalController as $ctrl" ng-init="init('updateObject', 'car')">
@@ -40,13 +40,13 @@
                                 <form name="modalForm">
                                     <fieldset>
                                         <legend>Car Info</legend>
-                                        <input type="text" name="evidence_number" placeholder="Evidence Number *" ng-model="car.evidence_number" required>
+                                        <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                                         <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
-                                        <input type="number" name="fuel_consumption" placeholder="Fuel Consuption *" min="1" ng-model="car.fuel_consumption" required>
+                                        <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
                                         <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
-                                        <input type="text" name="home_location" placeholder="Home Location *" ng-model="car.home_location" required>
-                                        <input type="text" name="current_location" placeholder="Current Location *" ng-model="car.current_location" required>
-                                        <select name="fuel_type" ng-model="car.fuel_type" required>
+                                        <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
+                                        <input type="text" name="currentLocation" placeholder="Current location *" ng-model="car.currentLocation" required>
+                                        <select name="fuelType" ng-model="car.fuelType" required>
                                           <option value="petrol">Petrol</option>
                                           <option value="diesel">Diesel</option>
                                           <option value="lpg">LPG</option>
@@ -85,19 +85,18 @@
                     <form name="modalForm">
                         <fieldset>
                             <legend>Car Info</legend>
-                            <input type="text" name="evidence_number" placeholder="Evidence Number *" ng-model="car.evidence_number" required>
+                            <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                             <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
-                            <input type="number" name="fuel_consumption" placeholder="Fuel Consuption *" min="1" ng-model="car.fuel_consumption" required>
+                            <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
                             <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
-                            <input type="text" name="home_location" placeholder="Home Location *" ng-model="car.home_location" required>
-                            <input type="text" name="current_location" placeholder="Current Location *" ng-model="car.current_location" required>
-                            <select id="job" name="fuel_type" ng-model="car.fuel_type" required>
+                            <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
+                            <input type="text" name="currentLocation" placeholder="Current location *" ng-model="car.currentLocation" required>
+                            <select id="job" name="fuelType" ng-model="car.fuelType" required>
                               <option value="petrol">Petrol</option>
                               <option value="diesel">Diesel</option>
                               <option value="lpg">LPG</option>
                             </select>
                         </fieldset>
-                        <!--<input type="submit" value="Create Car" ng-click="$ctrl.ok(car)" />-->
                         <button class="btn btn-primary" ng-click="$ctrl.ok(car)" ng-disabled="modalForm.$invalid">New car</button>
                         <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
                     </form>

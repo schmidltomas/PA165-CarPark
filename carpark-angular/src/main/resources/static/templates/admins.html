@@ -36,8 +36,8 @@
                                         <fieldset>
                                             <legend>Admin Info</legend>
                                             <input type="text" name="username" placeholder="Username *" ng-model="admin.username" required>
-                                            <input type="text" name="first_name" placeholder="First Name *" ng-model="admin.firstName" required>
-                                            <input type="text" name="second_name" placeholder="Second Name *" ng-model="admin.secondName" required>
+                                            <input type="text" name="firstName" placeholder="First name *" ng-model="admin.firstName" required>
+                                            <input type="text" name="secondName" placeholder="Second name *" ng-model="admin.secondName" required>
                                             <input type="email" name="email" placeholder="Email *" ng-model="admin.email" required>
                                         </fieldset>
                                         <button class="btn btn-primary" ng-click="$ctrl.ok(admin)" ng-disabled="modalForm.$invalid">Update admin</button>
@@ -74,8 +74,8 @@
                     <form name="modalForm">
                         <fieldset>
                             <legend>Admin Info</legend>
-                            <input type="text" name="first_name" placeholder="First Name *" ng-model="admin.firstName" required>
-                            <input type="text" name="second_name" placeholder="Second Name *" ng-model="admin.secondName" required>
+                            <input type="text" name="firstName" placeholder="First name *" ng-model="admin.firstName" required>
+                            <input type="text" name="secondName" placeholder="Second name *" ng-model="admin.secondName" required>
                             <input type="email" name="email" placeholder="Email *" ng-model="admin.email" required>
                             <input type="text" name="username" placeholder="Username *" ng-model="admin.username" required>
                             <input type="password" name="password" placeholder="Password *" ng-model="admin.password" required>

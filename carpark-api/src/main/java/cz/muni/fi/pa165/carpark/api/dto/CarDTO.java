@@ -14,7 +14,7 @@ public class CarDTO {
     @JsonProperty
     private Long id;
 
-    @JsonProperty("evidence_number")
+    @JsonProperty
     @NotBlank
     private String evidenceNumber;
 
@@ -22,11 +22,11 @@ public class CarDTO {
     @NotBlank
     private String brand;
 
-    @JsonProperty("fuel_type")
+    @JsonProperty
     @NotBlank
     private String fuelType;
 
-    @JsonProperty("fuel_consumption")
+    @JsonProperty
     @DecimalMin("0.0")
     private double fuelConsumption;
 
@@ -34,11 +34,11 @@ public class CarDTO {
     @Min(1)
     private int seats;
 
-    @JsonProperty("home_location")
+    @JsonProperty
     @NotBlank
     private String homeLocation;
 
-    @JsonProperty("current_location")
+    @JsonProperty
     @NotBlank
     private String currentLocation;
 
