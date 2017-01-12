@@ -46,6 +46,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         car = new Car();
         car.setId(Integer.toUnsignedLong(1));
         car.setBrand("bmw");
+        car.setModel("z3");
         car.setCurrentLocation("Brno");
         car.setEvidenceNumber("HGJ679");
         car.setFuelConsumption(5.6);
@@ -55,6 +56,7 @@ public class CarServiceTest extends AbstractTestNGSpringContextTests {
         secondCar = new Car();
         secondCar.setId(Integer.toUnsignedLong(2));
         secondCar.setBrand("bmw");
+        secondCar.setModel("m4");
         secondCar.setCurrentLocation("Brno");
         secondCar.setEvidenceNumber("HGJ679");
         secondCar.setFuelConsumption(5.6);

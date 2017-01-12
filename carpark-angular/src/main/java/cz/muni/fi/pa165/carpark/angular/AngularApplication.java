@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Import;
  */
 @Import({RestConfiguration.class, AngularConfiguration.class})
 @EnableAutoConfiguration
-public class AngularApp {
-    public static void main(String[] args) {
-        SpringApplication.run(AngularApp.class, args);
-    }
+public class AngularApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(AngularApplication.class, args);
+    }
 }

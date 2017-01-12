@@ -39,8 +39,7 @@ public class CarFacadeImpl implements CarFacade {
     @Override
     public List<CarDTO> findAll() {
         final List<Car> cars = carService.findAll();
-        List<CarDTO> carDTOs = classMapper.mapTo(cars, CarDTO.class);
-        return carDTOs;
+        return classMapper.mapTo(cars, CarDTO.class);
     }
 
     @Override

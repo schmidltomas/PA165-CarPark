@@ -9,6 +9,7 @@
             <tr>
                 <th>ID</th>
                 <th>Manufacturer</th>
+                <th>Model</th>
                 <th>Seats</th>
                 <th>License plate</th>
                 <th>Fuel type</th>
@@ -22,6 +23,7 @@
             <tr ng-repeat="car in cars">
                 <td>{{car.id}}</td>
                 <td>{{car.brand}}</td>
+                <td>{{car.model}}</td>
                 <td>{{car.seats}}</td>
                 <td>{{car.evidenceNumber}}</td>
                 <td>{{car.fuelType}}</td>
@@ -42,6 +44,7 @@
                                         <legend>Car Info</legend>
                                         <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                                         <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
+                                        <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
                                         <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
                                         <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
                                         <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
@@ -87,6 +90,7 @@
                             <legend>Car Info</legend>
                             <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                             <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
+                            <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
                             <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
                             <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
                             <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>

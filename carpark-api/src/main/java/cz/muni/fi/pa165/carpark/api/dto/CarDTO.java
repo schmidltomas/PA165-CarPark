@@ -24,6 +24,10 @@ public class CarDTO {
 
     @JsonProperty
     @NotBlank
+    private String model;
+
+    @JsonProperty
+    @NotBlank
     private String fuelType;
 
     @JsonProperty
@@ -64,6 +68,14 @@ public class CarDTO {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getFuelType() {
@@ -117,6 +129,7 @@ public class CarDTO {
         if (seats != carDTO.seats) return false;
         if (!evidenceNumber.equals(carDTO.evidenceNumber)) return false;
         if (!brand.equals(carDTO.brand)) return false;
+        if (!model.equals(carDTO.model)) return false;
         if (!fuelType.equals(carDTO.fuelType)) return false;
         if (!homeLocation.equals(carDTO.homeLocation)) return false;
         return currentLocation.equals(carDTO.currentLocation);
@@ -129,6 +142,7 @@ public class CarDTO {
         long temp;
         result = evidenceNumber.hashCode();
         result = 31 * result + brand.hashCode();
+        result = 31 * result + model.hashCode();
         result = 31 * result + fuelType.hashCode();
         temp = Double.doubleToLongBits(fuelConsumption);
         result = 31 * result + (int) (temp ^ (temp >>> 32));

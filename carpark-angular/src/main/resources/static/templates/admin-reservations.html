@@ -22,7 +22,7 @@
             <tr ng-repeat="reservation in reservations">
                 <td>{{reservation.id}}</td>
                 <td>{{reservation.employee.username}}</td>
-                <td>{{reservation.car.brand}} model</td>
+                <td>{{reservation.car.brand}} {{reservation.car.model}}</td>
                 <td>{{reservation.car.evidenceNumber}}</td>
                 <td>{{reservation.startDate}}</td>
                 <td>{{reservation.endDate}}</td>

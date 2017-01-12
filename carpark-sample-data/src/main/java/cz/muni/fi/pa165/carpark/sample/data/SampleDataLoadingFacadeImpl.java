@@ -78,13 +78,14 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
         allEmployees.add(employee);
     }
 
-    private void createCar(String evidenceNumber, String brand, String fuelType, double fuelConsumption,
+    private void createCar(String evidenceNumber, String brand, String model, String fuelType, double fuelConsumption,
             int seats, String homeLocation, String currentLocation) {
         final Car car = new Car();
         car.setSeats(seats);
         car.setHomeLocation(homeLocation);
         car.setFuelConsumption(fuelConsumption);
         car.setBrand(brand);
+        car.setModel(model);
         car.setCurrentLocation(currentLocation);
         car.setFuelType(fuelType);
         car.setEvidenceNumber(evidenceNumber);
@@ -99,12 +100,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade{
     }
 
     private void createCars() {
-        createCar("2B38206", "BMW", "diesel", 6.7, 5, "Brno", "Brno");
-        createCar("7A21534", "Audi", "petrol", 10, 2, "Praha", "Brno");
-        createCar("8B30395", "Škoda", "diesel", 4.2, 8, "Brno", "Praha");
-        createCar("1A69031", "Kia", "lpg", 5, 5, "Praha", "Praha");
-        createCar("4B27372", "Mercedes", "petrol", 8.5, 4, "Brno", "Brno");
-        createCar("3B13073", "Ferrari", "petrol", 15, 2, "Brno", "Brno");
+        createCar("2B38206", "BMW", "330d", "petrol", 8.7, 5, "Brno", "Brno");
+        createCar("7A21534", "Audi", "A3", "petrol", 10, 4, "Praha", "Brno");
+        createCar("8B30395", "Škoda", "Fabia", "diesel", 4.2, 5, "Brno", "Praha");
+        createCar("3B13073", "Škoda", "Octavia", "petrol", 5.8, 5, "Brno", "Brno");
+        createCar("1A69031", "Kia", "Cee'd", "lpg", 5, 5, "Praha", "Praha");
+        createCar("4B27372", "Mercedes-Benz", "Sprinter", "diesel", 8.5, 3, "Brno", "Brno");
     }
 
     private void createAdmin() {

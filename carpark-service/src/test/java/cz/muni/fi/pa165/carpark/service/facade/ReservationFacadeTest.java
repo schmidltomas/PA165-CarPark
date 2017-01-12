@@ -90,6 +90,7 @@ public class ReservationFacadeTest extends AbstractTransactionalTestNGSpringCont
         carDTO = new CarDTO();
         carDTO.setId(Integer.toUnsignedLong(1));
         carDTO.setBrand("skoda");
+        carDTO.setModel("fabia");
         carDTO.setCurrentLocation("Brno");
         carDTO.setEvidenceNumber("B-803");
         carDTO.setFuelConsumption(5.3);
@@ -100,6 +101,7 @@ public class ReservationFacadeTest extends AbstractTransactionalTestNGSpringCont
         carDTO2 = new CarDTO();
         carDTO2.setId(Integer.toUnsignedLong(2));
         carDTO2.setBrand("bmw");
+        carDTO2.setModel("z3");
         carDTO2.setCurrentLocation("Praha");
         carDTO2.setEvidenceNumber("B-222");
         carDTO2.setFuelConsumption(7.2);
@@ -110,6 +112,7 @@ public class ReservationFacadeTest extends AbstractTransactionalTestNGSpringCont
         car = new Car();
         car.setId(Integer.toUnsignedLong(1));
         car.setBrand("skoda");
+        carDTO.setModel("fabia");
         car.setCurrentLocation("Brno");
         car.setEvidenceNumber("B-803");
         car.setFuelConsumption(5.3);
@@ -120,6 +123,7 @@ public class ReservationFacadeTest extends AbstractTransactionalTestNGSpringCont
         car2 = new Car();
         car2.setId(Integer.toUnsignedLong(2));
         car2.setBrand("bmw");
+        car2.setModel("z3");
         car2.setCurrentLocation("Praha");
         car2.setEvidenceNumber("B-222");
         car2.setFuelConsumption(7.2);

@@ -41,6 +41,7 @@ public class CarDAOTest extends AbstractTestNGSpringContextTests {
     public void createCar() {
         car = new Car();
         car.setBrand("audi");
+        car.setModel("a3");
         car.setCurrentLocation("Praha");
         car.setEvidenceNumber(evidenceNumber);
         car.setFuelConsumption(4.8);
@@ -50,6 +51,7 @@ public class CarDAOTest extends AbstractTestNGSpringContextTests {
 
         secondCar = new Car();
         secondCar.setBrand("bmw");
+        secondCar.setModel("x5");
         secondCar.setCurrentLocation("Praha");
         secondCar.setEvidenceNumber(secondEvidenceNumber);
         secondCar.setFuelConsumption(4.5);

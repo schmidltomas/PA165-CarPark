@@ -70,6 +70,7 @@ public class ReservationDAOTest extends AbstractTestNGSpringContextTests {
         Date endDate2 = cal.getTime();
 
         car.setBrand("skoda");
+        car.setModel("120");
         car.setCurrentLocation("Brno");
         car.setEvidenceNumber("B-803");
         car.setFuelConsumption(5.3);
@@ -78,6 +79,7 @@ public class ReservationDAOTest extends AbstractTestNGSpringContextTests {
         car.setHomeLocation("Brno");
 
         car2.setBrand("bmw");
+        car2.setModel("z3");
         car2.setCurrentLocation("Praha");
         car2.setEvidenceNumber("B-222");
         car2.setFuelConsumption(7.2);

@@ -184,6 +184,7 @@ app.service('sharedProperties', function () {
     var _car = {
         'evidenceNumber': '',
         'brand': '',
+        'model': '',
         'fuelType': 'Petrol',
         'fuelConsumption': 0,
         'seats': 1,

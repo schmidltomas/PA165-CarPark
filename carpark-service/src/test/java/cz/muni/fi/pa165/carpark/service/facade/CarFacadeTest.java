@@ -60,6 +60,7 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
         carDTO = new CarDTO();
         carDTO.setId(Integer.toUnsignedLong(1));
         carDTO.setBrand("bmw");
+        carDTO.setModel("z3");
         carDTO.setCurrentLocation("Brno");
         carDTO.setEvidenceNumber("HGJ679");
         carDTO.setFuelConsumption(5.6);
@@ -68,7 +69,8 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
 
         secondCarDTO = new CarDTO();
         secondCarDTO.setId(Integer.toUnsignedLong(2));
-        secondCarDTO.setBrand("audo");
+        secondCarDTO.setBrand("audi");
+        secondCarDTO.setModel("a5");
         secondCarDTO.setCurrentLocation("Brno");
         secondCarDTO.setEvidenceNumber("HG789679");
         secondCarDTO.setFuelConsumption(5.6);
@@ -78,6 +80,7 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
         car = new Car();
         car.setId(Integer.toUnsignedLong(1));
         car.setBrand("bmw");
+        car.setModel("x5");
         car.setCurrentLocation("Brno");
         car.setEvidenceNumber("HGJ679");
         car.setFuelConsumption(5.6);
@@ -87,6 +90,7 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
         secondCar = new Car();
         secondCar.setId(Integer.toUnsignedLong(1));
         secondCar.setBrand("audi");
+        secondCar.setModel("a3");
         secondCar.setCurrentLocation("Brno");
         secondCar.setEvidenceNumber("HG789679");
         secondCar.setFuelConsumption(5.6);
@@ -98,7 +102,6 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
 
     @Test
     public void findByIdTest() {
-
         when(carService.findById(anyLong())).thenReturn(car);
         when(classMapper.mapTo(any(Car.class), eq(CarDTO.class))).thenReturn(carDTO);
 
@@ -111,7 +114,6 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
 
     @Test
     public void findAllTest() {
-
         when(carService.findAll()).thenReturn(Arrays.asList(car, secondCar));
         when(classMapper.mapTo(anyCollectionOf(Car.class),
                 eq(CarDTO.class))).thenReturn(Arrays.asList(carDTO, secondCarDTO));
@@ -123,7 +125,6 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
 
     @Test
     public void findBySpzTest() {
-
         when(carService.findBySpz(car.getEvidenceNumber())).thenReturn(car);
         when(classMapper.mapTo(any(Car.class), eq(CarDTO.class))).thenReturn(carDTO);
 
@@ -134,15 +135,13 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
 
     @Test
     public void registerNewCarTest() {
-
         when(classMapper.mapTo(any(CarDTO.class), eq(Car.class))).thenReturn(car);
         carFacade.registerNewCar(carDTO);
         verify(carService).createNewCar(car);
     }
 
     @Test
-    public void RemoveCarTest() {
-
+    public void removeCarTest() {
         when(classMapper.mapTo(any(CarDTO.class), eq(Car.class))).thenReturn(car);
         when(carService.findById(anyLong())).thenReturn(car);
         carFacade.removeCar(car.getId());
@@ -150,8 +149,7 @@ public class CarFacadeTest extends AbstractTransactionalTestNGSpringContextTests
     }
 
     @Test
-    public void UpdateCarTest() {
-
+    public void updateCarTest() {
         when(classMapper.mapTo(any(CarDTO.class), eq(Car.class))).thenReturn(car);
         carFacade.updateCar(carDTO);
         verify(carService).updateCar(car);

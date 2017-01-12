@@ -4,10 +4,16 @@ package cz.muni.fi.pa165.carpark.persistence.entity;
  * Created by karelfajkus on 23/10/2016.
  */
 
-import javax.persistence.*;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "car")
@@ -25,6 +31,10 @@ public class Car implements Serializable {
     @NotNull
     @Column
     private String brand;
+
+    @NotNull
+    @Column
+    private String model;
 
     @NotNull
     @Column
@@ -68,6 +78,14 @@ public class Car implements Serializable {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getFuelType() {
@@ -121,6 +139,7 @@ public class Car implements Serializable {
         if (seats != car.seats) return false;
         if (!evidenceNumber.equals(car.evidenceNumber)) return false;
         if (!brand.equals(car.brand)) return false;
+        if (!model.equals(car.model)) return false;
         if (!fuelType.equals(car.fuelType)) return false;
         if (!homeLocation.equals(car.homeLocation)) return false;
         return currentLocation.equals(car.currentLocation);
@@ -133,6 +152,7 @@ public class Car implements Serializable {
         long temp;
         result = evidenceNumber.hashCode();
         result = 31 * result + brand.hashCode();
+        result = 31 * result + model.hashCode();
         result = 31 * result + fuelType.hashCode();
         temp = Double.doubleToLongBits(fuelConsumption);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -148,6 +168,7 @@ public class Car implements Serializable {
                 "id=" + id +
                 ", evidenceNumber='" + evidenceNumber + '\'' +
                 ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
                 ", fuelType='" + fuelType + '\'' +
                 ", fuelConsumption=" + fuelConsumption +
                 ", seats=" + seats +

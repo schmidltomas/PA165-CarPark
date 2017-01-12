@@ -69,6 +69,7 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests {
 
         car.setId(Integer.toUnsignedLong(1));
         car.setBrand("skoda");
+        car.setModel("fabia");
         car.setCurrentLocation("Brno");
         car.setEvidenceNumber("B-803");
         car.setFuelConsumption(5.3);
@@ -78,6 +79,7 @@ public class ReservationServiceTest extends AbstractTestNGSpringContextTests {
 
         car2.setId(Integer.toUnsignedLong(2));
         car2.setBrand("bmw");
+        car2.setModel("z3");
         car2.setCurrentLocation("Praha");
         car2.setEvidenceNumber("B-222");
         car2.setFuelConsumption(7.2);
