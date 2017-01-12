@@ -41,7 +41,6 @@
                             <div class="form-style-5">
                                 <form name="modalForm">
                                     <fieldset>
-                                        <legend>Car Info</legend>
                                         <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                                         <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
                                         <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
@@ -50,9 +49,9 @@
                                         <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
                                         <input type="text" name="currentLocation" placeholder="Current location *" ng-model="car.currentLocation" required>
                                         <select name="fuelType" ng-model="car.fuelType" required>
-                                          <option value="petrol">Petrol</option>
-                                          <option value="diesel">Diesel</option>
-                                          <option value="lpg">LPG</option>
+                                            <option value="petrol">Petrol</option>
+                                            <option value="diesel">Diesel</option>
+                                            <option value="LPG">LPG</option>
                                         </select>
                                     </fieldset>
                                     <button class="btn btn-primary" ng-click="$ctrl.ok(car)" ng-disabled="modalForm.$invalid">Update car</button>
@@ -87,7 +86,6 @@
                 <div class="form-style-5">
                     <form name="modalForm">
                         <fieldset>
-                            <legend>Car Info</legend>
                             <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                             <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
                             <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
@@ -96,12 +94,16 @@
                             <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
                             <input type="text" name="currentLocation" placeholder="Current location *" ng-model="car.currentLocation" required>
                             <select id="job" name="fuelType" ng-model="car.fuelType" required>
-                              <option value="petrol">Petrol</option>
-                              <option value="diesel">Diesel</option>
-                              <option value="lpg">LPG</option>
+                                <option value="">-- Select fuel type --</option>
+                                <option value="petrol">petrol</option>
+                                <option value="diesel">diesel</option>
+                                <option value="LPG">LPG</option>
                             </select>
                         </fieldset>
-                        <button class="btn btn-primary" ng-click="$ctrl.ok(car)" ng-disabled="modalForm.$invalid">New car</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.ok(car)"
+                                ng-disabled="modalForm.$invalid || (car.fuelType === null)">
+                            New car
+                        </button>
                         <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
                     </form>
                 </div>

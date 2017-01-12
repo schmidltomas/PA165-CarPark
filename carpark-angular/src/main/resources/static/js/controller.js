@@ -61,6 +61,7 @@ app.controller('reservationsController', function($scope, $http, $rootScope, $ti
 
 function loadAllCars($http, $rootScope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
+        console.log(data);
         $rootScope.cars = data;
     });
 }
@@ -185,7 +186,7 @@ app.service('sharedProperties', function () {
         'evidenceNumber': '',
         'brand': '',
         'model': '',
-        'fuelType': 'Petrol',
+        'fuelType': '',
         'fuelConsumption': 0,
         'seats': 1,
         'homeLocation': '',
