@@ -20,9 +20,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void create(Reservation reservation) {
-        if (reservation.getStartDate().compareTo(reservation.getEndDate()) >= 1) {
-            throw new InvalidParameterException("Cannot create reservation with startDate bigger that endDate");
-        }
+        dateCheck(reservation);
         reservationDAO.create(reservation);
     }
 
@@ -33,6 +31,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void update(Reservation reservation) {
+        dateCheck(reservation);
         reservationDAO.update(reservation);
     }
 
@@ -49,5 +48,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Reservation> getReservations(Employee employee) {
         return reservationDAO.getReservations(employee);
+    }
+
+    private void dateCheck(Reservation reservation) {
+        if (reservation.getStartDate().compareTo(reservation.getEndDate()) >= 1) {
+            throw new InvalidParameterException("Cannot create reservation with startDate bigger that endDate");
+        }
     }
 }
