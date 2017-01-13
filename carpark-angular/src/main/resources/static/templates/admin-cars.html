@@ -1,6 +1,3 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="css/form.css">
-</head>
 <div class="section">
     <h3>{{headingTitle}}</h3>
     <div>
@@ -40,17 +37,38 @@
                         <div class="modal-body" id="modal-body">
                             <div class="form-style-5">
                                 <form name="modalForm">
-                                    <fieldset>
-                                        <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
-                                        <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
-                                        <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
-                                        <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
-                                        <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
-                                        <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
-                                        <input type="text" name="currentLocation" placeholder="Current location *" ng-model="car.currentLocation" required>
-                                        <select name="fuelType" ng-model="car.fuelType" required>
-                                            <option value="petrol">Petrol</option>
-                                            <option value="diesel">Diesel</option>
+                                    <fieldset class="fieldset">
+                                        <label class="modal-label">Manufacturer</label>
+                                        <input type="text" name="brand" class="form-control" ng-model="car.brand" required>
+                                        <label class="modal-label">Model</label>
+                                        <input type="text" name="model" class="form-control" ng-model="car.model" required>
+                                        <label class="modal-label">Evidence number</label>
+                                        <input type="text" name="evidenceNumber" class="form-control" ng-model="car.evidenceNumber" required>
+                                        <label class="modal-label">Fuel consumption (1l/100km)</label>
+                                        <label class="modal-label" style="float: right; padding-right: 118px;">No. of seats</label>
+                                        <div>
+                                            <div class="input-group-float-left">
+                                                <input type="number" name="fuelConsumption" class="form-control" min="1" ng-model="car.fuelConsumption" required>
+                                            </div>
+                                            <div class="input-group-float-right">
+                                                <input type="number" name="seats" class="form-control" ng-model="car.seats" min="1" required>
+                                            </div>
+                                        </div>
+                                        <label class="modal-label">Home location</label>
+                                        <label class="modal-label" style="float: right; padding-right: 94px;">Current location</label>
+                                        <div>
+                                            <div class="input-group-float-left">
+                                                <input type="text" name="homeLocation" class="form-control" ng-model="car.homeLocation" required>
+                                            </div>
+                                            <div class="input-group-float-right">
+                                                <input type="text" name="currentLocation" class="form-control" ng-model="car.currentLocation" required>
+                                            </div>
+                                        </div>
+                                        <label class="modal-label">Fuel type</label>
+                                        <select name="fuelType" class="form-control" ng-model="car.fuelType" required>
+                                            <option value="">-- Select fuel type --</option>
+                                            <option value="petrol">petrol</option>
+                                            <option value="diesel">diesel</option>
                                             <option value="LPG">LPG</option>
                                         </select>
                                     </fieldset>
@@ -82,18 +100,38 @@
             <div class="modal-header">
                 <h3 class="modal-title-create" id="modal-title-create">Create new car</h3>
             </div>
-            <div class="modal-body-create" id="modal-body-create">
+            <div class="modal-body" id="modal-body-create">
                 <div class="form-style-5">
                     <form name="modalForm">
-                        <fieldset>
-                            <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
-                            <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
-                            <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
-                            <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
-                            <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
-                            <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
-                            <input type="text" name="currentLocation" placeholder="Current location *" ng-model="car.currentLocation" required>
-                            <select id="job" name="fuelType" ng-model="car.fuelType" required>
+                        <fieldset class="fieldset">
+                            <label class="modal-label">Manufacturer</label>
+                            <input type="text" name="brand" class="form-control" ng-model="car.brand" required>
+                            <label class="modal-label">Model</label>
+                            <input type="text" name="model" class="form-control" ng-model="car.model" required>
+                            <label class="modal-label">Evidence number</label>
+                            <input type="text" name="evidenceNumber" class="form-control" ng-model="car.evidenceNumber" required>
+                            <label class="modal-label">Fuel consumption (1l/100km)</label>
+                            <label class="modal-label" style="float: right; padding-right: 118px;">No. of seats</label>
+                            <div>
+                                <div class="input-group-float-left">
+                                    <input type="number" name="fuelConsumption" class="form-control" min="1" ng-model="car.fuelConsumption" required>
+                                </div>
+                                <div class="input-group-float-right">
+                                    <input type="number" name="seats" class="form-control" ng-model="car.seats" min="1" required>
+                                </div>
+                            </div>
+                            <label class="modal-label">Home location</label>
+                            <label class="modal-label" style="float: right; padding-right: 94px;">Current location</label>
+                            <div>
+                                <div class="input-group-float-left">
+                                    <input type="text" name="homeLocation" class="form-control" ng-model="car.homeLocation" required>
+                                </div>
+                                <div class="input-group-float-right">
+                                    <input type="text" name="currentLocation" class="form-control" ng-model="car.currentLocation" required>
+                                </div>
+                            </div>
+                            <label class="modal-label">Fuel type</label>
+                            <select name="fuelType" ng-model="car.fuelType" class="form-control" required>
                                 <option value="">-- Select fuel type --</option>
                                 <option value="petrol">petrol</option>
                                 <option value="diesel">diesel</option>

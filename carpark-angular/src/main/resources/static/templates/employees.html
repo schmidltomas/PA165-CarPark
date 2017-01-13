@@ -1,6 +1,3 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="css/form.css">
-</head>
 <div class="section">
     <h3>{{headingTitle}}</h3>
     <div>
@@ -33,11 +30,15 @@
                                     <div class="form-style-5">
                                         <h4>{{errorAlert}}</h4>
                                         <form name="modalForm">
-                                            <fieldset>
-                                                <input type="text" name="firstName" placeholder="First name *" ng-model="employee.firstName" required>
-                                                <input type="text" name="secondName" placeholder="Second name *" ng-model="employee.secondName" required>
-                                                <input type="email" name="email" placeholder="Email *" ng-model="employee.email" required>
-                                                <input type="text" name="username" placeholder="Username *" ng-model="employee.username" required>
+                                            <fieldset class="fieldset">
+                                                <label class="modal-label">First name</label>
+                                                <input type="text" name="firstName" class="form-control" ng-model="employee.firstName" required>
+                                                <label class="modal-label">Second name</label>
+                                                <input type="text" name="secondName" class="form-control" ng-model="employee.secondName" required>
+                                                <label class="modal-label">Company name</label>
+                                                <input type="email" name="email" class="form-control" ng-model="employee.email" required>
+                                                <label class="modal-label">Username</label>
+                                                <input type="text" name="username" class="form-control" ng-model="employee.username" required>
                                             </fieldset>
                                             <button class="btn btn-primary" ng-click="$ctrl.ok(employee)" ng-disabled="modalForm.$invalid">Update employee</button>
                                             <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
@@ -70,12 +71,18 @@
                     <div class="form-style-5">
                         <h4>{{errorAlert}}</h4>
                         <form name="modalForm">
-                            <fieldset>
-                                <input type="text" name="firstName" placeholder="First name *" ng-model="employee.firstName" required>
-                                <input type="text" name="secondName" placeholder="Second name *" ng-model="employee.secondName" required>
-                                <input type="email" name="email" placeholder="Email *" ng-model="employee.email" required>
-                                <input type="text" name="username" placeholder="Username *" ng-model="employee.username" required>
-                                <input type="password" name="password" placeholder="Password *" ng-model="employee.password" required>
+                            <form name="modalForm">
+                                <fieldset class="fieldset">
+                                    <label class="modal-label">First name</label>
+                                    <input type="text" name="firstName" class="form-control" ng-model="employee.firstName" required>
+                                    <label class="modal-label">Second name</label>
+                                    <input type="text" name="secondName" class="form-control" ng-model="employee.secondName" required>
+                                    <label class="modal-label">Company name</label>
+                                    <input type="email" name="email" class="form-control" ng-model="employee.email" required>
+                                    <label class="modal-label">Username</label>
+                                    <input type="text" name="username" class="form-control" ng-model="employee.username" required>
+                                    <label class="modal-label">Password</label>
+                                    <input type="password" name="password" class="form-control" ng-model="employee.password" required>
                             </fieldset>
                             <button class="btn btn-primary" ng-click="$ctrl.ok(employee)" ng-disabled="modalForm.$invalid">New employee</button>
                             <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>

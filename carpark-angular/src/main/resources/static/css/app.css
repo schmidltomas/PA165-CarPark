@@ -37,3 +37,38 @@ tr:hover {
 .btn-group {
     margin: 2px 0 2px 0;
 }
+.modal-content {
+    width: 500px;
+}
+.form-control {
+    padding: 8px;
+}
+.form-style-5 {
+    margin: 20px;
+}
+.modal-label {
+    padding-top: 10px;
+    margin: 7px;
+    font-size: 12px;
+    color: #6b757c;
+}
+.modal-body {
+    padding-top: 0px !important;
+    margin-tpp: 0px !important;
+}
+.fieldset {
+    padding-bottom: 30px;
+}
+.input-group {
+    display: table;
+}
+.input-group-float-left {
+    display: table;
+    float: left;
+    width: 47%;
+}
+.input-group-float-right {
+    display: table;
+    float: right;
+    width: 47%;
+}
