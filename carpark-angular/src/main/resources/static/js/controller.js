@@ -95,7 +95,12 @@ function createObjectNoChecks($http, responseObject, $rootScope) {
         loadAll($http, $rootScope, $rootScope.objectName);
         $rootScope.successAlert = $rootScope.objectName + ' "' + createdObject.id + '" was created.';
     }, function error(response) {
-        $rootScope.errorAlert = 'Cannot create ' + $rootScope.objectName + '.';
+        if (response.status === 403 && $rootScope.objectName === 'reservation') {
+            $rootScope.errorAlert = 'End of reservation cannot be earlier than start.';
+        } else {
+            $rootScope.errorAlert = 'Cannot create ' + $rootScope.objectName + '.';
+        }
+        clearForm($rootScope);
     });
 }
 
@@ -135,7 +140,13 @@ function updateObjectNoChecks($http, responseObject, $rootScope) {
         loadAll($http, $rootScope, $rootScope.objectName);
         $rootScope.successAlert = $rootScope.objectName + ' "' + updatedData.id + '" was updated.';
     }, function error(response) {
-        $rootScope.errorAlert = 'Cannot update ' + $rootScope.objectName + '.';
+        if (response.status === 403 && $rootScope.objectName === 'reservation') {
+            $rootScope.errorAlert = 'End of reservation cannot be earlier than start.';
+        } else {
+            $rootScope.errorAlert = 'Cannot update ' + $rootScope.objectName + '.';
+        }
+        clearForm($rootScope);
+        loadAll($http, $rootScope, $rootScope.objectName);
     });
 }
 
