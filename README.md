@@ -1,10 +1,8 @@
 # PA165-CarPark
 
-Car park reservation system for the PA165 course at FI MUNI.
+Car park reservation system for small businesses. PA165 course project at FI MUNI.
 
-**NOTE!**
-
-Our application is built with Spring Boot, you have to run the webapp from base directory using:
+The application is built with Spring Boot. To run the webapp from command line, navigate to base directory and use:
 
 ```
 mvn clean install
@@ -12,10 +10,17 @@ cd carpark-angular
 mvn spring-boot:run
 ```
 
-Or respectively, run the AngularApp.main() from your IDE.
+Or respectively, run the AngularApplication.main() from your IDE.
 
 The webapp is then available on:
 ```
 http://localhost:8080/pa165
 ```
-For more information about REST API, visit [rest](https://github.com/schmidltomas/PA165-CarPark/wiki/Rest-Controller) page
+
+Admin user credentials are pre-filled. To see the employee functionality, use these credentials:
+```
+email: novak@company.com
+password: 12345
+```
+
+For more information about the REST API, see [wiki](https://github.com/schmidltomas/PA165-CarPark/wiki/Rest-Controller) page.
