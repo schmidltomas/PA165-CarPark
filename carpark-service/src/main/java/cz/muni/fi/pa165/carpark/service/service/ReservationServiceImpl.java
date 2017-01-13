@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.carpark.persistence.entity.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
@@ -19,6 +20,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void create(Reservation reservation) {
+        if (reservation.getStartDate().compareTo(reservation.getEndDate()) >= 1) {
+            throw new InvalidParameterException("Cannot create reservation with startDate bigger that endDate");
+        }
         reservationDAO.create(reservation);
     }
 
