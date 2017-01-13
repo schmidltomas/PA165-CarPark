@@ -21,11 +21,11 @@
             <tbody>
             <tr ng-repeat="reservation in reservations">
                 <td>{{reservation.id}}</td>
-                <td>{{reservation.employee.username}}</td>
+                <td>{{reservation.employee.firstName}} {{reservation.employee.secondName}}</td>
                 <td>{{reservation.car.brand}} {{reservation.car.model}}</td>
                 <td>{{reservation.car.evidenceNumber}}</td>
-                <td>{{reservation.startDate}}</td>
-                <td>{{reservation.endDate}}</td>
+                <td>{{reservation.startDate | date:'dd.MM.yyyy'}}</td>
+                <td>{{reservation.endDate | date:'dd.MM.yyyy'}}</td>
                 <td>{{reservation.distance}}</td>
                 <td>{{reservation.purpose}}</td>
                 <td>
@@ -43,14 +43,36 @@
                                                 <select ng-model="reservation.car.evidenceNumber"
                                                         ng-options="car.evidenceNumber as car.brand + ' ' + car.model + ' (' + car.evidenceNumber + ')' for car in cars">
                                                 </select>
-                                                <input type="text" name="startDate" placeholder="Start date *" ng-model="reservation.startDate" required>
-                                                <input type="text" name="endDate" placeholder="End date *" ng-model="reservation.endDate" required>
+                                                <p class="input-group">
+                                                    <input type="text" placeholder="Start date *"
+                                                           uib-datepicker-popup = "dd.MM.yyyy"
+                                                           ng-model = "reservation.startDate"
+                                                           is-open="$ctrl.startDateOpened"
+                                                           required/>
+                                                    <span class="input-group-btn">
+                                                        <button type="button" name="calendar-btn" class="btn btn-default" ng-click="$ctrl.openStartCalendar($event)">
+                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </p>
+                                                <p class="input-group">
+                                                    <input type="text" placeholder="End date *"
+                                                           uib-datepicker-popup = "dd.MM.yyyy"
+                                                           ng-model = "reservation.endDate"
+                                                           is-open="$ctrl.endDateOpened"
+                                                           required/>
+                                                    <span class="input-group-btn">
+                                                        <button type="button" name="calendar-btn" class="btn btn-default" ng-click="$ctrl.openEndCalendar($event)">
+                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </p>
                                                 <input type="number" name="distance" placeholder="Distance *" ng-model="reservation.distance" required>
                                                 <input type="text" name="purpose" placeholder="Purpose *" ng-model="reservation.purpose">
                                             </fieldset>
                                             <button class="btn btn-primary"
                                                     ng-click="$ctrl.ok(reservation)"
-                                                    ng-disabled="modalForm.$invalid || (reservation.car.evidenceNumber === null)">
+                                                    ng-disabled="modalForm.$invalid">
                                                 Update reservation
                                             </button>
                                             <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
@@ -91,14 +113,38 @@
                                     ng-options="car.evidenceNumber as car.brand + ' ' + car.model + ' (' + car.evidenceNumber + ')' for car in cars">
                                 <option value="">-- Select car --</option>
                             </select>
-                            <input type="text" name="startDate" placeholder="Start date *" ng-model="reservation.startDate" ng-init="reservation.startDate='2017-01-01'" required>
-                            <input type="text" name="endDate" placeholder="End date *" ng-model="reservation.endDate" ng-init="reservation.endDate='2017-01-01'" required>
+                            <p class="input-group">
+                                <input type="text" placeholder="Start date *"
+                                       uib-datepicker-popup = "dd.MM.yyyy"
+                                       ng-model = "reservation.startDate"
+                                       is-open="$ctrl.startDateOpened"
+                                       required/>
+                                <span class="input-group-btn">
+                                    <button type="button" name="calendar-btn" class="btn btn-default" ng-click="$ctrl.openStartCalendar($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                            <p class="input-group">
+                                <input type="text" placeholder="End date *"
+                                       uib-datepicker-popup = "dd.MM.yyyy"
+                                       ng-model = "reservation.endDate"
+                                       is-open="$ctrl.endDateOpened"
+                                       required/>
+                                <span class="input-group-btn">
+                                    <button type="button" name="calendar-btn" class="btn btn-default" ng-click="$ctrl.openEndCalendar($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
                             <input type="number" name="distance" placeholder="Distance *" min="1" ng-model="reservation.distance" required>
                             <input type="text" name="purpose" placeholder="Purpose *" ng-model="reservation.purpose" required>
                         </fieldset>
                         <button class="btn btn-primary"
                                 ng-click="$ctrl.ok(reservation)"
-                                ng-disabled="modalForm.$invalid || (reservation.car.evidenceNumber === null)">New reservation</button>
+                                ng-disabled="modalForm.$invalid || reservation.car.evidenceNumber">
+                            New reservation
+                        </button>
                         <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
                     </form>
                 </div>

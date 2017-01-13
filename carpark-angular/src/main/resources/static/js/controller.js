@@ -61,7 +61,6 @@ app.controller('reservationsController', function($scope, $http, $rootScope, $ti
 
 function loadAllCars($http, $rootScope) {
     $http.get('/pa165/rest/car/getAll').success(function(data) {
-        console.log(data);
         $rootScope.cars = data;
     });
 }
@@ -337,25 +336,33 @@ app.service('flashService', ['$rootScope', function ($rootScope) {
 
 app.controller('ModalController', function ($scope, $uibModal, $log, sharedProperties, $http, $rootScope) {
     $scope.init = function (type, objectName) {
-       $scope.responseMethodName = type;
-       $rootScope.objectName = objectName;
+        $scope.responseMethodName = type;
+        $rootScope.objectName = objectName;
     };
 
     $scope.init = function (type, objectName, originalObject) {
-       switch (objectName) {
-           case 'car':
-               $rootScope.car = originalObject;
-               break;
-           case 'employee':
-               $rootScope.employee = originalObject;
-               break;
-           case 'admin':
-               $rootScope.admin = originalObject;
-               break;
-           case 'reservation':
-               $rootScope.reservation = originalObject;
-               break;
-       }
+        switch (objectName) {
+            case 'car':
+                $rootScope.car = originalObject;
+                break;
+            case 'employee':
+                $rootScope.employee = originalObject;
+                break;
+            case 'admin':
+                $rootScope.admin = originalObject;
+                break;
+            case 'reservation':
+                $rootScope.reservation = originalObject;
+
+                // hax
+                if ($rootScope.reservation) {
+                    $rootScope.reservation.car.evidenceNumber = originalObject.car.evidenceNumber;
+                    $rootScope.reservation.employee.email = originalObject.employee.email;
+                    $rootScope.reservation.startDate = new Date($rootScope.reservation.startDate);
+                    $rootScope.reservation.endDate = new Date($rootScope.reservation.endDate);
+                }
+                break;
+        }
         $scope.responseMethodName = type;
         $rootScope.objectName = objectName;
     };
@@ -422,6 +429,16 @@ app.controller('ModalController', function ($scope, $uibModal, $log, sharedPrope
 app.controller('ModalInstanceCtrl', function ($uibModalInstance, responseObject, $timeout, $rootScope) {
     var $ctrl = this;
     $ctrl.responseObject = responseObject;
+    $ctrl.startDateOpened = false;
+    $ctrl.endDateOpened = false;
+
+    $ctrl.openStartCalendar = function ($event) {
+        $ctrl.startDateOpened = true;
+    };
+
+    $ctrl.openEndCalendar = function ($event) {
+        $ctrl.endDateOpened = true;
+    };
 
     $ctrl.ok = function (responseObject) {
         $uibModalInstance.close(responseObject);
@@ -446,8 +463,7 @@ app.component('modalComponent', {
     controller: function () {
         var $ctrl = this;
 
-        $ctrl.$onInit = function () {
-        };
+        $ctrl.$onInit = function () {};
 
         $ctrl.ok = function (responseObject) {
             $ctrl.close(responseObject);

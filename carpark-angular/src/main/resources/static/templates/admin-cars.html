@@ -41,9 +41,9 @@
                             <div class="form-style-5">
                                 <form name="modalForm">
                                     <fieldset>
-                                        <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                                         <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
                                         <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
+                                        <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                                         <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
                                         <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
                                         <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
@@ -86,9 +86,9 @@
                 <div class="form-style-5">
                     <form name="modalForm">
                         <fieldset>
-                            <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                             <input type="text" name="brand" placeholder="Brand *" ng-model="car.brand" required>
                             <input type="text" name="model" placeholder="Model *" ng-model="car.model" required>
+                            <input type="text" name="evidenceNumber" placeholder="Evidence number *" ng-model="car.evidenceNumber" required>
                             <input type="number" name="fuelConsumption" placeholder="Fuel consumption *" min="1" ng-model="car.fuelConsumption" required>
                             <input type="number" name="seats" placeholder="Seats *" ng-model="car.seats" min="1" required>
                             <input type="text" name="homeLocation" placeholder="Home location *" ng-model="car.homeLocation" required>
@@ -101,7 +101,7 @@
                             </select>
                         </fieldset>
                         <button class="btn btn-primary" ng-click="$ctrl.ok(car)"
-                                ng-disabled="modalForm.$invalid || (car.fuelType === null)">
+                                ng-disabled="modalForm.$invalid || car.fuelType === null">
                             New car
                         </button>
                         <button class="btn btn-warning" ng-click="$ctrl.cancel()">Cancel</button>
