@@ -24,3 +24,5 @@ password: 12345
 ```
 
 For more information about the REST API, see [wiki](https://github.com/schmidltomas/PA165-CarPark/wiki/Rest-Controller) page.
+
+For presentation visit [presentation](https://docs.google.com/presentation/d/18_pC3oNO52lShdzalJlc3ioekgfapIx6Ze28XQHm6Eg/edit#slide=id.g20a4b30ffb_0_75)
